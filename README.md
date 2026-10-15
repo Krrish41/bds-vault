@@ -1,6 +1,6 @@
-# BDS Clinical Vault (Master Portal)
+# BDS Clinical Vault (Master 3rd Year Portal)
 
-A comprehensive, centralized clinical study and examination portal for dental surgery students, unifying 3rd Year clinical sciences and 4th Year dental specialties.
+A comprehensive, centralized clinical study and examination portal for dental surgery students, unifying 3rd Year clinical sciences into interactive monograph portals and print-ready compendia.
 
 ## Integrated Repositories & Live Web Apps
 
@@ -14,19 +14,6 @@ A comprehensive, centralized clinical study and examination portal for dental su
 
 ## 3rd Year Clinical Foundations Triad
 
-1. **General Surgery**: Operative techniques, wound healing, burns, shock, head & neck swellings, salivary disorders, cysts & ulcers, surgical oncology, TNM staging.
-2. **General Medicine**: Cardiovascular diseases (IE, Rheumatic fever, MI), Respiratory (Asthma, COPD, TB), Hepatology & GI, Endocrine (Diabetes Mellitus), Hematology (Leukemias & Anemias), Systemic Infections, Dental Chairside Management.
-3. **Oral Pathology & Microbiology**: Odontogenic cysts & tumors, Dental caries histopathology, Salivary gland neoplasms, Oral premalignancy & OSCC, Developmental anomalies, Microscopic criteria, Forensic Odontology.
-
----
-
-## Final Year (Phase 2) Specialty Roadmap
-
-* Oral & Maxillofacial Surgery (OMFS)
-* Conservative Dentistry & Endodontics
-* Prosthodontics & Crown-Bridge
-* Periodontology & Implantology
-* Orthodontics & Dentofacial Orthopedics
-* Pediatric & Preventive Dentistry
-* Oral Medicine & Radiology (OMR)
-* Public Health Dentistry
+1. **General Surgery (Paper I)**: Operative techniques, wound healing, burns, shock, head & neck swellings, salivary disorders, cysts & ulcers, surgical oncology, TNM staging.
+2. **General Medicine (Paper II)**: Cardiovascular diseases (Infective Endocarditis, Rheumatic Fever, MI), Respiratory (Asthma, COPD, TB), Hepatology & GI, Endocrine (Diabetes Mellitus), Hematology (Leukemias & Anemias), Systemic Infections, Dental Chairside Management.
+3. **Oral Pathology & Microbiology (Paper III)**: Odontogenic cysts & tumors, Dental caries histopathology, Salivary gland neoplasms, Oral premalignancy & OSCC, Developmental anomalies, Microscopic criteria, Forensic Odontology.
