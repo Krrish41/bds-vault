@@ -9,3 +9,6 @@ desktop.ini
 *.tmp
 *.log
 scratch/
+*.png
+test_*.mjs
+node_modules/
