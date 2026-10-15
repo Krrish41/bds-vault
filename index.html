@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BDS Clinical Vault — Master Study Portal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-base: #0a0f1d;
+            --bg-surface: #111827;
+            --bg-card: #182235;
+            --bg-card-hover: #1f2b42;
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-active: rgba(99, 102, 241, 0.4);
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --accent-surgery: #0ea5e9;
+            --accent-medicine: #10b981;
+            --accent-oralpath: #f59e0b;
+            --accent-hub: #6366f1;
+            --radius-md: 12px;
+            --radius-lg: 18px;
+            --shadow-sm: 0 4px 6px -1px rgba(0, 0, 0, 0.3);
+            --shadow-glow: 0 0 25px rgba(99, 102, 241, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background-color: var(--bg-base);
+            color: var(--text-primary);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            overflow-x: hidden;
+        }
+
+        .bg-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: radial-gradient(rgba(99, 102, 241, 0.06) 1px, transparent 1px);
+            background-size: 32px 32px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .navbar {
+            position: sticky;
+            top: 0;
+            backdrop-filter: blur(16px);
+            background: rgba(10, 15, 29, 0.85);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 50;
+        }
+
+        .brand-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .brand-icon {
+            width: 38px;
+            height: 38px;
+            background: linear-gradient(135deg, #4f46e5, #06b6d4);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 1.2rem;
+            color: #fff;
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.4);
+        }
+
+        .brand-text h1 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+        }
+
+        .brand-text span {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            font-weight: 600;
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .btn-lab-modal {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 8px 16px;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-lab-modal:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-1px);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 3rem 1.5rem;
+            position: relative;
+            z-index: 10;
+            flex: 1;
+        }
+
+        .hero-section {
+            text-align: center;
+            margin-bottom: 3.5rem;
+        }
+
+        .badge-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 4px 14px;
+            background: rgba(99, 102, 241, 0.12);
+            border: 1px solid rgba(99, 102, 241, 0.25);
+            border-radius: 9999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #818cf8;
+            margin-bottom: 1.25rem;
+        }
+
+        .hero-title {
+            font-size: 2.75rem;
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #ffffff 30%, #94a3b8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-subtitle {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 680px;
+            margin: 0 auto 2rem auto;
+        }
+
+        .search-container {
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 14px 20px 14px 50px;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            color: var(--text-primary);
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.2s ease;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .search-input:focus {
+            border-color: var(--accent-hub);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 18px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-muted);
+            pointer-events: none;
+        }
+
+        .tab-bar {
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+            margin-bottom: 2.5rem;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: 1px solid transparent;
+            padding: 10px 24px;
+            border-radius: 9999px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .tab-btn.active {
+            background: var(--bg-surface);
+            border-color: var(--border-active);
+            color: #fff;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(360px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3.5rem;
+        }
+
+        .subject-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .subject-card:hover {
+            transform: translateY(-4px);
+            border-color: var(--border-active);
+            box-shadow: var(--shadow-glow);
+        }
+
+        .card-accent-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+        }
+
+        .card-header {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 1.25rem;
+        }
+
+        .subject-title {
+            font-size: 1.45rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 4px;
+        }
+
+        .subject-code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .status-badge {
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .status-live {
+            background: rgba(16, 185, 129, 0.15);
+            color: #34d399;
+            border: 1px solid rgba(16, 185, 129, 0.3);
+        }
+
+        .subject-desc {
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.55;
+        }
+
+        .topic-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .topic-tag {
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            border-radius: 6px;
+            color: var(--text-secondary);
+            font-weight: 500;
+        }
+
+        .card-actions {
+            display: flex;
+            gap: 12px;
+            margin-top: auto;
+        }
+
+        .btn-launch {
+            flex: 2;
+            padding: 12px 18px;
+            background: #fff;
+            color: #000;
+            font-weight: 700;
+            font-size: 0.9rem;
+            border-radius: 10px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-launch:hover {
+            background: #f1f5f9;
+            transform: translateY(-1px);
+        }
+
+        .btn-pdf {
+            flex: 1;
+            padding: 12px 14px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            font-weight: 600;
+            font-size: 0.85rem;
+            border-radius: 10px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.2s ease;
+        }
+
+        .btn-pdf:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* 4th Year Section */
+        .specialties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .specialty-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            position: relative;
+        }
+
+        .specialty-title {
+            font-size: 1.1rem;
+            font-weight: 700;
+            margin-bottom: 6px;
+        }
+
+        .specialty-badge {
+            font-size: 0.7rem;
+            font-weight: 600;
+            padding: 2px 8px;
+            border-radius: 4px;
+            background: rgba(99, 102, 241, 0.1);
+            color: #a5b4fc;
+            display: inline-block;
+            margin-bottom: 12px;
+        }
+
+        .specialty-desc {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Quick Reference Modal / Drawer */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(8px);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            padding: 1.5rem;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-card {
+            background: var(--bg-surface);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            width: 100%;
+            max-width: 720px;
+            max-height: 85vh;
+            overflow-y: auto;
+            padding: 2rem;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .modal-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+
+        .btn-close {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .lab-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.88rem;
+        }
+
+        .lab-table th, .lab-table td {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border-color);
+            text-align: left;
+        }
+
+        .lab-table th {
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+        }
+
+        .footer {
+            border-top: 1px solid var(--border-color);
+            padding: 2rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            margin-top: auto;
+        }
+
+        @media (max-width: 768px) {
+            .hero-title {
+                font-size: 2rem;
+            }
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            .card-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-grid"></div>
+
+    <nav class="navbar">
+        <a href="#" class="brand-logo">
+            <div class="brand-icon">V</div>
+            <div class="brand-text">
+                <h1>BDS CLINICAL VAULT</h1>
+                <span>3rd Year & 4th Year Monograph Suite</span>
+            </div>
+        </a>
+        <div class="nav-links">
+            <button class="btn-lab-modal" onclick="toggleLabModal()">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 2v7.31M14 2v7.31M8.5 2h7M14 9.3a6.5 6.5 0 1 1-4 0"/></svg>
+                Normal Clinical Values
+            </button>
+        </div>
+    </nav>
+
+    <main class="container">
+        <section class="hero-section">
+            <div class="badge-pill">
+                <span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#10b981;"></span>
+                Integrated University Exam Preparation Ecosystem
+            </div>
+            <h2 class="hero-title">Dental Surgery & Clinical Sciences</h2>
+            <p class="hero-subtitle">Interactive study dashboards, 15-mark university essay models, high-resolution diagnostic schematics, and print-ready PDF monographs.</p>
+
+            <div class="search-container">
+                <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                <input type="text" id="universalSearch" class="search-input" placeholder="Search topics (e.g. Ameloblastoma, Hepatitis, Thyroid, Infective Endocarditis)..." oninput="filterCards()">
+            </div>
+        </section>
+
+        <div class="tab-bar">
+            <button class="tab-btn active" id="tabPhase1" onclick="switchTab('phase1')">Phase 1: 3rd Year Clinical Foundations</button>
+            <button class="tab-btn" id="tabPhase2" onclick="switchTab('phase2')">Phase 2: Final Year Dental Specialties</button>
+        </div>
+
+        <!-- 3rd Year Triad -->
+        <div id="sectionPhase1" class="cards-grid">
+            <!-- Card 1: General Surgery -->
+            <div class="subject-card" data-keywords="surgery thyroid hernia ulcers burns salivary wound healing shock fistula gangrene tnm">
+                <div class="card-accent-bar" style="background: var(--accent-surgery);"></div>
+                <div>
+                    <div class="card-header">
+                        <div>
+                            <h3 class="subject-title">General Surgery</h3>
+                            <span class="subject-code">PAPER I • CLINICAL SURGICAL MONOGRAPH</span>
+                        </div>
+                        <span class="status-badge status-live">Live App</span>
+                    </div>
+                    <p class="subject-desc">Complete 15-mark examination monograph covering surgical anatomy, wound ballistics, burns resuscitation (Parkland), head & neck swellings, and thyroid oncology.</p>
+                    <div class="topic-tags">
+                        <span class="topic-tag">Thyroid Neoplasms</span>
+                        <span class="topic-tag">Wound Healing & Scars</span>
+                        <span class="topic-tag">Neck Swellings</span>
+                        <span class="topic-tag">Burns & Resuscitation</span>
+                        <span class="topic-tag">Salivary Glands</span>
+                        <span class="topic-tag">Surgical Infections</span>
+                    </div>
+                </div>
+                <div class="card-actions">
+                    <a href="https://krrish41.github.io/general-surgery/" class="btn-launch" target="_blank">
+                        Launch Interactive App
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    </a>
+                    <a href="https://github.com/Krrish41/general-surgery/raw/main/General_Surgery_Master_Notes.pdf" class="btn-pdf" target="_blank">
+                        Master PDF
+                    </a>
+                </div>
+            </div>
+
+            <!-- Card 2: General Medicine -->
+            <div class="subject-card" data-keywords="medicine hepatitis cirrhosis liver failure typhoid syphilis endocarditis rheumatic fever leukemia diabetes asthma copd hypertension">
+                <div class="card-accent-bar" style="background: var(--accent-medicine);"></div>
+                <div>
+                    <div class="card-header">
+                        <div>
+                            <h3 class="subject-title">General Medicine</h3>
+                            <span class="subject-code">PAPER II • INTERNAL MEDICINE & DENTAL CARE</span>
+                        </div>
+                        <span class="status-badge status-live">Live App</span>
+                    </div>
+                    <p class="subject-desc">Comprehensive clinical medicine suite: diagnostic criteria (Duke, Jones, ADA), emergency pharmacotherapy, hepatology, and dental chairside bleeding/prophylaxis management.</p>
+                    <div class="topic-tags">
+                        <span class="topic-tag">Infective Endocarditis</span>
+                        <span class="topic-tag">Acute Viral Hepatitis</span>
+                        <span class="topic-tag">Diabetes & DKA</span>
+                        <span class="topic-tag">Leukemia & Bleeding</span>
+                        <span class="topic-tag">Rheumatic Heart Disease</span>
+                        <span class="topic-tag">Chairside Emergencies</span>
+                    </div>
+                </div>
+                <div class="card-actions">
+                    <a href="https://krrish41.github.io/General-Medicine/" class="btn-launch" target="_blank">
+                        Launch Interactive App
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    </a>
+                    <a href="https://github.com/Krrish41/General-Medicine/raw/main/General_Medicine_Master_Notes.pdf" class="btn-pdf" target="_blank">
+                        Master PDF
+                    </a>
+                </div>
+            </div>
+
+            <!-- Card 3: Oral Pathology & Microbiology -->
+            <div class="subject-card" data-keywords="oral pathology ameloblastoma ceot aot cysts okc dentigerous caries pleomorphic adenoma oscc leukoplakia osmf shafer">
+                <div class="card-accent-bar" style="background: var(--accent-oralpath);"></div>
+                <div>
+                    <div class="card-header">
+                        <div>
+                            <h3 class="subject-title">Oral Pathology</h3>
+                            <span class="subject-code">PAPER III • MAXILLOFACIAL PATHOLOGY & MICROBIOLOGY</span>
+                        </div>
+                        <span class="status-badge status-live">Live App</span>
+                    </div>
+                    <p class="subject-desc">Microscopic H&E criteria, WHO 2022/2024 classification, Vickers-Gorlin sign, odontogenic cysts & tumors, enamel caries zones, premalignancies, and salivary neoplasms.</p>
+                    <div class="topic-tags">
+                        <span class="topic-tag">Ameloblastoma Variants</span>
+                        <span class="topic-tag">Odontogenic Keratocyst</span>
+                        <span class="topic-tag">Enamel Caries Zones</span>
+                        <span class="topic-tag">OSMF & Leukoplakia</span>
+                        <span class="topic-tag">Pleomorphic Adenoma</span>
+                        <span class="topic-tag">Oral Squamous Carcinoma</span>
+                    </div>
+                </div>
+                <div class="card-actions">
+                    <a href="https://krrish41.github.io/Oral-Pathology/" class="btn-launch" target="_blank">
+                        Launch Interactive App
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+                    </a>
+                    <a href="https://github.com/Krrish41/Oral-Pathology/raw/main/Oral_Pathology_Master_Notes.pdf" class="btn-pdf" target="_blank">
+                        Master PDF
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4th Year Preview -->
+        <div id="sectionPhase2" class="specialties-grid" style="display: none;">
+            <div class="specialty-card">
+                <span class="specialty-badge">Final Year Specialty 01</span>
+                <h4 class="specialty-title">Oral & Maxillofacial Surgery (OMFS)</h4>
+                <p class="specialty-desc">Exodontia, impactions (Winter & Pell-Gregory), fractures (Le Fort, mandible), orthognathic surgery, TMJ ankylosis, and maxillectomy.</p>
+            </div>
+            <div class="specialty-card">
+                <span class="specialty-badge">Final Year Specialty 02</span>
+                <h4 class="specialty-title">Conservative Dentistry & Endodontics</h4>
+                <p class="specialty-desc">Carious lesion preparation, amalgam & composite restorations, root canal anatomy, instrumentation, obturation, and periapical surgery.</p>
+            </div>
+            <div class="specialty-card">
+                <span class="specialty-badge">Final Year Specialty 03</span>
+                <h4 class="specialty-title">Prosthodontics & Crown-Bridge</h4>
+                <p class="specialty-desc">Complete dentures, removable partial dentures (Kennedy classification), fixed partial dentures, abutment selection, and dental implants.</p>
+            </div>
+            <div class="specialty-card">
+                <span class="specialty-badge">Final Year Specialty 04</span>
+                <h4 class="specialty-title">Periodontology & Implantology</h4>
+                <p class="specialty-desc">Periodontal anatomy, pocket depth dynamics, bone defects, flap surgeries, regenerative procedures (GTR), and mucogingival esthetics.</p>
+            </div>
+            <div class="specialty-card">
+                <span class="specialty-badge">Final Year Specialty 05</span>
+                <h4 class="specialty-title">Orthodontics & Dentofacial Orthopedics</h4>
+                <p class="specialty-desc">Angle's classification of malocclusion, cephalometric analysis (Steiner, Tweed), myofunctional appliances, and fixed mechanotherapy.</p>
+            </div>
+            <div class="specialty-card">
+                <span class="specialty-badge">Final Year Specialty 06</span>
+                <h4 class="specialty-title">Pediatric & Preventive Dentistry</h4>
+                <p class="specialty-desc">Primary tooth morphology, behavior management (Frankl scale), space maintainers, pulpotomy/pulpectomy, and pit & fissure sealants.</p>
+            </div>
+            <div class="specialty-card">
+                <span class="specialty-badge">Final Year Specialty 07</span>
+                <h4 class="specialty-title">Oral Medicine & Radiology (OMR)</h4>
+                <p class="specialty-desc">Radiographic projection techniques (IOPA, OPG, CBCT), radiation physics, systemic mucosal disorders, and temporomandibular joint imaging.</p>
+            </div>
+            <div class="specialty-card">
+                <span class="specialty-badge">Final Year Specialty 08</span>
+                <h4 class="specialty-title">Public Health Dentistry (PHD)</h4>
+                <p class="specialty-desc">Epidemiological indices (DMFT, CPITN), fluoridation programs, health administration, biostatistics, and national health policies.</p>
+            </div>
+        </div>
+    </main>
+
+    <!-- Normal Laboratory Reference Modal -->
+    <div id="labModal" class="modal-overlay" onclick="handleModalClick(event)">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3 class="modal-title">Normal Clinical Laboratory Values (Chairside Reference)</h3>
+                <button class="btn-close" onclick="toggleLabModal()">&times;</button>
+            </div>
+            <table class="lab-table">
+                <thead>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Standard Normal Range</th>
+                        <th>Dental / Surgical Cutoff</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Hemoglobin (Hb)</strong></td>
+                        <td>Men: 13.5-17.5 g/dL<br>Women: 12.0-15.5 g/dL</td>
+                        <td>Elective surgery safe: > 10.0 g/dL</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Platelet Count</strong></td>
+                        <td>150,000 – 450,000 /mm³</td>
+                        <td>Safe minor oral surgery: > 50,000 /mm³<br>Platelet transfusion if < 40,000 /mm³</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Absolute Neutrophil Count (ANC)</strong></td>
+                        <td>1,500 – 8,000 /mm³</td>
+                        <td>If < 1,000 /mm³: defer elective dental care; antibiotic cover mandatory</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Prothrombin Time / INR</strong></td>
+                        <td>PT: 11-13.5 sec<br>INR: 0.8 – 1.1</td>
+                        <td>Minor dental surgery safe: INR ≤ 2.5 - 3.0 (with local hemostatics)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Bleeding Time (Ivy)</strong></td>
+                        <td>2 – 7 minutes</td>
+                        <td>Abnormal: > 10 mins (suspect platelet dysfunction/vWD)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Clotting Time (Lee-White)</strong></td>
+                        <td>5 – 11 minutes</td>
+                        <td>Abnormal: > 15 mins (suspect coagulation factor deficiency)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Fasting Blood Glucose</strong></td>
+                        <td>70 – 99 mg/dL</td>
+                        <td>Impaired: 100-125 mg/dL<br>Diabetes: ≥ 126 mg/dL</td>
+                    </tr>
+                    <tr>
+                        <td><strong>HbA1c (Glycated Hb)</strong></td>
+                        <td>Normal: < 5.7%</td>
+                        <td>Well controlled: < 7.0%<br>Poor control (> 8.5%): higher infection & delayed healing risk</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Blood Pressure (JNC-7)</strong></td>
+                        <td>Normal: < 120 / 80 mmHg</td>
+                        <td>Stage 1: 140-159 / 90-99 mmHg<br>Stage 2: ≥ 160 / ≥ 100 mmHg (limit epinephrine)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <footer class="footer">
+        <p>BDS Clinical Vault • Consolidated Dental Surgery & Clinical Sciences Curriculum Suite</p>
+        <p style="margin-top:6px; font-size:0.75rem; color:var(--text-muted);">Created for university examination preparation, clinical postings, and viva voce review.</p>
+    </footer>
+
+    <script>
+        function switchTab(phase) {
+            const p1 = document.getElementById('sectionPhase1');
+            const p2 = document.getElementById('sectionPhase2');
+            const btn1 = document.getElementById('tabPhase1');
+            const btn2 = document.getElementById('tabPhase2');
+
+            if (phase === 'phase1') {
+                p1.style.display = 'grid';
+                p2.style.display = 'none';
+                btn1.classList.add('active');
+                btn2.classList.remove('active');
+            } else {
+                p1.style.display = 'none';
+                p2.style.display = 'grid';
+                btn1.classList.remove('active');
+                btn2.classList.add('active');
+            }
+        }
+
+        function toggleLabModal() {
+            const m = document.getElementById('labModal');
+            m.classList.toggle('active');
+        }
+
+        function handleModalClick(e) {
+            if (e.target.id === 'labModal') {
+                toggleLabModal();
+            }
+        }
+
+        function filterCards() {
+            const q = document.getElementById('universalSearch').value.toLowerCase();
+            const cards = document.querySelectorAll('.subject-card');
+            cards.forEach(card => {
+                const kw = card.getAttribute('data-keywords') || '';
+                const text = card.innerText.toLowerCase();
+                if (!q || kw.includes(q) || text.includes(q)) {
+                    card.style.display = 'flex';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
