@@ -12,3 +12,13 @@ scratch/
 *.png
 test_*.mjs
 node_modules/
+
+# UI Consistency audit and tests
+_ui_audit/
+tests_ui_consistency/
+CHANGELOG_CONSISTENCY.md
+GEMINI.md
+guidelines.md
+
+
+DESIGN.md
