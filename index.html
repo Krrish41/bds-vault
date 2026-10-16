@@ -3,30 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='32' y2='32'%3E%3Cstop offset='0%25' stop-color='%230284c7'/%3E%3Cstop offset='100%25' stop-color='%230369a1'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cpath d='M16 6v20M6 16h20' stroke='%23ffffff' stroke-width='3.5' stroke-linecap='round'/%3E%3Ccircle cx='16' cy='16' r='3.5' fill='%23bae6fd'/%3E%3C/svg%3E">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='32' y2='32'%3E%3Cstop offset='0%25' stop-color='%238b5cf6'/%3E%3Cstop offset='100%25' stop-color='%236d28d9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cpath d='M16 6v20M6 16h20' stroke='%23ffffff' stroke-width='3.5' stroke-linecap='round'/%3E%3Ccircle cx='16' cy='16' r='3.5' fill='%23e9d5ff'/%3E%3C/svg%3E">
     <title>BDS Clinical Vault — 3rd Year Clinical Sciences Command Suite</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Clinical Dark Theme Tokens (Default) */
-            --bg-base: #070a12;
-            --bg-surface: #0c1220;
-            --bg-card: rgba(14, 21, 37, 0.78);
-            --bg-card-hover: rgba(22, 33, 56, 0.9);
-            --bg-glass: rgba(12, 18, 32, 0.82);
-            --border-color: rgba(255, 255, 255, 0.08);
-            --border-strong: rgba(255, 255, 255, 0.16);
-            --border-accent: rgba(56, 189, 248, 0.3);
-            --border-glow: rgba(56, 189, 248, 0.5);
-            --text-primary: #f8fafc;
-            --text-secondary: #94a3b8;
-            --text-muted: #64748b;
-            --accent-cyan: #38bdf8;
-            --accent-primary: #0284c7;
-            --accent-primary-dark: #0369a1;
-            --accent-glow: rgba(56, 189, 248, 0.18);
+            /* Clinical Purple Dark Theme Tokens (Default) */
+            --bg-base: #0c071e;
+            --bg-surface: #160d33;
+            --bg-card: rgba(22, 13, 51, 0.78);
+            --bg-card-hover: rgba(30, 19, 69, 0.9);
+            --bg-glass: rgba(22, 13, 51, 0.85);
+            --border-color: rgba(168, 85, 247, 0.16);
+            --border-strong: rgba(168, 85, 247, 0.28);
+            --border-accent: rgba(168, 85, 247, 0.45);
+            --border-glow: rgba(168, 85, 247, 0.6);
+            --text-primary: #f5f3ff;
+            --text-secondary: #c4b5fd;
+            --text-muted: #8b5cf6;
+            --accent-cyan: #a855f7;
+            --accent-primary: #8b5cf6;
+            --accent-primary-dark: #7c3aed;
+            --accent-glow: rgba(139, 92, 246, 0.22);
             --accent-emerald: #10b981;
             --accent-emerald-light: rgba(16, 185, 129, 0.12);
             --accent-amber: #f59e0b;
@@ -35,39 +35,39 @@
             --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
             --shadow-md: 0 10px 30px -8px rgba(0, 0, 0, 0.55);
             --shadow-lg: 0 20px 50px -10px rgba(0, 0, 0, 0.75);
-            --shadow-cyan: 0 0 35px rgba(2, 132, 199, 0.22);
+            --shadow-cyan: 0 0 35px rgba(139, 92, 246, 0.28);
             --radius-sm: 8px;
             --radius-md: 14px;
             --radius-lg: 20px;
         }
 
         [data-theme="light"] {
-            /* Clinical Light Theme Tokens */
-            --bg-base: #fbfbfa;
+            /* Clinical Purple Light Theme Tokens */
+            --bg-base: #fbfbfe;
             --bg-surface: #ffffff;
             --bg-card: rgba(255, 255, 255, 0.88);
-            --bg-card-hover: #f0f7ff;
-            --bg-glass: rgba(251, 251, 250, 0.88);
-            --border-color: #e2e8f0;
-            --border-strong: #cbd5e1;
-            --border-accent: rgba(3, 105, 161, 0.28);
-            --border-glow: rgba(3, 105, 161, 0.45);
-            --text-primary: #0f172a;
+            --bg-card-hover: #f5f3ff;
+            --bg-glass: rgba(251, 251, 254, 0.88);
+            --border-color: #e9d5ff;
+            --border-strong: #c4b5fd;
+            --border-accent: rgba(124, 58, 237, 0.28);
+            --border-glow: rgba(124, 58, 237, 0.45);
+            --text-primary: #1e1b4b;
             --text-secondary: #475569;
-            --text-muted: #64748b;
-            --accent-cyan: #0284c7;
-            --accent-primary: #0369a1;
-            --accent-primary-dark: #075985;
-            --accent-glow: rgba(3, 105, 161, 0.12);
+            --text-muted: #6b7280;
+            --accent-cyan: #7c3aed;
+            --accent-primary: #7c3aed;
+            --accent-primary-dark: #6d28d9;
+            --accent-glow: rgba(124, 58, 237, 0.12);
             --accent-emerald: #059669;
             --accent-emerald-light: rgba(5, 150, 105, 0.1);
             --accent-amber: #d97706;
             --accent-amber-light: rgba(217, 119, 6, 0.1);
             --accent-crimson: #be123c;
-            --shadow-sm: 0 2px 6px rgba(15, 23, 42, 0.05);
-            --shadow-md: 0 10px 25px -5px rgba(15, 23, 42, 0.08);
-            --shadow-lg: 0 20px 40px -10px rgba(15, 23, 42, 0.12);
-            --shadow-cyan: 0 0 30px rgba(3, 105, 161, 0.14);
+            --shadow-sm: 0 2px 6px rgba(124, 58, 237, 0.05);
+            --shadow-md: 0 10px 25px -5px rgba(124, 58, 237, 0.08);
+            --shadow-lg: 0 20px 40px -10px rgba(124, 58, 237, 0.12);
+            --shadow-cyan: 0 0 30px rgba(124, 58, 237, 0.14);
         }
 
         * {
@@ -175,13 +175,13 @@
         .brand-icon-box {
             width: 44px;
             height: 44px;
-            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: #ffffff;
-            box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
+            box-shadow: 0 4px 14px rgba(124, 58, 237, 0.35);
             border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
@@ -277,8 +277,8 @@
             width: 7px;
             height: 7px;
             border-radius: 50%;
-            background: #38bdf8;
-            box-shadow: 0 0 8px #38bdf8;
+            background: #a855f7;
+            box-shadow: 0 0 8px #a855f7;
             animation: pulse-dot 2s infinite ease-in-out;
         }
 
@@ -362,13 +362,13 @@
             letter-spacing: -0.025em;
             margin-bottom: 0.65rem;
             line-height: 1.18;
-            background: linear-gradient(135deg, #ffffff 40%, #e0f2fe 75%, #38bdf8 100%);
+            background: linear-gradient(135deg, #ffffff 40%, #f3e8ff 75%, #c084fc 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
 
         [data-theme="light"] .hero-title {
-            background: linear-gradient(135deg, #090d16 40%, #0369a1 85%, #0284c7 100%);
+            background: linear-gradient(135deg, #090d16 40%, #6d28d9 85%, #7c3aed 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
@@ -412,10 +412,10 @@
         }
 
         .filter-chip.active {
-            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
             color: #ffffff;
             border-color: transparent;
-            box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
+            box-shadow: 0 4px 14px rgba(124, 58, 237, 0.35);
         }
 
         /* -------------------------------------------------------------
@@ -472,18 +472,18 @@
             border-radius: 9999px;
             text-transform: uppercase;
             letter-spacing: 0.08em;
-            background: rgba(2, 132, 199, 0.12);
-            color: #7dd3fc;
-            border: 1px solid rgba(56, 189, 248, 0.3);
+            background: rgba(124, 58, 237, 0.12);
+            color: #c084fc;
+            border: 1px solid rgba(168, 85, 247, 0.3);
             display: inline-flex;
             align-items: center;
             gap: 6px;
         }
 
         [data-theme="light"] .card-tag-pill {
-            color: #0369a1;
-            background: rgba(3, 105, 161, 0.08);
-            border-color: rgba(3, 105, 161, 0.25);
+            color: #7c3aed;
+            background: rgba(124, 58, 237, 0.08);
+            border-color: rgba(124, 58, 237, 0.25);
         }
 
         .live-status-pill {
@@ -633,14 +633,14 @@
         }
 
         .timer-btn-primary {
-            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
             color: #ffffff;
-            box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
+            box-shadow: 0 4px 14px rgba(124, 58, 237, 0.35);
         }
 
         .timer-btn-primary:hover {
             transform: scale(1.04);
-            box-shadow: 0 6px 18px rgba(2, 132, 199, 0.45);
+            box-shadow: 0 6px 18px rgba(124, 58, 237, 0.45);
         }
 
         .timer-btn-secondary {
@@ -753,7 +753,7 @@
         .btn-launch-primary {
             flex: 2;
             padding: 10px 14px;
-            background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
             color: #ffffff;
             font-weight: 700;
             font-size: 0.86rem;
@@ -764,14 +764,14 @@
             justify-content: center;
             gap: 6px;
             transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 4px 14px rgba(2, 132, 199, 0.3);
-            border: 1px solid rgba(56, 189, 248, 0.35);
+            box-shadow: 0 4px 14px rgba(124, 58, 237, 0.3);
+            border: 1px solid rgba(168, 85, 247, 0.35);
         }
 
         .btn-launch-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(2, 132, 199, 0.45);
-            background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+            box-shadow: 0 6px 20px rgba(124, 58, 237, 0.45);
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
         }
 
         .btn-pdf-secondary {
@@ -1149,7 +1149,7 @@
             <div class="brand-icon-box">
                 <svg width="26" height="26" viewBox="0 0 38 38" fill="none">
                     <path d="M19 7L30 12V20C30 26.5 25.3 32.5 19 34C12.7 32.5 8 26.5 8 20V12L19 7Z" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M19 14V26M13 20H25" stroke="#bae6fd" stroke-width="2.6" stroke-linecap="round"/>
+                    <path d="M19 14V26M13 20H25" stroke="#d8b4fe" stroke-width="2.6" stroke-linecap="round"/>
                 </svg>
             </div>
             <div class="brand-title-wrap">
@@ -1269,8 +1269,12 @@
                         <span class="card-tag-pill">Paper I • Clinical Surgery</span>
                         <span class="live-status-pill">Accredited</span>
                     </div>
-                    <div class="specialty-icon-box" style="background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><path d="M10 12l2 2 4-4"/></svg>
+                    <div class="specialty-icon-box" style="background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m14 4 6 6-10 10H4v-6L14 4z"/>
+                            <path d="m18 8-4-4"/>
+                            <path d="M7 17l-3 3"/>
+                        </svg>
                     </div>
                     <h3 class="specialty-title editorial-heading">General Surgery Pro</h3>
                     <p class="specialty-desc">Surgical anatomy, wound healing, shock resuscitation, burns (Parkland rule of 9s), cervical triangles, and endocrine thyroid oncology monographs.</p>
@@ -1300,7 +1304,7 @@
                         Launch Portal
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                     </a>
-                    <a href="https://github.com/Krrish41/general-surgery/raw/main/General_Surgery_Master_Notes.pdf" target="_blank" class="btn-pdf-secondary" title="Download Master PDF">
+                    <a href="https://krrish41.github.io/general-surgery/General_Surgery_Master_Notes.pdf" target="_blank" class="btn-pdf-secondary" title="Download Master PDF">
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
                         PDF
                     </a>
@@ -1314,8 +1318,12 @@
                         <span class="card-tag-pill">Paper II • Internal Medicine</span>
                         <span class="live-status-pill">Accredited</span>
                     </div>
-                    <div class="specialty-icon-box" style="background: linear-gradient(135deg, #0369a1 0%, #075985 100%);">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/><path d="M12 5v14"/></svg>
+                    <div class="specialty-icon-box" style="background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6 6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1"/>
+                            <path d="M8 15v1a6 6 0 0 0 6 6 6 6 0 0 0 6-6v-4"/>
+                            <circle cx="20" cy="10" r="2"/>
+                        </svg>
                     </div>
                     <h3 class="specialty-title editorial-heading">General Medicine Pro</h3>
                     <p class="specialty-desc">Internal medicine diagnostics: modified Duke criteria for infective endocarditis, Jones criteria, viral hepatitis, diabetic ketoacidosis, and chairside pharmacotherapy.</p>
@@ -1345,7 +1353,7 @@
                         Launch Portal
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                     </a>
-                    <a href="https://github.com/Krrish41/General-Medicine/raw/main/General_Medicine_Master_Notes.pdf" target="_blank" class="btn-pdf-secondary" title="Download Master PDF">
+                    <a href="https://krrish41.github.io/General-Medicine/General_Medicine_Master_Notes.pdf" target="_blank" class="btn-pdf-secondary" title="Download Master PDF">
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
                         PDF
                     </a>
@@ -1359,8 +1367,15 @@
                         <span class="card-tag-pill">Paper III • Maxillofacial Pathology</span>
                         <span class="live-status-pill">Accredited</span>
                     </div>
-                    <div class="specialty-icon-box" style="background: linear-gradient(135deg, #0284c7 0%, #0c4a6e 100%);">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"/><path d="M2 12h20"/></svg>
+                    <div class="specialty-icon-box" style="background: linear-gradient(135deg, #9333ea 0%, #7e22ce 100%);">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M6 18h8"/>
+                            <path d="M3 22h18"/>
+                            <path d="M14 22a7 7 0 1 0 0-14h-1"/>
+                            <path d="M9 14h2"/>
+                            <path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z"/>
+                            <path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3"/>
+                        </svg>
                     </div>
                     <h3 class="specialty-title editorial-heading">Oral Pathology Pro</h3>
                     <p class="specialty-desc">Microscopic H&amp;E criteria, Vickers-Gorlin sign, Broders grading for OSCC, odontogenic cysts (OKC/KCOT), ameloblastoma variants, and enamel caries histopathology.</p>
@@ -1390,7 +1405,7 @@
                         Launch Portal
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                     </a>
-                    <a href="https://github.com/Krrish41/Oral-Pathology/raw/main/Oral_Pathology_Master_Notes.pdf" target="_blank" class="btn-pdf-secondary" title="Download Master PDF">
+                    <a href="https://krrish41.github.io/Oral-Pathology/Oral_Pathology_Master_Notes.pdf" target="_blank" class="btn-pdf-secondary" title="Download Master PDF">
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
                         PDF
                     </a>
