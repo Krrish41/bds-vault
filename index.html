@@ -3,71 +3,122 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='32' y2='32'%3E%3Cstop offset='0%25' stop-color='%238b5cf6'/%3E%3Cstop offset='100%25' stop-color='%236d28d9'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cpath d='M16 6v20M6 16h20' stroke='%23ffffff' stroke-width='3.5' stroke-linecap='round'/%3E%3Ccircle cx='16' cy='16' r='3.5' fill='%23e9d5ff'/%3E%3C/svg%3E">
-    <title>BDS Clinical Vault — 3rd Year Clinical Sciences Command Suite</title>
+    <!-- Obsidian & Tri-Color Precision SVG Favicon -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='bg' x1='0' y1='0' x2='32' y2='32'%3E%3Cstop offset='0%25' stop-color='%23111422'/%3E%3Cstop offset='100%25' stop-color='%23090a12'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23bg)' stroke='%23334155' stroke-width='1.5'/%3E%3Cpath d='M16 6v20M6 16h20' stroke='%23ffffff' stroke-width='2.6' stroke-linecap='round'/%3E%3Ccircle cx='10' cy='10' r='2.2' fill='%2314b8a6'/%3E%3Ccircle cx='22' cy='10' r='2.2' fill='%236366f1'/%3E%3Ccircle cx='16' cy='22' r='2.2' fill='%23d946ef'/%3E%3C/svg%3E">
+    <title>BDS Clinical Vault — 3rd Year University Command Suite</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;0,6..72,700;1,6..72,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* Clinical Purple Dark Theme Tokens (Default) */
-            --bg-base: #0c071e;
-            --bg-surface: #160d33;
-            --bg-card: rgba(22, 13, 51, 0.78);
-            --bg-card-hover: rgba(30, 19, 69, 0.9);
-            --bg-glass: rgba(22, 13, 51, 0.85);
-            --border-color: rgba(168, 85, 247, 0.16);
-            --border-strong: rgba(168, 85, 247, 0.28);
-            --border-accent: rgba(168, 85, 247, 0.45);
-            --border-glow: rgba(168, 85, 247, 0.6);
-            --text-primary: #f5f3ff;
-            --text-secondary: #c4b5fd;
-            --text-muted: #8b5cf6;
-            --accent-cyan: #a855f7;
-            --accent-primary: #8b5cf6;
-            --accent-primary-dark: #7c3aed;
-            --accent-glow: rgba(139, 92, 246, 0.22);
+            /* Deep Luxury Obsidian Dark Theme (Calibrated, Anti-Glare) */
+            --bg-base: #090a12;
+            --bg-surface: #101322;
+            --bg-card: rgba(16, 19, 34, 0.76);
+            --bg-card-hover: rgba(22, 26, 46, 0.92);
+            --bg-glass: rgba(16, 19, 34, 0.88);
+            
+            --border-color: rgba(255, 255, 255, 0.08);
+            --border-strong: rgba(255, 255, 255, 0.16);
+            --border-accent: rgba(99, 102, 241, 0.35);
+            
+            --text-primary: #f8fafc;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+
+            /* Neutral Theme Accents */
+            --accent-primary: #6366f1;
+            --accent-primary-dark: #4f46e5;
+            --accent-glow: rgba(99, 102, 241, 0.18);
             --accent-emerald: #10b981;
             --accent-emerald-light: rgba(16, 185, 129, 0.12);
             --accent-amber: #f59e0b;
-            --accent-amber-light: rgba(245, 158, 11, 0.12);
-            --accent-crimson: #fb7185;
+
+            /* Paper I: General Surgery (Surgical Teal) */
+            --surgery-accent: #14b8a6;
+            --surgery-accent-dark: #0d9488;
+            --surgery-glow: rgba(20, 184, 166, 0.28);
+            --surgery-gradient: linear-gradient(135deg, #0d9488 0%, #0f766e 100%);
+            --surgery-btn: linear-gradient(135deg, #0d9488 0%, #115e59 100%);
+            --surgery-btn-hover: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
+            --surgery-tag-bg: rgba(20, 184, 166, 0.12);
+            --surgery-tag-border: rgba(20, 184, 166, 0.32);
+            --surgery-tag-text: #5eead4;
+
+            /* Paper II: General Medicine (Diagnostic Indigo / Cobalt) */
+            --medicine-accent: #6366f1;
+            --medicine-accent-dark: #4f46e5;
+            --medicine-glow: rgba(99, 102, 241, 0.28);
+            --medicine-gradient: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
+            --medicine-btn: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
+            --medicine-btn-hover: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
+            --medicine-tag-bg: rgba(99, 102, 241, 0.12);
+            --medicine-tag-border: rgba(99, 102, 241, 0.32);
+            --medicine-tag-text: #c7d2fe;
+
+            /* Paper III: Oral Pathology (Histological Magenta / Fuchsia) */
+            --pathology-accent: #d946ef;
+            --pathology-accent-dark: #c026d3;
+            --pathology-glow: rgba(217, 70, 239, 0.28);
+            --pathology-gradient: linear-gradient(135deg, #c026d3 0%, #86198f 100%);
+            --pathology-btn: linear-gradient(135deg, #c026d3 0%, #a21caf 100%);
+            --pathology-btn-hover: linear-gradient(135deg, #d946ef 0%, #c026d3 100%);
+            --pathology-tag-bg: rgba(217, 70, 239, 0.12);
+            --pathology-tag-border: rgba(217, 70, 239, 0.32);
+            --pathology-tag-text: #f5d0fe;
+
             --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
             --shadow-md: 0 10px 30px -8px rgba(0, 0, 0, 0.55);
             --shadow-lg: 0 20px 50px -10px rgba(0, 0, 0, 0.75);
-            --shadow-cyan: 0 0 35px rgba(139, 92, 246, 0.28);
             --radius-sm: 8px;
             --radius-md: 14px;
             --radius-lg: 20px;
         }
 
         [data-theme="light"] {
-            /* Clinical Purple Light Theme Tokens */
-            --bg-base: #fbfbfe;
+            /* Editorial Clean Light Theme Tokens */
+            --bg-base: #f8fafc;
             --bg-surface: #ffffff;
-            --bg-card: rgba(255, 255, 255, 0.88);
-            --bg-card-hover: #f5f3ff;
-            --bg-glass: rgba(251, 251, 254, 0.88);
-            --border-color: #e9d5ff;
-            --border-strong: #c4b5fd;
-            --border-accent: rgba(124, 58, 237, 0.28);
-            --border-glow: rgba(124, 58, 237, 0.45);
-            --text-primary: #1e1b4b;
+            --bg-card: rgba(255, 255, 255, 0.94);
+            --bg-card-hover: #f1f5f9;
+            --bg-glass: rgba(248, 250, 252, 0.92);
+            
+            --border-color: #e2e8f0;
+            --border-strong: #cbd5e1;
+            --border-accent: rgba(99, 102, 241, 0.25);
+            
+            --text-primary: #0f172a;
             --text-secondary: #475569;
-            --text-muted: #6b7280;
-            --accent-cyan: #7c3aed;
-            --accent-primary: #7c3aed;
-            --accent-primary-dark: #6d28d9;
-            --accent-glow: rgba(124, 58, 237, 0.12);
+            --text-muted: #64748b;
+
+            --accent-primary: #4f46e5;
+            --accent-primary-dark: #4338ca;
+            --accent-glow: rgba(79, 70, 229, 0.12);
             --accent-emerald: #059669;
             --accent-emerald-light: rgba(5, 150, 105, 0.1);
             --accent-amber: #d97706;
-            --accent-amber-light: rgba(217, 119, 6, 0.1);
-            --accent-crimson: #be123c;
-            --shadow-sm: 0 2px 6px rgba(124, 58, 237, 0.05);
-            --shadow-md: 0 10px 25px -5px rgba(124, 58, 237, 0.08);
-            --shadow-lg: 0 20px 40px -10px rgba(124, 58, 237, 0.12);
-            --shadow-cyan: 0 0 30px rgba(124, 58, 237, 0.14);
+
+            --surgery-accent: #0d9488;
+            --surgery-glow: rgba(13, 148, 136, 0.15);
+            --surgery-tag-bg: rgba(13, 148, 136, 0.08);
+            --surgery-tag-border: rgba(13, 148, 136, 0.25);
+            --surgery-tag-text: #0f766e;
+
+            --medicine-accent: #4f46e5;
+            --medicine-glow: rgba(79, 70, 229, 0.15);
+            --medicine-tag-bg: rgba(79, 70, 229, 0.08);
+            --medicine-tag-border: rgba(79, 70, 229, 0.25);
+            --medicine-tag-text: #3730a3;
+
+            --pathology-accent: #c026d3;
+            --pathology-glow: rgba(192, 38, 211, 0.15);
+            --pathology-tag-bg: rgba(192, 38, 211, 0.08);
+            --pathology-tag-border: rgba(192, 38, 211, 0.25);
+            --pathology-tag-text: #86198f;
+
+            --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+            --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.07);
+            --shadow-lg: 0 12px 32px rgba(0, 0, 0, 0.1);
         }
 
         * {
@@ -90,99 +141,70 @@
             border-radius: 9999px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: var(--accent-cyan);
+            background: var(--text-muted);
         }
 
         body {
             font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
             background-color: var(--bg-base);
             color: var(--text-primary);
-            line-height: 1.6;
+            line-height: 1.65;
+            font-size: 15.5px;
+            -webkit-font-smoothing: antialiased;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             overflow-x: hidden;
-            transition: background-color 0.25s ease, color 0.25s ease;
+            background-image: 
+                radial-gradient(circle at 15% 15%, rgba(99, 102, 241, 0.05) 0%, transparent 40%),
+                radial-gradient(circle at 85% 85%, rgba(20, 184, 166, 0.04) 0%, transparent 40%);
+            background-attachment: fixed;
         }
 
-        /* Ambient Medical Spatial Mesh */
-        .ambient-mesh {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image:
-                radial-gradient(at 10% 12%, rgba(2, 132, 199, 0.15) 0px, transparent 55%),
-                radial-gradient(at 88% 8%, rgba(56, 189, 248, 0.12) 0px, transparent 50%),
-                radial-gradient(at 50% 88%, rgba(3, 105, 161, 0.12) 0px, transparent 65%),
-                radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
-            background-size: 100% 100%, 100% 100%, 100% 100%, 28px 28px;
-            pointer-events: none;
-            z-index: 0;
-        }
-
-        [data-theme="light"] .ambient-mesh {
-            background-image:
-                radial-gradient(at 10% 12%, rgba(2, 132, 199, 0.06) 0px, transparent 55%),
-                radial-gradient(at 88% 8%, rgba(56, 189, 248, 0.05) 0px, transparent 50%),
-                radial-gradient(at 50% 88%, rgba(3, 105, 161, 0.04) 0px, transparent 65%),
-                radial-gradient(rgba(15, 23, 42, 0.04) 1px, transparent 1px);
-        }
-
-        /* Editorial & Monograph Typography */
-        h1, h2, h3, .editorial-heading {
-            font-family: 'Newsreader', Georgia, serif;
-            letter-spacing: -0.015em;
-        }
-
-        .cinzel-brand {
-            font-family: 'Cinzel', serif;
-            letter-spacing: 0.04em;
-        }
-
-        .mono-num, code, pre, .stat-value, .kbd-pill {
-            font-family: 'JetBrains Mono', monospace;
-            font-variant-numeric: tabular-nums;
-        }
-
-        /* Top Executive Navigation Bar */
+        /* -------------------------------------------------------------
+           NAVBAR (Double-Bezel Floating Island Architecture)
+        ------------------------------------------------------------- */
         .navbar {
             position: sticky;
-            top: 0;
-            backdrop-filter: blur(20px) saturate(180%);
-            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            top: 14px;
+            z-index: 100;
+            width: calc(100% - 32px);
+            max-width: 1400px;
+            margin: 0 auto 1.5rem auto;
             background: var(--bg-glass);
-            border-bottom: 1px solid var(--border-color);
-            padding: 0.85rem 2rem;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 10px 20px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 1.5rem;
-            z-index: 60;
+            gap: 16px;
             box-shadow: var(--shadow-sm);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .brand-cluster {
             display: flex;
             align-items: center;
-            gap: 14px;
+            gap: 12px;
             text-decoration: none;
             color: inherit;
             cursor: pointer;
         }
 
         .brand-icon-box {
-            width: 44px;
-            height: 44px;
-            background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, #1e2438 0%, #101322 100%);
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: #ffffff;
-            box-shadow: 0 4px 14px rgba(124, 58, 237, 0.35);
-            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.12);
         }
 
         .brand-title-wrap h1 {
@@ -193,78 +215,82 @@
         }
 
         .brand-title-wrap span {
-            font-size: 0.7rem;
-            color: var(--accent-cyan);
+            font-size: 0.72rem;
+            color: var(--accent-primary);
             text-transform: uppercase;
             letter-spacing: 0.08em;
             font-weight: 700;
         }
 
-        /* Center CmdK Command Palette Trigger Button */
+        .cinzel-brand {
+            font-family: 'Cinzel', serif;
+            letter-spacing: 0.05em;
+        }
+
+        /* CmdK Global Search Trigger */
         .cmdk-trigger-btn {
-            background: var(--bg-card);
+            flex: 1;
+            max-width: 420px;
+            background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--border-color);
-            color: var(--text-secondary);
-            padding: 8px 18px 8px 14px;
-            border-radius: 12px;
-            font-size: 0.85rem;
-            cursor: pointer;
+            padding: 8px 16px;
+            border-radius: 9999px;
             display: flex;
             align-items: center;
             gap: 10px;
-            transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: var(--shadow-sm);
-            max-width: 380px;
-            width: 100%;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        [data-theme="light"] .cmdk-trigger-btn {
+            background: #ffffff;
         }
 
         .cmdk-trigger-btn:hover {
             border-color: var(--border-accent);
             color: var(--text-primary);
-            background: var(--bg-card-hover);
-            box-shadow: var(--shadow-cyan);
+            background: rgba(255, 255, 255, 0.06);
         }
 
         .kbd-pill {
             margin-left: auto;
             background: rgba(255, 255, 255, 0.08);
             border: 1px solid var(--border-color);
-            padding: 2px 7px;
             border-radius: 6px;
-            font-size: 0.72rem;
+            padding: 2px 7px;
+            font-size: 0.7rem;
+            font-family: 'JetBrains Mono', monospace;
             color: var(--text-muted);
             font-weight: 600;
         }
 
-        [data-theme="light"] .kbd-pill {
-            background: rgba(15, 23, 42, 0.06);
-        }
-
-        /* Right Actions Cluster */
+        /* Nav Right Actions */
         .nav-actions {
             display: flex;
             align-items: center;
             gap: 10px;
         }
 
-        /* Interactive Study Focus Pill */
         .focus-timer-pill {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            padding: 7px 14px;
+            border-radius: 9999px;
             display: flex;
             align-items: center;
             gap: 8px;
-            background: rgba(2, 132, 199, 0.12);
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            padding: 6px 12px;
-            border-radius: 9999px;
-            font-size: 0.8rem;
-            color: var(--accent-cyan);
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text-primary);
             cursor: pointer;
             transition: all 0.2s ease;
         }
 
         .focus-timer-pill:hover {
-            background: rgba(2, 132, 199, 0.22);
-            border-color: var(--accent-cyan);
+            border-color: var(--border-strong);
+            background: rgba(255, 255, 255, 0.06);
         }
 
         .focus-timer-pill.running {
@@ -277,8 +303,8 @@
             width: 7px;
             height: 7px;
             border-radius: 50%;
-            background: #a855f7;
-            box-shadow: 0 0 8px #a855f7;
+            background: #818cf8;
+            box-shadow: 0 0 8px #818cf8;
             animation: pulse-dot 2s infinite ease-in-out;
         }
 
@@ -293,7 +319,7 @@
         }
 
         .nav-btn {
-            background: var(--bg-card);
+            background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--border-color);
             color: var(--text-primary);
             padding: 8px 14px;
@@ -305,99 +331,102 @@
             align-items: center;
             gap: 6px;
             transition: all 0.2s ease;
-            box-shadow: var(--shadow-sm);
         }
 
         .nav-btn:hover {
-            border-color: var(--border-accent);
-            color: var(--accent-cyan);
-            background: var(--bg-card-hover);
+            background: rgba(255, 255, 255, 0.06);
+            border-color: var(--border-strong);
         }
 
         .theme-toggle-btn {
             width: 38px;
             height: 38px;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
             padding: 0;
+            border-radius: 10px;
+            justify-content: center;
         }
 
-        /* Main Container */
+        /* -------------------------------------------------------------
+           MAIN CONTAINER & HERO ARCHITECTURE
+        ------------------------------------------------------------- */
         .main-container {
-            max-width: 1360px;
-            width: 100%;
+            max-width: 1400px;
+            width: calc(100% - 32px);
             margin: 0 auto;
-            padding: 2rem 1.75rem 4rem 1.75rem;
-            position: relative;
-            z-index: 10;
             flex: 1;
         }
 
-        /* Hero Header Section */
         .hero-banner {
             text-align: center;
-            margin-bottom: 2.25rem;
+            padding: 1.75rem 1rem 2rem 1rem;
+            max-width: 900px;
+            margin: 0 auto;
         }
 
-        .hero-badge-pill {
+        .hero-trust-bar {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
-            padding: 5px 16px;
-            background: rgba(2, 132, 199, 0.12);
-            border: 1px solid rgba(56, 189, 248, 0.32);
+            gap: 10px;
+            padding: 5px 14px;
             border-radius: 9999px;
-            font-size: 0.78rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-weight: 500;
+        }
+
+        .trust-badge {
+            font-size: 0.72rem;
             font-weight: 700;
-            color: #7dd3fc;
-            margin-bottom: 0.9rem;
-            box-shadow: 0 2px 12px rgba(2, 132, 199, 0.15);
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--accent-emerald);
+            background: var(--accent-emerald-light);
+            padding: 2px 8px;
+            border-radius: 9999px;
+        }
+
+        .editorial-heading {
+            font-family: 'Newsreader', Georgia, serif;
+            font-style: italic;
         }
 
         .hero-title {
-            font-size: 2.65rem;
+            font-size: 2.85rem;
             font-weight: 700;
             letter-spacing: -0.025em;
-            margin-bottom: 0.65rem;
-            line-height: 1.18;
-            background: linear-gradient(135deg, #ffffff 40%, #f3e8ff 75%, #c084fc 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        [data-theme="light"] .hero-title {
-            background: linear-gradient(135deg, #090d16 40%, #6d28d9 85%, #7c3aed 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            margin-bottom: 0.75rem;
+            line-height: 1.15;
+            color: var(--text-primary);
         }
 
         .hero-sub {
             font-size: 1.05rem;
             color: var(--text-secondary);
-            max-width: 720px;
-            margin: 0 auto 1.5rem auto;
+            max-width: 740px;
+            margin: 0 auto 1.75rem auto;
             line-height: 1.6;
         }
 
-        /* Interactive Filter Chips */
+        /* Filter Chip Bar */
         .filter-chip-bar {
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
             flex-wrap: wrap;
+            gap: 8px;
             margin-bottom: 2rem;
         }
 
         .filter-chip {
-            background: var(--bg-card);
+            background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--border-color);
             color: var(--text-secondary);
-            padding: 6px 14px;
+            padding: 7px 15px;
             border-radius: 9999px;
-            font-size: 0.8rem;
+            font-size: 0.82rem;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
@@ -408,33 +437,45 @@
 
         .filter-chip:hover {
             color: var(--text-primary);
-            border-color: var(--border-accent);
+            border-color: var(--border-strong);
+            background: rgba(255, 255, 255, 0.06);
         }
 
         .filter-chip.active {
-            background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+            background: #ffffff;
+            color: #090a12;
+            border-color: #ffffff;
+            font-weight: 700;
+            box-shadow: 0 4px 14px rgba(255, 255, 255, 0.2);
+        }
+
+        [data-theme="light"] .filter-chip.active {
+            background: #0f172a;
             color: #ffffff;
-            border-color: transparent;
-            box-shadow: 0 4px 14px rgba(124, 58, 237, 0.35);
+            border-color: #0f172a;
         }
 
         /* -------------------------------------------------------------
-           BENTO COMMAND GRID ARCHITECTURE
+           BENTO COMMAND GRID
         ------------------------------------------------------------- */
         .bento-grid {
             display: grid;
             grid-template-columns: repeat(12, 1fr);
             gap: 1.5rem;
-            margin-bottom: 2.5rem;
+            margin-bottom: 3rem;
         }
+
+        .col-span-12 { grid-column: span 12; }
+        .col-span-8  { grid-column: span 8; }
+        .col-span-4  { grid-column: span 4; }
 
         .bento-card {
             background: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-lg);
             padding: 1.75rem;
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
             position: relative;
             overflow: hidden;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
@@ -444,141 +485,102 @@
         }
 
         .bento-card:hover {
-            border-color: var(--border-accent);
-            box-shadow: var(--shadow-md), var(--shadow-cyan);
-            transform: translateY(-3px);
+            border-color: var(--border-strong);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-md);
             background: var(--bg-card-hover);
         }
 
-        /* Grid Column Span Classes */
-        .col-span-8 { grid-column: span 8; }
-        .col-span-4 { grid-column: span 4; }
-        .col-span-6 { grid-column: span 6; }
-        .col-span-12 { grid-column: span 12; }
+        /* -------------------------------------------------------------
+           TOP ROW: EXECUTIVE STUDY COCKPIT (Span 8) & CLOCK (Span 4)
+        ------------------------------------------------------------- */
+        .executive-deck-bento {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
 
-        /* Card Header & Badges */
-        .card-top-row {
+        .deck-header-row {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 1.25rem;
+            margin-bottom: 1rem;
             gap: 10px;
         }
 
-        .card-tag-pill {
+        .deck-badge {
             font-size: 0.72rem;
             font-weight: 700;
-            padding: 3px 10px;
-            border-radius: 9999px;
             text-transform: uppercase;
             letter-spacing: 0.08em;
-            background: rgba(124, 58, 237, 0.12);
-            color: #c084fc;
-            border: 1px solid rgba(168, 85, 247, 0.3);
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
+            color: var(--accent-primary);
+            background: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.25);
+            padding: 3px 10px;
+            border-radius: 9999px;
         }
 
-        [data-theme="light"] .card-tag-pill {
-            color: #7c3aed;
-            background: rgba(124, 58, 237, 0.08);
-            border-color: rgba(124, 58, 237, 0.25);
-        }
-
-        .live-status-pill {
-            font-size: 0.7rem;
-            font-weight: 700;
-            color: #34d399;
-            background: rgba(16, 185, 129, 0.12);
-            border: 1px solid rgba(16, 185, 129, 0.3);
-            padding: 3px 9px;
-            border-radius: 6px;
-            display: inline-flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .live-status-pill::before {
-            content: '';
-            width: 5px;
-            height: 5px;
-            border-radius: 50%;
-            background: #10b981;
-        }
-
-        /* Hero Welcome Bento Card (Span 8) */
-        .welcome-bento {
-            background: linear-gradient(135deg, rgba(9, 13, 22, 0.95) 0%, rgba(15, 23, 42, 0.85) 60%, rgba(2, 132, 199, 0.18) 100%);
-            border: 1px solid rgba(56, 189, 248, 0.25);
-        }
-
-        [data-theme="light"] .welcome-bento {
-            background: linear-gradient(135deg, #ffffff 0%, #f0f7ff 60%, rgba(2, 132, 199, 0.12) 100%);
-            border-color: rgba(3, 105, 161, 0.25);
-        }
-
-        .welcome-headline {
-            font-size: 1.85rem;
+        .deck-title {
+            font-size: 1.65rem;
             font-weight: 700;
             color: var(--text-primary);
-            margin-bottom: 0.6rem;
+            margin-bottom: 0.4rem;
             line-height: 1.25;
         }
 
-        .welcome-desc {
-            font-size: 0.94rem;
+        .deck-desc {
+            font-size: 0.95rem;
             color: var(--text-secondary);
             margin-bottom: 1.5rem;
-            max-width: 620px;
-            line-height: 1.6;
+            max-width: 680px;
         }
 
-        .triad-orbit-strip {
+        .deck-metrics-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-            margin-top: auto;
+            gap: 14px;
+            margin-bottom: 1.25rem;
         }
 
-        .orbit-item {
-            background: rgba(255, 255, 255, 0.04);
+        .deck-stat-box {
+            background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 12px 14px;
-            transition: all 0.2s ease;
-            cursor: pointer;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        [data-theme="light"] .orbit-item {
-            background: #ffffff;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
-        }
-
-        .orbit-item:hover {
-            border-color: var(--accent-cyan);
-            background: rgba(2, 132, 199, 0.1);
-            transform: translateY(-2px);
-        }
-
-        .orbit-title {
-            font-size: 0.84rem;
-            font-weight: 700;
-            color: var(--text-primary);
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 2px;
+            flex-direction: column;
+            gap: 4px;
         }
 
-        .orbit-sub {
-            font-size: 0.72rem;
+        .deck-stat-val {
+            font-size: 1.5rem;
+            font-weight: 800;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-primary);
+        }
+
+        .deck-stat-label {
+            font-size: 0.78rem;
             color: var(--text-muted);
+            font-weight: 600;
         }
 
-        /* Focus & Timer Station Bento (Span 4) */
+        .deck-progress-bar {
+            background: rgba(255, 255, 255, 0.06);
+            height: 7px;
+            border-radius: 9999px;
+            overflow: hidden;
+            margin-top: auto;
+        }
+
+        .deck-progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #14b8a6, #6366f1, #d946ef);
+            border-radius: 9999px;
+            transition: width 0.6s ease;
+        }
+
+        /* Deep Work Pomodoro Card (Span 4) */
         .timer-bento {
             display: flex;
             flex-direction: column;
@@ -586,65 +588,65 @@
         }
 
         .timer-display-box {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 1.5rem 1rem;
             text-align: center;
-            padding: 1.25rem 0;
+            margin: 1rem 0;
         }
 
         .timer-digits {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 3.2rem;
+            font-size: 3.25rem;
             font-weight: 800;
             letter-spacing: -0.04em;
             color: var(--text-primary);
             line-height: 1;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(135deg, var(--text-primary), var(--accent-cyan));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            margin-bottom: 6px;
         }
 
         .timer-mode-label {
             font-size: 0.78rem;
             color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 0.08em;
-            font-weight: 600;
+            letter-spacing: 0.1em;
+            font-weight: 700;
         }
 
         .timer-controls-row {
             display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            margin-top: 1rem;
+            gap: 8px;
         }
 
         .timer-btn {
-            padding: 8px 18px;
-            border-radius: 9999px;
-            font-size: 0.82rem;
+            padding: 9px 14px;
+            border-radius: 10px;
+            font-size: 0.84rem;
             font-weight: 700;
             cursor: pointer;
             border: none;
             transition: all 0.2s ease;
             display: inline-flex;
             align-items: center;
-            gap: 6px;
+            justify-content: center;
         }
 
         .timer-btn-primary {
-            background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
-            color: #ffffff;
-            box-shadow: 0 4px 14px rgba(124, 58, 237, 0.35);
+            flex: 2;
+            background: #ffffff;
+            color: #090a12;
+            box-shadow: 0 4px 14px rgba(255, 255, 255, 0.2);
         }
 
-        .timer-btn-primary:hover {
-            transform: scale(1.04);
-            box-shadow: 0 6px 18px rgba(124, 58, 237, 0.45);
+        [data-theme="light"] .timer-btn-primary {
+            background: #0f172a;
+            color: #ffffff;
         }
 
         .timer-btn-secondary {
-            background: var(--bg-surface);
+            flex: 1;
+            background: rgba(255, 255, 255, 0.04);
             color: var(--text-secondary);
             border: 1px solid var(--border-color);
         }
@@ -654,11 +656,91 @@
             border-color: var(--border-strong);
         }
 
-        /* Specialty Cards (Span 4 Each) */
+        /* -------------------------------------------------------------
+           SPECIALTY CARDS (Span 4 Each, Balanced 3-Column Grid)
+        ------------------------------------------------------------- */
         .specialty-bento {
             display: flex;
             flex-direction: column;
+            height: 100%;
+            position: relative;
+        }
+
+        .card-inner-shell {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Subtle Corner Themed Watermarks */
+        .card-corner-watermark {
+            position: absolute;
+            top: -15px;
+            right: -15px;
+            width: 140px;
+            height: 140px;
+            pointer-events: none;
+            opacity: 0.05;
+            transition: opacity 0.3s ease;
+            z-index: 0;
+        }
+
+        .specialty-bento:hover .card-corner-watermark {
+            opacity: 0.12;
+        }
+
+        /* Top Header Row: Paper Pill + Big Topic Number */
+        .card-top-row {
+            display: flex;
+            align-items: center;
             justify-content: space-between;
+            margin-bottom: 1.25rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .card-paper-tag {
+            font-size: 0.74rem;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 9999px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            display: inline-flex;
+            align-items: center;
+            white-space: nowrap;
+        }
+
+        /* Big Key Stat Topic Counter */
+        .topic-counter-badge {
+            display: inline-flex;
+            align-items: baseline;
+            gap: 4px;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .counter-num {
+            font-size: 1.35rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            line-height: 1;
+        }
+
+        .counter-label {
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        /* Card Brand Row */
+        .card-brand-row {
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            margin-bottom: 0.85rem;
+            position: relative;
+            z-index: 1;
         }
 
         .specialty-icon-box {
@@ -669,94 +751,155 @@
             align-items: center;
             justify-content: center;
             color: #ffffff;
-            margin-bottom: 1rem;
-            box-shadow: 0 6px 16px rgba(2, 132, 199, 0.25);
+            flex-shrink: 0;
+            border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
         .specialty-title {
             font-size: 1.45rem;
             font-weight: 700;
             color: var(--text-primary);
-            margin-bottom: 0.4rem;
-            line-height: 1.25;
+            line-height: 1.2;
+            margin-bottom: 2px;
         }
 
+        .specialty-sub-meta {
+            font-size: 0.76rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+        }
+
+        /* 2-Line Concise Description */
         .specialty-desc {
-            font-size: 0.88rem;
+            font-size: 0.92rem;
             color: var(--text-secondary);
             line-height: 1.55;
-            margin-bottom: 1.25rem;
-            min-height: 3.8em;
+            margin-bottom: 1.1rem;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            min-height: 2.85em;
         }
 
-        .feature-pills-wrap {
+        /* Single Merged Feature Metric Row (1 Row Only) */
+        .feature-metrics-strip {
             display: flex;
+            align-items: center;
             flex-wrap: wrap;
             gap: 6px;
+            font-size: 0.78rem;
+            font-weight: 600;
             margin-bottom: 1rem;
         }
 
         .feature-item-pill {
-            font-size: 0.72rem;
-            font-weight: 600;
             padding: 3px 8px;
             border-radius: 6px;
-            background: rgba(2, 132, 199, 0.1);
-            border: 1px solid rgba(56, 189, 248, 0.22);
-            color: var(--accent-cyan);
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
             display: inline-flex;
             align-items: center;
             gap: 4px;
+            white-space: nowrap;
         }
 
-        .topic-chips-preview {
+        /* Topic Chips (3 Primary + Expandable +4 More) */
+        .topic-chips-container {
             display: flex;
             flex-wrap: wrap;
-            gap: 5px;
+            gap: 6px;
             margin-bottom: 1.25rem;
+            position: relative;
         }
 
         .topic-chip-tag {
-            font-size: 0.7rem;
-            padding: 3px 7px;
-            background: rgba(255, 255, 255, 0.04);
+            font-size: 0.8rem;
+            font-weight: 600;
+            padding: 4px 9px;
+            border-radius: 6px;
+            white-space: nowrap;
+            transition: all 0.2s ease;
+        }
+
+        .topic-chip-more {
+            font-size: 0.78rem;
+            font-weight: 700;
+            padding: 4px 9px;
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid var(--border-color);
-            border-radius: 5px;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .topic-chip-more:hover {
+            color: var(--text-primary);
+            border-color: var(--border-strong);
+        }
+
+        .topics-expanded-drawer {
+            display: none;
+            flex-wrap: wrap;
+            gap: 6px;
+            width: 100%;
+            margin-top: 6px;
+            padding-top: 6px;
+            border-top: 1px dashed var(--border-color);
+        }
+
+        .topics-expanded-drawer.open {
+            display: flex;
+        }
+
+        /* Dynamic Topic Progress Strip */
+        .paper-progress-strip {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 1.25rem;
+            font-size: 0.75rem;
+            font-family: 'JetBrains Mono', monospace;
             color: var(--text-muted);
         }
 
-        [data-theme="light"] .topic-chip-tag {
-            background: rgba(15, 23, 42, 0.03);
-            color: var(--text-secondary);
+        .progress-bar-track {
+            flex: 1;
+            height: 5px;
+            background: rgba(255, 255, 255, 0.06);
+            border-radius: 9999px;
+            overflow: hidden;
         }
 
-        .curriculum-strip-card {
-            font-family: 'JetBrains Mono', monospace;
-            font-size: 0.75rem;
-            color: var(--accent-cyan);
-            background: rgba(2, 132, 199, 0.08);
-            border: 1px dashed rgba(56, 189, 248, 0.3);
-            border-radius: 8px;
-            padding: 7px 10px;
-            margin-bottom: 1.25rem;
-            display: flex;
-            align-items: center;
-            gap: 6px;
+        .progress-bar-fill {
+            height: 100%;
+            border-radius: 9999px;
+            transition: width 0.4s ease;
         }
 
+        /* Card Actions Dock: margin-top: auto pushes buttons flush across all 3 */
         .card-actions-dock {
             display: flex;
+            align-items: center;
             gap: 8px;
             margin-top: auto;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.04);
+            position: relative;
+            z-index: 1;
         }
 
+        /* Launch Portal: ONLY Filled Button */
         .btn-launch-primary {
-            flex: 2;
-            padding: 10px 14px;
-            background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+            flex: 1;
+            padding: 10px 16px;
             color: #ffffff;
             font-weight: 700;
-            font-size: 0.86rem;
+            font-size: 0.88rem;
             border-radius: 10px;
             text-decoration: none;
             display: inline-flex;
@@ -764,86 +907,222 @@
             justify-content: center;
             gap: 6px;
             transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 4px 14px rgba(124, 58, 237, 0.3);
-            border: 1px solid rgba(168, 85, 247, 0.35);
+            border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
         .btn-launch-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(124, 58, 237, 0.45);
-            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
         }
 
-        .btn-pdf-secondary {
-            flex: 1;
-            padding: 10px 10px;
-            background: var(--bg-surface);
+        /* PDF Download: Minimalist Secondary Ghost Button */
+        .btn-pdf-ghost {
+            padding: 10px 14px;
+            background: rgba(255, 255, 255, 0.04);
             border: 1px solid var(--border-color);
-            color: var(--text-primary);
+            color: var(--text-secondary);
             font-weight: 600;
-            font-size: 0.82rem;
+            font-size: 0.84rem;
             border-radius: 10px;
             text-decoration: none;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 5px;
+            gap: 6px;
             transition: all 0.2s ease;
         }
 
-        .btn-pdf-secondary:hover {
-            background: var(--bg-card-hover);
-            border-color: var(--border-accent);
-            color: var(--accent-cyan);
+        .btn-pdf-ghost:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--border-strong);
+            color: var(--text-primary);
             transform: translateY(-2px);
         }
 
-        /* 15-Mark Essay Rubric Bento (Span 8) */
-        .essay-blueprint-bento {
-            background: linear-gradient(135deg, var(--bg-card) 0%, rgba(2, 132, 199, 0.08) 100%);
+        /* -------------------------------------------------------------
+           SPECIFIC SPECIALTY IDENTITIES & THEMES
+        ------------------------------------------------------------- */
+        /* Surgery Card (Teal) */
+        .surgery-card:hover {
+            border-color: var(--surgery-accent);
+            box-shadow: 0 10px 30px -8px var(--surgery-glow);
+        }
+        .surgery-card .card-paper-tag {
+            background: var(--surgery-tag-bg);
+            border: 1px solid var(--surgery-tag-border);
+            color: var(--surgery-tag-text);
+        }
+        .surgery-card .specialty-icon-box {
+            background: var(--surgery-gradient);
+            box-shadow: 0 6px 16px var(--surgery-glow);
+        }
+        .surgery-card .topic-chip-tag {
+            background: var(--surgery-tag-bg);
+            border: 1px solid var(--surgery-tag-border);
+            color: var(--surgery-tag-text);
+        }
+        .surgery-card .progress-bar-fill {
+            background: var(--surgery-accent);
+        }
+        .surgery-card .btn-launch-primary {
+            background: var(--surgery-btn);
+            box-shadow: 0 4px 14px var(--surgery-glow);
+        }
+        .surgery-card .btn-launch-primary:hover {
+            background: var(--surgery-btn-hover);
+        }
+
+        /* Medicine Card (Indigo) */
+        .medicine-card:hover {
+            border-color: var(--medicine-accent);
+            box-shadow: 0 10px 30px -8px var(--medicine-glow);
+        }
+        .medicine-card .card-paper-tag {
+            background: var(--medicine-tag-bg);
+            border: 1px solid var(--medicine-tag-border);
+            color: var(--medicine-tag-text);
+        }
+        .medicine-card .specialty-icon-box {
+            background: var(--medicine-gradient);
+            box-shadow: 0 6px 16px var(--medicine-glow);
+        }
+        .medicine-card .topic-chip-tag {
+            background: var(--medicine-tag-bg);
+            border: 1px solid var(--medicine-tag-border);
+            color: var(--medicine-tag-text);
+        }
+        .medicine-card .progress-bar-fill {
+            background: var(--medicine-accent);
+        }
+        .medicine-card .btn-launch-primary {
+            background: var(--medicine-btn);
+            box-shadow: 0 4px 14px var(--medicine-glow);
+        }
+        .medicine-card .btn-launch-primary:hover {
+            background: var(--medicine-btn-hover);
+        }
+
+        /* Pathology Card (Magenta) */
+        .pathology-card:hover {
+            border-color: var(--pathology-accent);
+            box-shadow: 0 10px 30px -8px var(--pathology-glow);
+        }
+        .pathology-card .card-paper-tag {
+            background: var(--pathology-tag-bg);
+            border: 1px solid var(--pathology-tag-border);
+            color: var(--pathology-tag-text);
+        }
+        .pathology-card .specialty-icon-box {
+            background: var(--pathology-gradient);
+            box-shadow: 0 6px 16px var(--pathology-glow);
+        }
+        .pathology-card .topic-chip-tag {
+            background: var(--pathology-tag-bg);
+            border: 1px solid var(--pathology-tag-border);
+            color: var(--pathology-tag-text);
+        }
+        .pathology-card .progress-bar-fill {
+            background: var(--pathology-accent);
+        }
+        .pathology-card .btn-launch-primary {
+            background: var(--pathology-btn);
+            box-shadow: 0 4px 14px var(--pathology-glow);
+        }
+        .pathology-card .btn-launch-primary:hover {
+            background: var(--pathology-btn-hover);
+        }
+
+        /* -------------------------------------------------------------
+           INTERACTIVE 15-MARK UNIVERSITY RUBRIC MATRIX (Span 8)
+        ------------------------------------------------------------- */
+        .rubric-matrix-bento {
+            background: var(--bg-card);
+        }
+
+        .rubric-header-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.85rem;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .rubric-segmented-bar {
+            display: inline-flex;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-color);
+            padding: 3px;
+            border-radius: 10px;
+            gap: 4px;
+        }
+
+        .rubric-tab-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .rubric-tab-btn.active {
+            background: #ffffff;
+            color: #090a12;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+        }
+
+        [data-theme="light"] .rubric-tab-btn.active {
+            background: #0f172a;
+            color: #ffffff;
         }
 
         .rubric-steps-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 12px;
+            gap: 10px;
             margin-top: 1rem;
         }
 
         .rubric-step-box {
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.02);
             border: 1px solid var(--border-color);
             border-radius: 10px;
-            padding: 12px 14px;
+            padding: 10px 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
         }
 
         [data-theme="light"] .rubric-step-box {
             background: #ffffff;
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
         }
 
         .rubric-step-num {
             font-family: 'JetBrains Mono', monospace;
-            font-size: 0.72rem;
+            font-size: 0.7rem;
             font-weight: 700;
-            color: var(--accent-cyan);
+            color: var(--text-muted);
             text-transform: uppercase;
-            margin-bottom: 4px;
         }
 
         .rubric-step-name {
             font-size: 0.86rem;
             font-weight: 700;
             color: var(--text-primary);
-            margin-bottom: 2px;
         }
 
         .rubric-step-marks {
             font-size: 0.72rem;
-            color: var(--text-muted);
+            color: var(--accent-primary);
+            font-weight: 600;
         }
 
-        /* Chairside Norms Bento (Span 4) */
+        /* -------------------------------------------------------------
+           CHAIRSIDE CUTOFFS BENTO (Span 4)
+        ------------------------------------------------------------- */
         .chairside-bento {
             display: flex;
             flex-direction: column;
@@ -860,13 +1139,13 @@
 
         .chairside-item {
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            padding: 8px 12px;
-            background: rgba(255, 255, 255, 0.03);
+            align-items: center;
+            background: rgba(255, 255, 255, 0.02);
             border: 1px solid var(--border-color);
+            padding: 8px 12px;
             border-radius: 8px;
-            font-size: 0.8rem;
+            font-size: 0.84rem;
         }
 
         [data-theme="light"] .chairside-item {
@@ -874,24 +1153,23 @@
         }
 
         .chairside-name {
+            color: var(--text-secondary);
             font-weight: 600;
-            color: var(--text-primary);
         }
 
         .chairside-val {
             font-family: 'JetBrains Mono', monospace;
             font-weight: 700;
-            color: var(--accent-cyan);
-            font-size: 0.82rem;
+            color: var(--text-primary);
         }
 
         .btn-open-full-modal {
             width: 100%;
-            padding: 9px;
-            background: rgba(2, 132, 199, 0.12);
-            border: 1px solid rgba(56, 189, 248, 0.3);
-            color: var(--accent-cyan);
-            border-radius: 9px;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            border-radius: 10px;
             font-size: 0.82rem;
             font-weight: 700;
             cursor: pointer;
@@ -900,58 +1178,51 @@
         }
 
         .btn-open-full-modal:hover {
-            background: rgba(2, 132, 199, 0.22);
-            border-color: var(--accent-cyan);
-            color: #ffffff;
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--border-strong);
         }
 
         /* -------------------------------------------------------------
-           CmdK COMMAND PALETTE OVERLAY
+           CMDK & MODALS
         ------------------------------------------------------------- */
-        .cmdk-overlay {
+        .cmdk-overlay, .lab-modal-overlay {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(5, 8, 15, 0.82);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            inset: 0;
+            background: rgba(0, 0, 0, 0.75);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            z-index: 1000;
             display: none;
             align-items: flex-start;
             justify-content: center;
-            padding-top: 10vh;
-            z-index: 120;
+            padding-top: 12vh;
         }
 
-        .cmdk-overlay.active {
+        .cmdk-overlay.active, .lab-modal-overlay.active {
             display: flex;
         }
 
         .cmdk-modal {
             background: var(--bg-surface);
             border: 1px solid var(--border-strong);
-            border-radius: 18px;
-            width: 100%;
+            border-radius: 16px;
+            width: 90%;
             max-width: 640px;
-            box-shadow: 0 25px 60px -10px rgba(0, 0, 0, 0.8), var(--shadow-cyan);
+            box-shadow: var(--shadow-lg);
             overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            max-height: 75vh;
-            animation: cmdk-pop 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            animation: cmdk-scale 0.2s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        @keyframes cmdk-pop {
-            0% { opacity: 0; transform: scale(0.96) translateY(-10px); }
-            100% { opacity: 1; transform: scale(1) translateY(0); }
+        @keyframes cmdk-scale {
+            from { transform: scale(0.96); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
 
         .cmdk-search-row {
             display: flex;
             align-items: center;
+            padding: 14px 18px;
             gap: 12px;
-            padding: 16px 20px;
             border-bottom: 1px solid var(--border-color);
         }
 
@@ -959,45 +1230,41 @@
             flex: 1;
             background: transparent;
             border: none;
-            outline: none;
             font-size: 1.05rem;
             color: var(--text-primary);
+            outline: none;
             font-family: inherit;
         }
 
         .cmdk-results-list {
-            padding: 8px;
+            max-height: 380px;
             overflow-y: auto;
-            max-height: 480px;
             list-style: none;
+            padding: 8px;
         }
 
         .cmdk-item {
+            padding: 10px 14px;
+            border-radius: 8px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 10px 14px;
-            border-radius: 10px;
             cursor: pointer;
-            color: var(--text-primary);
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             transition: all 0.15s ease;
-            gap: 10px;
         }
 
         .cmdk-item:hover, .cmdk-item.selected {
-            background: rgba(2, 132, 199, 0.15);
-            color: var(--accent-cyan);
+            background: rgba(255, 255, 255, 0.06);
         }
 
         .cmdk-item-badge {
             font-size: 0.72rem;
-            font-weight: 700;
             padding: 2px 7px;
-            border-radius: 5px;
-            background: rgba(255, 255, 255, 0.08);
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.05);
             color: var(--text-muted);
-            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
         }
 
         .cmdk-footer {
@@ -1006,154 +1273,134 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            font-size: 0.74rem;
+            font-size: 0.75rem;
             color: var(--text-muted);
             background: rgba(0, 0, 0, 0.1);
         }
 
-        /* -------------------------------------------------------------
-           MODAL FOR FULL CLINICAL LAB MATRIX
-        ------------------------------------------------------------- */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(5, 8, 15, 0.85);
-            backdrop-filter: blur(14px);
-            -webkit-backdrop-filter: blur(14px);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 110;
-            padding: 1.5rem;
-        }
-
-        .modal-overlay.active {
-            display: flex;
-        }
-
-        .modal-card {
+        /* Lab Modal */
+        .lab-modal-card {
             background: var(--bg-surface);
             border: 1px solid var(--border-strong);
-            border-radius: var(--radius-lg);
-            width: 100%;
-            max-width: 820px;
-            max-height: 85vh;
-            overflow-y: auto;
-            padding: 2.25rem;
-            box-shadow: var(--shadow-lg), var(--shadow-cyan);
+            border-radius: 16px;
+            width: 90%;
+            max-width: 780px;
+            max-height: 82vh;
+            display: flex;
+            flex-direction: column;
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
         }
 
-        .modal-header {
+        .lab-modal-header {
+            padding: 16px 22px;
+            border-bottom: 1px solid var(--border-color);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid var(--border-color);
         }
 
-        .modal-title {
-            font-size: 1.35rem;
-            font-weight: 700;
-            color: var(--text-primary);
+        .lab-modal-body {
+            padding: 20px 22px;
+            overflow-y: auto;
         }
 
-        .btn-modal-close {
-            background: var(--bg-card);
-            border: 1px solid var(--border-color);
-            color: var(--text-muted);
-            width: 34px;
-            height: 34px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.3rem;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-
-        .btn-modal-close:hover {
-            color: #ef4444;
-            border-color: #ef4444;
-        }
-
-        .lab-table {
+        .data-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.88rem;
+            font-size: 0.86rem;
         }
 
-        .lab-table th, .lab-table td {
-            padding: 12px 16px;
-            border-bottom: 1px solid var(--border-color);
+        .data-table th, .data-table td {
+            padding: 10px 14px;
             text-align: left;
+            border-bottom: 1px solid var(--border-color);
         }
 
-        .lab-table th {
-            color: var(--accent-cyan);
+        .data-table th {
             font-weight: 700;
+            color: var(--text-muted);
+            font-size: 0.75rem;
             text-transform: uppercase;
-            font-size: 0.74rem;
-            letter-spacing: 0.06em;
-            background: rgba(2, 132, 199, 0.08);
         }
 
-        /* Footer */
+        /* Executive Footer */
         .footer {
             border-top: 1px solid var(--border-color);
-            padding: 2.5rem 2rem;
+            padding: 2.5rem 1rem;
             text-align: center;
-            color: var(--text-muted);
+            margin-top: auto;
             font-size: 0.85rem;
-            background: var(--bg-surface);
-            position: relative;
-            z-index: 10;
+            color: var(--text-secondary);
         }
 
         /* Responsive Breakpoints */
-        @media (max-width: 1100px) {
-            .col-span-8 { grid-column: span 12; }
-            .col-span-4 { grid-column: span 6; }
-            .col-span-6 { grid-column: span 12; }
-            .triad-orbit-strip { grid-template-columns: 1fr; }
+        @media (max-width: 1024px) {
+            .col-span-8, .col-span-4 {
+                grid-column: span 12;
+            }
+            .navbar {
+                padding: 10px 14px;
+            }
+            .hero-title {
+                font-size: 2.2rem;
+            }
         }
 
         @media (max-width: 768px) {
-            .navbar { padding: 0.75rem 1rem; }
-            .cmdk-trigger-btn { display: none; }
-            .hero-title { font-size: 2.15rem; }
-            .col-span-4 { grid-column: span 12; }
-            .col-span-8 { grid-column: span 12; }
-            .card-actions-dock { flex-direction: column; }
-            .brand-title-wrap span { display: none; }
-            .brand-title-wrap h1 { font-size: 1.02rem; white-space: nowrap; }
-            .nav-actions { gap: 6px; }
-            .nav-btn span { display: none; }
-            .focus-timer-pill { padding: 5px 9px; font-size: 0.76rem; }
-            #navTimerStateText { display: none; }
-            .bento-card { padding: 1.25rem; }
-            .main-container { padding: 1.5rem 1rem 3rem 1rem; }
+            .navbar {
+                top: 8px;
+                width: calc(100% - 16px);
+                padding: 8px 12px;
+                gap: 8px;
+            }
+            .brand-title-wrap span {
+                display: none;
+            }
+            .brand-title-wrap h1 {
+                font-size: 0.95rem;
+            }
+            .cmdk-trigger-btn {
+                display: none;
+            }
+            .nav-actions {
+                gap: 6px;
+            }
+            .nav-btn span {
+                display: none;
+            }
+            .nav-btn {
+                padding: 8px;
+            }
+            .focus-timer-pill {
+                padding: 6px 10px;
+                font-size: 0.78rem;
+            }
+            .hero-title {
+                font-size: 1.85rem;
+            }
+            .bento-grid {
+                gap: 1rem;
+            }
+            .deck-metrics-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="ambient-mesh"></div>
 
     <!-- Top Executive Command Navbar -->
     <header class="navbar">
         <a href="#" class="brand-cluster" onclick="window.scrollTo({top:0, behavior:'smooth'})">
             <div class="brand-icon-box">
-                <svg width="26" height="26" viewBox="0 0 38 38" fill="none">
+                <svg width="24" height="24" viewBox="0 0 38 38" fill="none">
                     <path d="M19 7L30 12V20C30 26.5 25.3 32.5 19 34C12.7 32.5 8 26.5 8 20V12L19 7Z" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M19 14V26M13 20H25" stroke="#d8b4fe" stroke-width="2.6" stroke-linecap="round"/>
+                    <path d="M19 14V26M13 20H25" stroke="#818cf8" stroke-width="2.6" stroke-linecap="round"/>
                 </svg>
             </div>
             <div class="brand-title-wrap">
-                <h1><span class="cinzel-brand" style="color: var(--accent-cyan);">BDS</span> CLINICAL VAULT</h1>
+                <h1><span class="cinzel-brand">BDS</span> CLINICAL VAULT</h1>
                 <span>3rd Year University Command Suite</span>
             </div>
         </a>
@@ -1190,9 +1437,9 @@
     <main class="main-container">
         <!-- Hero Header -->
         <section class="hero-banner">
-            <div class="hero-badge-pill">
-                <span class="pulse-dot"></span>
-                Accredited 3rd Year University Examination Suite
+            <div class="hero-trust-bar">
+                <span class="trust-badge">Accredited Standard</span>
+                <span>3rd Year University Examination Syllabus • 63 Curated Monograph Essays</span>
             </div>
             <h2 class="hero-title editorial-heading">Dental Surgery &amp; Clinical Sciences</h2>
             <p class="hero-sub">Consolidated high-yield examination portals: 15-mark university essay blueprints, bedside emergency protocols, microscopic spotters, and continuous audio walk islands.</p>
@@ -1202,7 +1449,7 @@
                 <button class="filter-chip active" onclick="filterBento('all')">All Specialties (3)</button>
                 <button class="filter-chip" onclick="filterBento('surgery')">Paper I: Surgery (23)</button>
                 <button class="filter-chip" onclick="filterBento('medicine')">Paper II: Medicine (20)</button>
-                <button class="filter-chip" onclick="filterBento('pathology')">Paper III: Oral Pathology (20)</button>
+                <button class="filter-chip" onclick="filterBento('pathology')">Paper III: Pathology (20)</button>
                 <button class="filter-chip" onclick="toggleLabModal()">🔬 Chairside Cutoffs</button>
                 <button class="filter-chip" onclick="openCmdk()">⚡ Command Palette (Ctrl+K)</button>
             </div>
@@ -1211,44 +1458,47 @@
         <!-- Bento Grid Layout -->
         <div class="bento-grid" id="bentoGrid">
             
-            <!-- Cell 1: Welcome & Curriculum Orbit (Span 8) -->
-            <div class="bento-card col-span-8 welcome-bento" data-category="overview">
-                <div class="card-top-row">
-                    <span class="card-tag-pill">Executive Curriculum Orbit</span>
-                    <span class="live-status-pill">3 / 3 Portals Live</span>
+            <!-- Cell 1: Executive Curriculum Command Cockpit (Span 8) -->
+            <div class="bento-card col-span-8 executive-deck-bento" data-category="overview">
+                <div>
+                    <div class="deck-header-row">
+                        <span class="deck-badge">Executive Study Cockpit</span>
+                        <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent-emerald);">● 3 of 3 Portals Live &amp; Synced</span>
+                    </div>
+                    <h3 class="deck-title editorial-heading">Curriculum Command &amp; Study Intelligence</h3>
+                    <p class="deck-desc">Track your syllabus mastery across all 3 university exam papers. Click any card below to launch full interactive spotters, audio walks, and exam simulators.</p>
+
+                    <div class="deck-metrics-grid">
+                        <div class="deck-stat-box">
+                            <span class="deck-stat-val">63</span>
+                            <span class="deck-stat-label">Total University Essays</span>
+                        </div>
+                        <div class="deck-stat-box">
+                            <span class="deck-stat-val" id="totalCompletedDisplay" style="color: var(--accent-emerald);">0</span>
+                            <span class="deck-stat-label">Topics Completed</span>
+                        </div>
+                        <div class="deck-stat-box">
+                            <span class="deck-stat-val" id="overallPercentDisplay" style="color: var(--accent-primary);">0%</span>
+                            <span class="deck-stat-label">Syllabus Readiness</span>
+                        </div>
+                    </div>
                 </div>
-                <h3 class="welcome-headline editorial-heading">Master the 3rd Year Clinical Triad</h3>
-                <p class="welcome-desc">Every surgical condition, internal medicine emergency, and maxillofacial lesion structured according to standard 15-mark university examination rubrics with zero data omission.</p>
-                
-                <div class="triad-orbit-strip">
-                    <a href="https://krrish41.github.io/general-surgery/" target="_blank" class="orbit-item">
-                        <div class="orbit-title">
-                            <span>General Surgery</span>
-                            <span class="mono-num" style="color:var(--accent-cyan);">Paper I</span>
-                        </div>
-                        <div class="orbit-sub">23 Essays • Parkland • Thyroid • Neck</div>
-                    </a>
-                    <a href="https://krrish41.github.io/General-Medicine/" target="_blank" class="orbit-item">
-                        <div class="orbit-title">
-                            <span>General Medicine</span>
-                            <span class="mono-num" style="color:var(--accent-cyan);">Paper II</span>
-                        </div>
-                        <div class="orbit-sub">20 Essays • Duke • Jones • Hepatitis</div>
-                    </a>
-                    <a href="https://krrish41.github.io/Oral-Pathology/" target="_blank" class="orbit-item">
-                        <div class="orbit-title">
-                            <span>Oral Pathology</span>
-                            <span class="mono-num" style="color:var(--accent-cyan);">Paper III</span>
-                        </div>
-                        <div class="orbit-sub">20 Essays • OKC • Ameloblastoma • Spotters</div>
-                    </a>
+
+                <div>
+                    <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 6px; font-weight: 600;">
+                        <span>Comprehensive 3-Paper Completion</span>
+                        <span id="progressBarText">0 of 63 Completed</span>
+                    </div>
+                    <div class="deck-progress-bar">
+                        <div class="deck-progress-fill" id="deckProgressBar" style="width: 0%;"></div>
+                    </div>
                 </div>
             </div>
 
             <!-- Cell 2: Deep Work Focus Station (Span 4) -->
             <div class="bento-card col-span-4 timer-bento" data-category="timer">
                 <div class="card-top-row">
-                    <span class="card-tag-pill">Clinical Study Clock</span>
+                    <span class="card-paper-tag" style="background: rgba(255,255,255,0.05); border: 1px solid var(--border-color); color: var(--text-secondary);">Study Clock</span>
                     <span class="mono-num" style="font-size:0.75rem; color:var(--text-muted);">Spaced Repetition</span>
                 </div>
                 <div class="timer-display-box">
@@ -1263,39 +1513,70 @@
             </div>
 
             <!-- Cell 3: Paper I — General Surgery Pro (Span 4) -->
-            <div class="bento-card col-span-4 specialty-bento" data-category="surgery">
-                <div>
+            <div class="bento-card col-span-4 specialty-bento surgery-card" data-category="surgery">
+                <!-- Faint Surgical Watermark Pattern -->
+                <svg class="card-corner-watermark" viewBox="0 0 100 100" fill="none" stroke="currentColor">
+                    <circle cx="50" cy="50" r="40" stroke-width="1.5" stroke-dasharray="4 4"/>
+                    <line x1="50" y1="10" x2="50" y2="90" stroke-width="1.5"/>
+                    <line x1="10" y1="50" x2="90" y2="50" stroke-width="1.5"/>
+                    <rect x="35" y="35" width="30" height="30" stroke-width="1.5" rx="4"/>
+                </svg>
+
+                <div class="card-inner-shell">
                     <div class="card-top-row">
-                        <span class="card-tag-pill">Paper I • Clinical Surgery</span>
-                        <span class="live-status-pill">Accredited</span>
+                        <span class="card-paper-tag">Paper I · Surgery</span>
+                        <div class="topic-counter-badge">
+                            <span class="counter-num">23</span>
+                            <span class="counter-label">Essays</span>
+                        </div>
                     </div>
-                    <div class="specialty-icon-box" style="background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="m14 4 6 6-10 10H4v-6L14 4z"/>
-                            <path d="m18 8-4-4"/>
-                            <path d="M7 17l-3 3"/>
-                        </svg>
-                    </div>
-                    <h3 class="specialty-title editorial-heading">General Surgery Pro</h3>
-                    <p class="specialty-desc">Surgical anatomy, wound healing, shock resuscitation, burns (Parkland rule of 9s), cervical triangles, and endocrine thyroid oncology monographs.</p>
 
-                    <div class="feature-pills-wrap">
-                        <span class="feature-item-pill">🎧 Voice Walk (1x–2x)</span>
-                        <span class="feature-item-pill">⏱️ Exam Simulator</span>
+                    <div class="card-brand-row">
+                        <div class="specialty-icon-box">
+                            <!-- Scalpel & Forceps Vector -->
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="m14 4 6 6-10 10H4v-6L14 4z"/>
+                                <path d="m18 8-4-4"/>
+                                <path d="M7 17l-3 3"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="specialty-title editorial-heading">General Surgery Pro</h3>
+                            <div class="specialty-sub-meta">Clinical Surgical Oncology &amp; Trauma</div>
+                        </div>
+                    </div>
+
+                    <p class="specialty-desc">
+                        Surgical anatomy, wound healing, shock resuscitation, Parkland burns formula, cervical triangles, and thyroid oncology monographs.
+                    </p>
+
+                    <!-- Single Clean Metric Strip -->
+                    <div class="feature-metrics-strip">
+                        <span class="feature-item-pill">🎧 Voice Walk</span>
+                        <span class="feature-item-pill">⏱️ Simulator</span>
                         <span class="feature-item-pill">🔬 Spotters</span>
-                        <span class="feature-item-pill">📄 Vector Schematics</span>
+                        <span class="feature-item-pill">📄 Monograph</span>
                     </div>
 
-                    <div class="topic-chips-preview">
+                    <!-- Topic Chips: 3 Primary + Expandable Drawer -->
+                    <div class="topic-chips-container">
                         <span class="topic-chip-tag">Thyroid Neoplasms</span>
                         <span class="topic-chip-tag">Parkland Burns</span>
                         <span class="topic-chip-tag">Neck Swellings</span>
-                        <span class="topic-chip-tag">Salivary Adenoma</span>
-                        <span class="topic-chip-tag">Wound Healing</span>
+                        <button class="topic-chip-more" onclick="toggleTopicExpand('surgery', this)">+4 more</button>
+                        <div class="topics-expanded-drawer" id="topics-more-surgery">
+                            <span class="topic-chip-tag">Salivary Adenoma</span>
+                            <span class="topic-chip-tag">Wound Healing</span>
+                            <span class="topic-chip-tag">TNM Staging</span>
+                            <span class="topic-chip-tag">Surgical Shock</span>
+                        </div>
                     </div>
 
-                    <div class="curriculum-strip-card">
-                        <span>📌</span> <strong>23 Exam Topics</strong> • Master Monograph
+                    <div class="paper-progress-strip">
+                        <div class="progress-bar-track">
+                            <div class="progress-bar-fill" id="progressSurgeryFill" style="width: 0%;"></div>
+                        </div>
+                        <span id="progressSurgeryText">0 of 23 Done</span>
                     </div>
                 </div>
 
@@ -1304,7 +1585,7 @@
                         Launch Portal
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                     </a>
-                    <a href="https://krrish41.github.io/general-surgery/General_Surgery_Master_Notes.pdf" target="_blank" class="btn-pdf-secondary" title="Download Master PDF">
+                    <a href="https://krrish41.github.io/general-surgery/General_Surgery_Master_Notes.pdf" target="_blank" class="btn-pdf-ghost" title="Download Master PDF">
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
                         PDF
                     </a>
@@ -1312,39 +1593,67 @@
             </div>
 
             <!-- Cell 4: Paper II — General Medicine Pro (Span 4) -->
-            <div class="bento-card col-span-4 specialty-bento" data-category="medicine">
-                <div>
-                    <div class="card-top-row">
-                        <span class="card-tag-pill">Paper II • Internal Medicine</span>
-                        <span class="live-status-pill">Accredited</span>
-                    </div>
-                    <div class="specialty-icon-box" style="background: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6 6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1"/>
-                            <path d="M8 15v1a6 6 0 0 0 6 6 6 6 0 0 0 6-6v-4"/>
-                            <circle cx="20" cy="10" r="2"/>
-                        </svg>
-                    </div>
-                    <h3 class="specialty-title editorial-heading">General Medicine Pro</h3>
-                    <p class="specialty-desc">Internal medicine diagnostics: modified Duke criteria for infective endocarditis, Jones criteria, viral hepatitis, diabetic ketoacidosis, and chairside pharmacotherapy.</p>
+            <div class="bento-card col-span-4 specialty-bento medicine-card" data-category="medicine">
+                <!-- Faint ECG Waveform Watermark Pattern -->
+                <svg class="card-corner-watermark" viewBox="0 0 100 100" fill="none" stroke="currentColor">
+                    <path d="M0 50h25l5-15 10 35 10-40 10 30 5-10h35" stroke-width="2" stroke-linecap="round"/>
+                </svg>
 
-                    <div class="feature-pills-wrap">
-                        <span class="feature-item-pill">🎧 Voice Walk (1x–2x)</span>
-                        <span class="feature-item-pill">📊 Duke &amp; Jones Criteria</span>
-                        <span class="feature-item-pill">💉 Emergency Dosages</span>
+                <div class="card-inner-shell">
+                    <div class="card-top-row">
+                        <span class="card-paper-tag">Paper II · Medicine</span>
+                        <div class="topic-counter-badge">
+                            <span class="counter-num">20</span>
+                            <span class="counter-label">Essays</span>
+                        </div>
+                    </div>
+
+                    <div class="card-brand-row">
+                        <div class="specialty-icon-box">
+                            <!-- Stethoscope & ECG Pulse Vector -->
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M4.8 2.3A.3.3 0 1 0 5 2H4a2 2 0 0 0-2 2v5a6 6 0 0 0 6 6 6 6 0 0 0 6-6V4a2 2 0 0 0-2-2h-1"/>
+                                <path d="M8 15v1a6 6 0 0 0 6 6 6 6 0 0 0 6-6v-4"/>
+                                <circle cx="20" cy="10" r="2"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="specialty-title editorial-heading">General Medicine Pro</h3>
+                            <div class="specialty-sub-meta">Internal Medicine &amp; Therapeutics</div>
+                        </div>
+                    </div>
+
+                    <p class="specialty-desc">
+                        Internal medicine diagnostics: modified Duke criteria for IE, Jones criteria, viral hepatitis, diabetic ketoacidosis, and chairside pharmacotherapy.
+                    </p>
+
+                    <!-- Single Clean Metric Strip -->
+                    <div class="feature-metrics-strip">
+                        <span class="feature-item-pill">🎧 Voice Walk</span>
+                        <span class="feature-item-pill">📊 Duke &amp; Jones</span>
+                        <span class="feature-item-pill">💉 Dosages</span>
                         <span class="feature-item-pill">🃏 Flashcards</span>
                     </div>
 
-                    <div class="topic-chips-preview">
+                    <!-- Topic Chips: 3 Primary + Expandable Drawer -->
+                    <div class="topic-chips-container">
                         <span class="topic-chip-tag">Infective Endocarditis</span>
-                        <span class="topic-chip-tag">Hepatitis &amp; Cirrhosis</span>
+                        <span class="topic-chip-tag">Viral Hepatitis</span>
                         <span class="topic-chip-tag">Diabetes &amp; DKA</span>
-                        <span class="topic-chip-tag">Leukemia &amp; Anemias</span>
-                        <span class="topic-chip-tag">Rheumatic Fever</span>
+                        <button class="topic-chip-more" onclick="toggleTopicExpand('medicine', this)">+4 more</button>
+                        <div class="topics-expanded-drawer" id="topics-more-medicine">
+                            <span class="topic-chip-tag">Rheumatic Fever</span>
+                            <span class="topic-chip-tag">Leukemia &amp; Anemias</span>
+                            <span class="topic-chip-tag">Hypertension JNC</span>
+                            <span class="topic-chip-tag">Anaphylaxis</span>
+                        </div>
                     </div>
 
-                    <div class="curriculum-strip-card">
-                        <span>📌</span> <strong>20 Exam Topics</strong> • 18 Diagnostic Matrices
+                    <div class="paper-progress-strip">
+                        <div class="progress-bar-track">
+                            <div class="progress-bar-fill" id="progressMedicineFill" style="width: 0%;"></div>
+                        </div>
+                        <span id="progressMedicineText">0 of 20 Done</span>
                     </div>
                 </div>
 
@@ -1353,7 +1662,7 @@
                         Launch Portal
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                     </a>
-                    <a href="https://krrish41.github.io/General-Medicine/General_Medicine_Master_Notes.pdf" target="_blank" class="btn-pdf-secondary" title="Download Master PDF">
+                    <a href="https://krrish41.github.io/General-Medicine/General_Medicine_Master_Notes.pdf" target="_blank" class="btn-pdf-ghost" title="Download Master PDF">
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
                         PDF
                     </a>
@@ -1361,42 +1670,71 @@
             </div>
 
             <!-- Cell 5: Paper III — Oral Pathology Pro (Span 4) -->
-            <div class="bento-card col-span-4 specialty-bento" data-category="pathology">
-                <div>
-                    <div class="card-top-row">
-                        <span class="card-tag-pill">Paper III • Maxillofacial Pathology</span>
-                        <span class="live-status-pill">Accredited</span>
-                    </div>
-                    <div class="specialty-icon-box" style="background: linear-gradient(135deg, #9333ea 0%, #7e22ce 100%);">
-                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M6 18h8"/>
-                            <path d="M3 22h18"/>
-                            <path d="M14 22a7 7 0 1 0 0-14h-1"/>
-                            <path d="M9 14h2"/>
-                            <path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z"/>
-                            <path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3"/>
-                        </svg>
-                    </div>
-                    <h3 class="specialty-title editorial-heading">Oral Pathology Pro</h3>
-                    <p class="specialty-desc">Microscopic H&amp;E criteria, Vickers-Gorlin sign, Broders grading for OSCC, odontogenic cysts (OKC/KCOT), ameloblastoma variants, and enamel caries histopathology.</p>
+            <div class="bento-card col-span-4 specialty-bento pathology-card" data-category="pathology">
+                <!-- Faint Histological Hexagonal Cell Watermark Pattern -->
+                <svg class="card-corner-watermark" viewBox="0 0 100 100" fill="none" stroke="currentColor">
+                    <polygon points="50,15 80,32 80,68 50,85 20,68 20,32" stroke-width="1.5"/>
+                    <circle cx="50" cy="50" r="14" stroke-width="1.5" stroke-dasharray="3 3"/>
+                </svg>
 
-                    <div class="feature-pills-wrap">
-                        <span class="feature-item-pill">🎧 Voice Walk (1x–2x)</span>
-                        <span class="feature-item-pill">🔬 40 Spotter Slides</span>
-                        <span class="feature-item-pill">🧬 H&amp;E Pathognomonics</span>
+                <div class="card-inner-shell">
+                    <div class="card-top-row">
+                        <span class="card-paper-tag">Paper III · Pathology</span>
+                        <div class="topic-counter-badge">
+                            <span class="counter-num">20</span>
+                            <span class="counter-label">Essays</span>
+                        </div>
+                    </div>
+
+                    <div class="card-brand-row">
+                        <div class="specialty-icon-box">
+                            <!-- Microscope & Slide Vector -->
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M6 18h8"/>
+                                <path d="M3 22h18"/>
+                                <path d="M14 22a7 7 0 1 0 0-14h-1"/>
+                                <path d="M9 14h2"/>
+                                <path d="M9 12a2 2 0 0 1-2-2V6h6v4a2 2 0 0 1-2 2Z"/>
+                                <path d="M12 6V3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3"/>
+                            </svg>
+                        </div>
+                        <div>
+                            <h3 class="specialty-title editorial-heading">Oral Pathology Pro</h3>
+                            <div class="specialty-sub-meta">Maxillofacial Pathology &amp; Oncology</div>
+                        </div>
+                    </div>
+
+                    <p class="specialty-desc">
+                        Microscopic H&amp;E criteria, Vickers-Gorlin sign, Broders grading for OSCC, odontogenic cysts (OKC/KCOT), ameloblastoma variants, and caries histopathology.
+                    </p>
+
+                    <!-- Single Clean Metric Strip -->
+                    <div class="feature-metrics-strip">
+                        <span class="feature-item-pill">🎧 Voice Walk</span>
+                        <span class="feature-item-pill">🔬 40 Spotters</span>
+                        <span class="feature-item-pill">🧬 H&amp;E Signs</span>
                         <span class="feature-item-pill">🃏 Flashcards</span>
                     </div>
 
-                    <div class="topic-chips-preview">
+                    <!-- Topic Chips: 3 Primary + Expandable Drawer -->
+                    <div class="topic-chips-container">
                         <span class="topic-chip-tag">Ameloblastoma</span>
                         <span class="topic-chip-tag">OKC / KCOT</span>
                         <span class="topic-chip-tag">OSCC Carcinoma</span>
-                        <span class="topic-chip-tag">Broders Grading</span>
-                        <span class="topic-chip-tag">Pleomorphic Adenoma</span>
+                        <button class="topic-chip-more" onclick="toggleTopicExpand('pathology', this)">+4 more</button>
+                        <div class="topics-expanded-drawer" id="topics-more-pathology">
+                            <span class="topic-chip-tag">Broders Grading</span>
+                            <span class="topic-chip-tag">Pleomorphic Adenoma</span>
+                            <span class="topic-chip-tag">Dentigerous Cyst</span>
+                            <span class="topic-chip-tag">Enamel Caries</span>
+                        </div>
                     </div>
 
-                    <div class="curriculum-strip-card">
-                        <span>📌</span> <strong>20 Exam Topics</strong> • 40 Microscopic Spotters
+                    <div class="paper-progress-strip">
+                        <div class="progress-bar-track">
+                            <div class="progress-bar-fill" id="progressPathologyFill" style="width: 0%;"></div>
+                        </div>
+                        <span id="progressPathologyText">0 of 20 Done</span>
                     </div>
                 </div>
 
@@ -1405,58 +1743,35 @@
                         Launch Portal
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                     </a>
-                    <a href="https://krrish41.github.io/Oral-Pathology/Oral_Pathology_Master_Notes.pdf" target="_blank" class="btn-pdf-secondary" title="Download Master PDF">
+                    <a href="https://krrish41.github.io/Oral-Pathology/Oral_Pathology_Master_Notes.pdf" target="_blank" class="btn-pdf-ghost" title="Download Master PDF">
                         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/><polyline points="14 2 14 8 20 8"/></svg>
                         PDF
                     </a>
                 </div>
             </div>
 
-            <!-- Cell 6: 15-Mark University Essay Blueprint Matrix (Span 8) -->
-            <div class="bento-card col-span-8 essay-blueprint-bento" data-category="rubric">
-                <div class="card-top-row">
-                    <span class="card-tag-pill">University Examination Rubric</span>
-                    <span class="mono-num" style="font-size:0.75rem; color:var(--accent-cyan);">15-Mark Standard Structure</span>
-                </div>
-                <h3 class="specialty-title editorial-heading">The Gold-Standard 15-Mark Answer Model</h3>
-                <p class="welcome-desc">Every essay across all 3 portals strictly satisfies university examiner grading criteria to ensure complete mark maximization.</p>
+            <!-- Cell 6: Interactive 15-Mark Paper-Specific University Rubric (Span 8) -->
+            <div class="bento-card col-span-8 rubric-matrix-bento" data-category="rubric">
+                <div class="rubric-header-row">
+                    <div>
+                        <span class="deck-badge">University Examination Standard</span>
+                        <h3 class="specialty-title editorial-heading" style="margin-top: 4px;">15-Mark Answer Blueprints</h3>
+                    </div>
 
-                <div class="rubric-steps-grid">
-                    <div class="rubric-step-box">
-                        <div class="rubric-step-num">Step 01</div>
-                        <div class="rubric-step-name">Definition &amp; WHO</div>
-                        <div class="rubric-step-marks">2.0 Marks Allocated</div>
+                    <!-- Segmented Paper Selector -->
+                    <div class="rubric-segmented-bar">
+                        <button class="rubric-tab-btn active" onclick="switchRubric('surgery', this)">Paper I: Surgery</button>
+                        <button class="rubric-tab-btn" onclick="switchRubric('medicine', this)">Paper II: Medicine</button>
+                        <button class="rubric-tab-btn" onclick="switchRubric('pathology', this)">Paper III: Pathology</button>
                     </div>
-                    <div class="rubric-step-box">
-                        <div class="rubric-step-num">Step 02</div>
-                        <div class="rubric-step-name">Surgical Anatomy</div>
-                        <div class="rubric-step-marks">2.0 Marks Allocated</div>
-                    </div>
-                    <div class="rubric-step-box">
-                        <div class="rubric-step-num">Step 03</div>
-                        <div class="rubric-step-name">Pathophysiology</div>
-                        <div class="rubric-step-marks">2.0 Marks Allocated</div>
-                    </div>
-                    <div class="rubric-step-box">
-                        <div class="rubric-step-num">Step 04</div>
-                        <div class="rubric-step-name">Clinical Signs</div>
-                        <div class="rubric-step-marks">3.0 Marks Allocated</div>
-                    </div>
-                    <div class="rubric-step-box">
-                        <div class="rubric-step-num">Step 05</div>
-                        <div class="rubric-step-name">Investigations &amp; Dx</div>
-                        <div class="rubric-step-marks">2.0 Marks Allocated</div>
-                    </div>
-                    <div class="rubric-step-box">
-                        <div class="rubric-step-num">Step 06</div>
-                        <div class="rubric-step-name">Surgical Management</div>
-                        <div class="rubric-step-marks">3.0 Marks Allocated</div>
-                    </div>
-                    <div class="rubric-step-box">
-                        <div class="rubric-step-num">Step 07</div>
-                        <div class="rubric-step-name">Viva Pearls &amp; Diagram</div>
-                        <div class="rubric-step-marks">1.0 Mark Allocated</div>
-                    </div>
+                </div>
+
+                <p class="specialty-desc" id="rubricDescText" style="min-height: auto; margin-bottom: 0.75rem;">
+                    General Surgery 15-mark essay structure: operative landmarks, applied anatomy, step-by-step technique, and postoperative complications.
+                </p>
+
+                <div class="rubric-steps-grid" id="rubricGridContainer">
+                    <!-- Populated dynamically by switchRubric() -->
                 </div>
             </div>
 
@@ -1464,10 +1779,10 @@
             <div class="bento-card col-span-4 chairside-bento" data-category="cutoffs">
                 <div>
                     <div class="card-top-row">
-                        <span class="card-tag-pill">Chairside Cutoffs</span>
-                        <span class="live-status-pill">Critical Values</span>
+                        <span class="card-paper-tag" style="background: rgba(255,255,255,0.05); border: 1px solid var(--border-color); color: var(--text-secondary);">Chairside Cutoffs</span>
+                        <span style="font-size: 0.75rem; font-weight: 700; color: var(--accent-emerald);">● Safe Ranges</span>
                     </div>
-                    <h3 class="specialty-title editorial-heading">Surgical Hemostasis</h3>
+                    <h3 class="specialty-title editorial-heading">Critical Clinical Values</h3>
                     <div class="chairside-list">
                         <div class="chairside-item">
                             <span class="chairside-name">Platelet Count</span>
@@ -1518,74 +1833,74 @@
     </div>
 
     <!-- Normal Laboratory Reference Modal -->
-    <div id="labModal" class="modal-overlay" onclick="handleModalClick(event)">
-        <div class="modal-card" onclick="event.stopPropagation()">
-            <div class="modal-header">
-                <h3 class="modal-title editorial-heading">Normal Clinical Laboratory Values (Chairside Reference)</h3>
-                <button class="btn-modal-close" onclick="toggleLabModal()" aria-label="Close modal">&times;</button>
+    <div class="lab-modal-overlay" id="labModal" onclick="handleModalClick(event)">
+        <div class="lab-modal-card" onclick="event.stopPropagation()">
+            <div class="lab-modal-header">
+                <div>
+                    <h3 style="font-size:1.15rem; font-weight:800;">Chairside Normal Laboratory Reference Matrix</h3>
+                    <div style="font-size:0.75rem; color:var(--text-muted);">Dental Chairside Safety Margins &amp; Preoperative Screening Parameters</div>
+                </div>
+                <button class="nav-btn" onclick="toggleLabModal()" style="padding:6px 12px;">Close</button>
             </div>
-            <table class="lab-table">
-                <thead>
-                    <tr>
-                        <th>Parameter</th>
-                        <th>Standard Normal Range</th>
-                        <th>Dental / Surgical Cutoff</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Hemoglobin (Hb)</strong></td>
-                        <td>Men: 13.5–17.5 g/dL<br>Women: 12.0–15.5 g/dL</td>
-                        <td>Elective surgery safe: &gt; 10.0 g/dL</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Platelet Count</strong></td>
-                        <td>150,000 – 450,000 /mm³</td>
-                        <td>Safe minor oral surgery: &gt; 50,000 /mm³<br>Platelet transfusion if &lt; 40,000 /mm³</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Absolute Neutrophil Count (ANC)</strong></td>
-                        <td>1,500 – 8,000 /mm³</td>
-                        <td>If &lt; 1,000 /mm³: defer elective dental care; antibiotic cover mandatory</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Prothrombin Time / INR</strong></td>
-                        <td>PT: 11–13.5 sec<br>INR: 0.8 – 1.1</td>
-                        <td>Minor dental surgery safe: INR &le; 2.5 – 3.0 (with local hemostatics)</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Bleeding Time (Ivy)</strong></td>
-                        <td>2 – 7 minutes</td>
-                        <td>Abnormal: &gt; 10 mins (suspect platelet dysfunction/vWD)</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Clotting Time (Lee-White)</strong></td>
-                        <td>5 – 11 minutes</td>
-                        <td>Abnormal: &gt; 15 mins (suspect coagulation factor deficiency)</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Fasting Blood Glucose</strong></td>
-                        <td>70 – 99 mg/dL</td>
-                        <td>Impaired: 100–125 mg/dL<br>Diabetes: &ge; 126 mg/dL</td>
-                    </tr>
-                    <tr>
-                        <td><strong>HbA1c (Glycated Hb)</strong></td>
-                        <td>Normal: &lt; 5.7%</td>
-                        <td>Well controlled: &lt; 7.0%<br>Poor control (&gt; 8.5%): higher infection &amp; delayed healing risk</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Blood Pressure (JNC-7)</strong></td>
-                        <td>Normal: &lt; 120 / 80 mmHg</td>
-                        <td>Stage 1: 140–159 / 90–99 mmHg<br>Stage 2: &ge; 160 / &ge; 100 mmHg (limit epinephrine)</td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="lab-modal-body">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Investigation</th>
+                            <th>Reference Normal Range</th>
+                            <th>Chairside Dental Implications</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Hemoglobin (Hb)</strong></td>
+                            <td>M: 13.5–17.5 g/dL<br>F: 12.0–15.5 g/dL</td>
+                            <td>Elective surgery postponed if Hb &lt; 10 g/dL</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Platelet Count</strong></td>
+                            <td>150,000 – 450,000 /mm³</td>
+                            <td>Safe for routine extraction: &gt; 50,000 /mm³<br>Major maxillofacial: &gt; 80,000–100,000 /mm³</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Prothrombin Time / INR</strong></td>
+                            <td>PT: 11–13.5 sec<br>INR: 0.8 – 1.1</td>
+                            <td>Minor dental surgery safe: INR &le; 2.5 – 3.0 (with local hemostatics)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bleeding Time (Ivy)</strong></td>
+                            <td>2 – 7 minutes</td>
+                            <td>Abnormal: &gt; 10 mins (suspect platelet dysfunction/vWD)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Clotting Time (Lee-White)</strong></td>
+                            <td>5 – 11 minutes</td>
+                            <td>Abnormal: &gt; 15 mins (suspect coagulation factor deficiency)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Fasting Blood Glucose</strong></td>
+                            <td>70 – 99 mg/dL</td>
+                            <td>Impaired: 100–125 mg/dL<br>Diabetes: &ge; 126 mg/dL</td>
+                        </tr>
+                        <tr>
+                            <td><strong>HbA1c (Glycated Hb)</strong></td>
+                            <td>Normal: &lt; 5.7%</td>
+                            <td>Well controlled: &lt; 7.0%<br>Poor control (&gt; 8.5%): higher infection &amp; delayed healing risk</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Blood Pressure (JNC-7)</strong></td>
+                            <td>Normal: &lt; 120 / 80 mmHg</td>
+                            <td>Stage 1: 140–159 / 90–99 mmHg<br>Stage 2: &ge; 160 / &ge; 100 mmHg (limit epinephrine)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
     <!-- Executive Footer -->
     <footer class="footer">
-        <p><span class="cinzel-brand" style="color:var(--accent-cyan); font-weight:700;">BDS CLINICAL VAULT</span> • Consolidated 3rd Year Dental Surgery &amp; Clinical Sciences Command Ecosystem</p>
+        <p><span class="cinzel-brand" style="font-weight:700;">BDS CLINICAL VAULT</span> • Consolidated 3rd Year Dental Surgery &amp; Clinical Sciences Command Ecosystem</p>
         <p style="margin-top:6px; font-size:0.75rem; color:var(--text-muted);">Standardized 15-mark university essay models, diagnostic spotters, and active recall study modules with zero data omission.</p>
     </footer>
 
@@ -1630,7 +1945,131 @@
             { title: "Vickers-Gorlin Sign & Pathognomonics", sub: "Oral Pathology", tag: "Paper III", url: "https://krrish41.github.io/Oral-Pathology/" }
         ];
 
-        // --- 2. Theme Switching Logic ---
+        // --- 2. Paper-Specific 15-Mark University Marking Rubrics ---
+        const RUBRIC_MODELS = {
+            surgery: {
+                desc: "General Surgery 15-mark essay structure: applied surgical anatomy, operative steps, surgical instruments, and postoperative complication protocols.",
+                steps: [
+                    { num: "01", name: "Definition & Classification", marks: "2.0 Marks" },
+                    { num: "02", name: "Surgical Anatomy & Relations", marks: "2.5 Marks" },
+                    { num: "03", name: "Etiopathogenesis", marks: "1.5 Marks" },
+                    { num: "04", name: "Clinical Presentation & Signs", marks: "2.5 Marks" },
+                    { num: "05", name: "Diagnostic Workup & Staging", marks: "2.0 Marks" },
+                    { num: "06", name: "Operative Steps & Technique", marks: "3.0 Marks" },
+                    { num: "07", name: "Complications & Viva Pearls", marks: "1.5 Marks" }
+                ]
+            },
+            medicine: {
+                desc: "General Medicine 15-mark essay structure: diagnostic criteria matrices (Duke/Jones), bedside physical examination signs, and emergency pharmacotherapy.",
+                steps: [
+                    { num: "01", name: "Definition & Etiology", marks: "2.0 Marks" },
+                    { num: "02", name: "Pathophysiology & Hemodynamics", marks: "2.5 Marks" },
+                    { num: "03", name: "Clinical Signs & Stages", marks: "2.5 Marks" },
+                    { num: "04", name: "Diagnostic Criteria & Labs", marks: "2.5 Marks" },
+                    { num: "05", name: "Emergency Pharmacotherapy", marks: "3.0 Marks" },
+                    { num: "06", name: "Supportive Care & Monitoring", marks: "1.5 Marks" },
+                    { num: "07", name: "Prognosis & Chairside Pearls", marks: "1.0 Mark" }
+                ]
+            },
+            pathology: {
+                desc: "Oral Pathology 15-mark essay structure: WHO histological classification, microscopic pathognomonics, Broders grading, and microscopic spotter features.",
+                steps: [
+                    { num: "01", name: "Definition & WHO Classification", marks: "2.0 Marks" },
+                    { num: "02", name: "Histopathogenesis & Origins", marks: "2.0 Marks" },
+                    { num: "03", name: "Clinical & Radiographic Features", marks: "2.5 Marks" },
+                    { num: "04", name: "Microscopic H&E Criteria", marks: "3.5 Marks" },
+                    { num: "05", name: "Histological Grading (Broders)", marks: "2.0 Marks" },
+                    { num: "06", name: "Differential Diagnosis Table", marks: "2.0 Marks" },
+                    { num: "07", name: "Must-Draw Schematics & Pearls", marks: "1.0 Mark" }
+                ]
+            }
+        };
+
+        function switchRubric(paper, btn) {
+            document.querySelectorAll('.rubric-tab-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+
+            const model = RUBRIC_MODELS[paper];
+            if (!model) return;
+
+            document.getElementById('rubricDescText').textContent = model.desc;
+
+            const grid = document.getElementById('rubricGridContainer');
+            grid.innerHTML = model.steps.map(s => `
+                <div class="rubric-step-box">
+                    <span class="rubric-step-num">Step ${s.num}</span>
+                    <span class="rubric-step-name">${s.name}</span>
+                    <span class="rubric-step-marks">${s.marks} Allocated</span>
+                </div>
+            `).join('');
+        }
+
+        // Initialize Surgery Rubric
+        switchRubric('surgery');
+
+        // --- 3. Topic Expansion Drawer Toggle ---
+        function toggleTopicExpand(paper, btn) {
+            const drawer = document.getElementById(`topics-more-${paper}`);
+            if (!drawer) return;
+            const isOpen = drawer.classList.contains('open');
+            if (isOpen) {
+                drawer.classList.remove('open');
+                btn.textContent = '+4 more';
+            } else {
+                drawer.classList.add('open');
+                btn.textContent = 'Hide';
+            }
+        }
+
+        // --- 4. Live Progress Calculation from localStorage across All 3 Portals ---
+        function calculateOverallProgress() {
+            try {
+                const surgDone = Object.keys(JSON.parse(localStorage.getItem('surgery_completed_topics') || '{}')).length;
+                const medDone = Object.keys(JSON.parse(localStorage.getItem('medicine_completed_topics') || '{}')).length;
+                const pathDone = Object.keys(JSON.parse(localStorage.getItem('oral_pathology_completed_topics') || '{}')).length;
+
+                const totalCompleted = surgDone + medDone + pathDone;
+                const totalTopics = 63;
+                const pct = Math.round((totalCompleted / totalTopics) * 100);
+
+                const countEl = document.getElementById('totalCompletedDisplay');
+                const pctEl = document.getElementById('overallPercentDisplay');
+                const barEl = document.getElementById('deckProgressBar');
+                const textEl = document.getElementById('progressBarText');
+
+                if (countEl) countEl.textContent = totalCompleted;
+                if (pctEl) pctEl.textContent = `${pct}%`;
+                if (barEl) barEl.style.width = `${pct}%`;
+                if (textEl) textEl.textContent = `${totalCompleted} of ${totalTopics} Completed`;
+
+                // Update individual card progress bars
+                const surgPct = Math.round((surgDone / 23) * 100);
+                const surgBar = document.getElementById('progressSurgeryFill');
+                const surgTxt = document.getElementById('progressSurgeryText');
+                if (surgBar) surgBar.style.width = `${surgPct}%`;
+                if (surgTxt) surgTxt.textContent = `${surgDone} of 23 Done`;
+
+                const medPct = Math.round((medDone / 20) * 100);
+                const medBar = document.getElementById('progressMedicineFill');
+                const medTxt = document.getElementById('progressMedicineText');
+                if (medBar) medBar.style.width = `${medPct}%`;
+                if (medTxt) medTxt.textContent = `${medDone} of 20 Done`;
+
+                const pathPct = Math.round((pathDone / 20) * 100);
+                const pathBar = document.getElementById('progressPathologyFill');
+                const pathTxt = document.getElementById('progressPathologyText');
+                if (pathBar) pathBar.style.width = `${pathPct}%`;
+                if (pathTxt) pathTxt.textContent = `${pathDone} of 20 Done`;
+
+            } catch (e) {
+                console.log('Error calculating study progress:', e);
+            }
+        }
+
+        // Calculate progress on page load
+        calculateOverallProgress();
+
+        // --- 5. Theme Switching Logic ---
         function toggleTheme() {
             const current = document.documentElement.getAttribute('data-theme') || 'dark';
             const next = current === 'dark' ? 'light' : 'dark';
@@ -1649,12 +2088,11 @@
             }
         }
 
-        // Initialize Theme from localStorage
         const savedTheme = localStorage.getItem('bds_vault_theme') || 'dark';
         document.documentElement.setAttribute('data-theme', savedTheme);
         updateThemeIcon(savedTheme);
 
-        // --- 3. Deep Work Pomodoro Study Timer ---
+        // --- 6. Deep Work Pomodoro Study Timer ---
         let timerSeconds = 25 * 60;
         let timerInterval = null;
         let isTimerRunning = false;
@@ -1672,14 +2110,12 @@
 
         function toggleTimer() {
             if (isTimerRunning) {
-                // Pause
                 clearInterval(timerInterval);
                 isTimerRunning = false;
                 document.getElementById('timerStartBtn').textContent = 'Resume Focus';
                 document.getElementById('navTimerStateText').textContent = 'Paused';
                 document.getElementById('navTimerPill').classList.remove('running');
             } else {
-                // Start
                 isTimerRunning = true;
                 document.getElementById('timerStartBtn').textContent = 'Pause Focus';
                 document.getElementById('navTimerStateText').textContent = 'Active';
@@ -1717,8 +2153,8 @@
                 const osc = ctx.createOscillator();
                 const gain = ctx.createGain();
                 osc.type = 'sine';
-                osc.frequency.setValueAtTime(587.33, ctx.currentTime); // D5
-                osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.3); // A5
+                osc.frequency.setValueAtTime(587.33, ctx.currentTime);
+                osc.frequency.exponentialRampToValueAtTime(880, ctx.currentTime + 0.3);
                 gain.gain.setValueAtTime(0.3, ctx.currentTime);
                 gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.8);
                 osc.connect(gain);
@@ -1730,7 +2166,7 @@
             }
         }
 
-        // --- 4. Bento Grid Category Filter ---
+        // --- 7. Bento Grid Filter ---
         function filterBento(cat) {
             document.querySelectorAll('.filter-chip').forEach(btn => {
                 btn.classList.remove('active');
@@ -1750,7 +2186,7 @@
             });
         }
 
-        // --- 5. CmdK Command Palette Logic ---
+        // --- 8. CmdK Command Palette Logic ---
         let cmdkSelectedIndex = 0;
 
         function openCmdk() {
@@ -1796,12 +2232,12 @@
                 li.className = 'cmdk-item' + (idx === 0 ? ' selected' : '');
                 li.innerHTML = `
                     <div style="display:flex; align-items:center; gap:10px;">
-                        <span style="color:var(--accent-cyan);">→</span>
+                        <span style="color:var(--accent-primary);">→</span>
                         <span>${item.title}</span>
                     </div>
                     <div style="display:flex; gap:6px;">
                         <span class="cmdk-item-badge">${item.sub}</span>
-                        <span class="cmdk-item-badge" style="color:var(--accent-cyan);">${item.tag}</span>
+                        <span class="cmdk-item-badge" style="color:var(--accent-primary);">${item.tag}</span>
                     </div>
                 `;
                 li.onclick = () => {
@@ -1812,7 +2248,6 @@
             });
         }
 
-        // Keyboard Navigation (Ctrl+K, Esc, Arrows)
         document.addEventListener('keydown', (e) => {
             const isCmdkActive = document.getElementById('cmdkOverlay').classList.contains('active');
             
@@ -1857,7 +2292,7 @@
             });
         }
 
-        // --- 6. Chairside Laboratory Norms Modal ---
+        // --- 9. Chairside Laboratory Norms Modal ---
         function toggleLabModal() {
             const modal = document.getElementById('labModal');
             modal.classList.toggle('active');
@@ -1867,7 +2302,6 @@
             if (e.target.id === 'labModal') toggleLabModal();
         }
 
-        // Initialize displays
         updateTimerDisplay();
     </script>
 </body>
