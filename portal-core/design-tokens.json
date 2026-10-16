@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "name": "BDS Clinical Vault Ecosystem Design Tokens",
+  "version": "2.0.0",
+  "neutrals": {
+    "bg-base": "#090a12",
+    "bg-surface": "#101322",
+    "bg-elevated": "#161a2e",
+    "bg-glass": "rgba(16, 19, 34, 0.85)",
+    "border-color": "rgba(255, 255, 255, 0.08)",
+    "border-strong": "rgba(255, 255, 255, 0.15)",
+    "text-primary": "#f8fafc",
+    "text-secondary": "#cbd5e1",
+    "text-muted": "#94a3b8"
+  },
+  "semantics": {
+    "success": "#10b981",
+    "warning": "#f59e0b",
+    "danger": "#ef4444",
+    "info": "#38bdf8"
+  },
+  "portals": {
+    "surgery": {
+      "name": "General Surgery Pro",
+      "shortName": "Surgery Pro",
+      "paper": "Paper I · Surgery",
+      "paperId": "paper1",
+      "accentPrimary": "#14b8a6",
+      "accentPrimaryDark": "#0d9488",
+      "accentLight": "rgba(20, 184, 166, 0.14)",
+      "accentGlow": "rgba(20, 184, 166, 0.22)",
+      "accentText": "#5eead4",
+      "accentContrast": "#042f2e",
+      "heroGradient": "linear-gradient(135deg, #090a12 0%, #042f2e 60%, #0d9488 100%)",
+      "pdfName": "General_Surgery_Master_Notes.pdf",
+      "liveUrl": "https://krrish41.github.io/general-surgery/",
+      "topicCountExpected": 24
+    },
+    "medicine": {
+      "name": "General Medicine Pro",
+      "shortName": "Medicine Pro",
+      "paper": "Paper II · Medicine",
+      "paperId": "paper2",
+      "accentPrimary": "#6366f1",
+      "accentPrimaryDark": "#4338ca",
+      "accentLight": "rgba(99, 102, 241, 0.14)",
+      "accentGlow": "rgba(99, 102, 241, 0.22)",
+      "accentText": "#c7d2fe",
+      "accentContrast": "#1e1b4b",
+      "heroGradient": "linear-gradient(135deg, #090a12 0%, #1e1b4b 60%, #312e81 100%)",
+      "pdfName": "General_Medicine_Master_Notes.pdf",
+      "liveUrl": "https://krrish41.github.io/General-Medicine/",
+      "topicCountExpected": 20
+    },
+    "pathology": {
+      "name": "Oral Pathology Pro",
+      "shortName": "Pathology Pro",
+      "paper": "Paper III · Pathology",
+      "paperId": "paper3",
+      "accentPrimary": "#d946ef",
+      "accentPrimaryDark": "#c026d3",
+      "accentDeep": "#a21caf",
+      "accentLight": "rgba(217, 70, 239, 0.14)",
+      "accentGlow": "rgba(217, 70, 239, 0.15)",
+      "accentText": "#f5d0fe",
+      "accentContrast": "#4a044e",
+      "heroGradient": "linear-gradient(135deg, #2e0854 0%, #4a044e 50%, #701a75 100%)",
+      "pdfName": "Oral_Pathology_Master_Notes.pdf",
+      "liveUrl": "https://krrish41.github.io/Oral-Pathology/",
+      "topicCountExpected": 20
+    },
+    "vault": {
+      "name": "BDS Clinical Vault",
+      "shortName": "Vault Hub",
+      "paper": "Executive Ecosystem Hub",
+      "paperId": "hub",
+      "accentPrimary": "#7c3aed",
+      "accentPrimaryDark": "#6d28d9",
+      "accentLight": "rgba(124, 58, 237, 0.14)",
+      "accentGlow": "rgba(124, 58, 237, 0.20)",
+      "accentText": "#ddd6fe",
+      "accentContrast": "#2e1065",
+      "heroGradient": "linear-gradient(135deg, #090a12 0%, #1e1b4b 50%, #312e81 100%)",
+      "liveUrl": "https://krrish41.github.io/bds-vault/",
+      "topicCountExpected": 64
+    }
+  }
+}

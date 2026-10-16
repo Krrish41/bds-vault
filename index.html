@@ -860,6 +860,46 @@
             display: flex;
         }
 
+        
+        .topic-chip-tag {
+            text-decoration: none;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+        }
+        .topic-chip-tag:hover {
+            transform: translateY(-1px);
+            filter: brightness(1.2);
+        }
+        .drawer-search-wrap {
+            width: 100%;
+            margin-bottom: 8px;
+        }
+        .drawer-search-input {
+            width: 100%;
+            padding: 6px 10px;
+            font-size: 0.78rem;
+            background: rgba(0, 0, 0, 0.25);
+            border: 1px solid var(--border-color);
+            border-radius: 6px;
+            color: var(--text-primary);
+            outline: none;
+            font-family: inherit;
+            box-sizing: border-box;
+        }
+        .drawer-search-input:focus {
+            border-color: var(--accent-primary);
+        }
+        .drawer-topics-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            max-height: 220px;
+            overflow-y: auto;
+            padding-right: 4px;
+            width: 100%;
+        }
+
         /* Dynamic Topic Progress Strip */
         .paper-progress-strip {
             display: flex;
@@ -1443,7 +1483,7 @@
         <section class="hero-banner">
             <div class="hero-trust-bar">
                 <span class="trust-badge">Accredited Standard</span>
-                <span>3rd Year University Examination Syllabus • 63 Curated Monograph Essays</span>
+                <span>3rd Year University Examination Syllabus • 64 Curated Monograph Essays &amp; Revision Units</span>
             </div>
             <h2 class="hero-title editorial-heading">Dental Surgery &amp; Clinical Sciences</h2>
             <p class="hero-sub">Consolidated high-yield examination portals: 15-mark university essay blueprints, bedside emergency protocols, microscopic spotters, and continuous audio walk islands.</p>
@@ -1451,7 +1491,7 @@
             <!-- Filter Chips -->
             <div class="filter-chip-bar">
                 <button class="filter-chip active" onclick="filterBento('all')">All Specialties (3)</button>
-                <button class="filter-chip" onclick="filterBento('surgery')">Paper I: Surgery (23)</button>
+                <button class="filter-chip" onclick="filterBento('surgery')">Paper I: Surgery (24)</button>
                 <button class="filter-chip" onclick="filterBento('medicine')">Paper II: Medicine (20)</button>
                 <button class="filter-chip" onclick="filterBento('pathology')">Paper III: Pathology (20)</button>
                 <button class="filter-chip" onclick="toggleLabModal()">🔬 Chairside Cutoffs</button>
@@ -1474,7 +1514,7 @@
 
                     <div class="deck-metrics-grid">
                         <div class="deck-stat-box">
-                            <span class="deck-stat-val">63</span>
+                            <span class="deck-stat-val">64</span>
                             <span class="deck-stat-label">Total University Essays</span>
                         </div>
                         <div class="deck-stat-box">
@@ -1491,7 +1531,7 @@
                 <div>
                     <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 6px; font-weight: 600;">
                         <span>Comprehensive 3-Paper Completion</span>
-                        <span id="progressBarText">0 of 63 Completed</span>
+                        <span id="progressBarText">0 of 64 Completed</span>
                     </div>
                     <div class="deck-progress-bar">
                         <div class="deck-progress-fill" id="deckProgressBar" style="width: 0%;"></div>
@@ -1530,7 +1570,7 @@
                     <div class="card-top-row">
                         <span class="card-paper-tag">Paper I · Surgery</span>
                         <div class="topic-counter-badge">
-                            <span class="counter-num">23</span>
+                            <span class="counter-num">24</span>
                             <span class="counter-label">Essays</span>
                         </div>
                     </div>
@@ -1563,24 +1603,43 @@
                     </div>
 
                     <!-- Topic Chips: 3 Primary + Expandable Drawer -->
-                    <div class="topic-chips-container">
-                        <span class="topic-chip-tag">Thyroid Neoplasms</span>
-                        <span class="topic-chip-tag">Parkland Burns</span>
-                        <span class="topic-chip-tag">Neck Swellings</span>
-                        <button class="topic-chip-more" onclick="toggleTopicExpand('surgery', this)">+4 more</button>
-                        <div class="topics-expanded-drawer" id="topics-more-surgery">
-                            <span class="topic-chip-tag">Salivary Adenoma</span>
-                            <span class="topic-chip-tag">Wound Healing</span>
-                            <span class="topic-chip-tag">TNM Staging</span>
-                            <span class="topic-chip-tag">Surgical Shock</span>
-                        </div>
-                    </div>
-
-                    <div class="paper-progress-strip">
+<div class="topic-chips-container">
+    <a href="https://krrish41.github.io/general-surgery/#/topic/shock-fluid-resuscitation-acid-base-balance" target="_blank" class="topic-chip-tag" title="Shock, Fluid Resuscitation & Acid-Base Balance">Shock, Fluid Resuscitation</a>
+    <a href="https://krrish41.github.io/general-surgery/#/topic/hemorrhage-blood-transfusion-bleeding-disorders" target="_blank" class="topic-chip-tag" title="Hemorrhage, Blood Transfusion & Bleeding Disorders">Hemorrhage, Blood Transfusion</a>
+    <a href="https://krrish41.github.io/general-surgery/#/topic/surgical-infections-boils-carbuncle-cellulitis-erysipelas-ludwig-s-angina-cancrum-oris" target="_blank" class="topic-chip-tag" title="Surgical Infections: Boils, Carbuncle, Cellulitis, Erysipelas, Ludwig's Angina & Cancrum Oris">Surgical Infections</a>
+    <button class="topic-chip-more" onclick="toggleTopicExpand('surgery', this)">+21 more</button>
+    <div class="topics-expanded-drawer" id="topics-more-surgery">
+        <div class="drawer-search-wrap"><input type="text" class="drawer-search-input" placeholder="Filter surgery topics..." oninput="filterDrawerTopics('surgery', this.value)"></div>
+        <div class="drawer-topics-list" id="drawer-list-surgery">
+            <a href="https://krrish41.github.io/general-surgery/#/topic/abscess-hilton-s-method-of-incision-and-drainage" target="_blank" class="topic-chip-tag" title="Abscess & Hilton's Method of Incision and Drainage">Abscess</a>
+            <a href="https://krrish41.github.io/general-surgery/#/topic/surgical-site-infections-ssi-surgical-wound-classification" target="_blank" class="topic-chip-tag" title="Surgical Site Infections (SSI) & Surgical Wound Classification">Surgical Site Infections (SSI)</a>
+            <a href="https://krrish41.github.io/general-surgery/#/topic/gas-gangrene-tetanus" target="_blank" class="topic-chip-tag" title="Gas Gangrene & Tetanus">Gas Gangrene & Tetanus</a>
+            <a href="https://krrish41.github.io/general-surgery/#/topic/swellings-of-the-neck-comprehensive-master-chapter" target="_blank" class="topic-chip-tag" title="Swellings of the Neck: Comprehensive Master Chapter">Swellings of the Neck</a>
+            <a href="https://krrish41.github.io/general-surgery/#/topic/cervical-lymphadenopathy-scrofula-tb-lymphadenitis" target="_blank" class="topic-chip-tag" title="Cervical Lymphadenopathy & Scrofula / TB Lymphadenitis">Cervical Lymphadenopathy</a>
+            <a href="https://krrish41.github.io/general-surgery/#/topic/wound-healing-scars-keloid-vs-hypertrophic-scar" target="_blank" class="topic-chip-tag" title="Wound Healing, Scars, Keloid vs. Hypertrophic Scar">Wound Healing, Scars, Keloid…</a>
+            <a href="https://krrish41.github.io/general-surgery/#/topic/electrosurgery-diathermy" target="_blank" class="topic-chip-tag" title="Electrosurgery & Diathermy">Electrosurgery & Diathermy</a>
+            <a href="https://krrish41.github.io/general-surgery/#/topic/faciomaxillary-trauma-fractures" target="_blank" class="topic-chip-tag" title="Faciomaxillary Trauma & Fractures">Faciomaxillary Trauma</a>
+            <a href="https://krrish41.github.io/general-surgery/#/topic/tuberculosis-in-general-surgery-abdominal-tb-pott-s-spine-cold-abscess" target="_blank" class="topic-chip-tag" title="Tuberculosis in General Surgery (Abdominal TB, Pott's Spine & Cold Abscess)">Tuberculosis in General Surg…</a>
+            <a href="https://krrish41.github.io/general-surgery/#/topic/actinomycosis-vincent-s-angina-cancrum-oris-noma" target="_blank" class="topic-chip-tag" title="Actinomycosis, Vincent's Angina & Cancrum Oris (Noma)">Actinomycosis, Vincent's Ang…</a>
+            <a href="https://krrish41.github.io/general-surgery/#/topic/trigeminal-neuralgia-tic-douloureux" target="_blank" class="topic-chip-tag" title="Trigeminal Neuralgia (Tic Douloureux)">Trigeminal Neuralgia (Tic Do…</a>
+            <a href="https://krrish41.github.io/general-surgery/#/topic/head-injury-traumatic-brain-injury-tbi" target="_blank" class="topic-chip-tag" title="Head Injury & Traumatic Brain Injury (TBI)">Head Injury</a>
+            <a href="https://krrish41.github.io/general-surgery/#/topic/sterilization-disinfection-asepsis-in-surgery" target="_blank" class="topic-chip-tag" title="Sterilization, Disinfection & Asepsis in Surgery">Sterilization, Disinfection</a>
+            <a href="https://krrish41.github.io/general-surgery/#/topic/sutures-surgical-needles" target="_blank" class="topic-chip-tag" title="Sutures & Surgical Needles">Sutures & Surgical Needles</a>
+            <a href="https://krrish41.github.io/general-surgery/#/topic/surgical-drains" target="_blank" class="topic-chip-tag" title="Surgical Drains">Surgical Drains</a>
+            <a href="https://krrish41.github.io/general-surgery/#/topic/lasers-in-surgery" target="_blank" class="topic-chip-tag" title="Lasers in Surgery">Lasers in Surgery</a>
+            <a href="https://krrish41.github.io/general-surgery/#/topic/cryosurgery" target="_blank" class="topic-chip-tag" title="Cryosurgery">Cryosurgery</a>
+            <a href="https://krrish41.github.io/general-surgery/#/topic/basics-of-anesthesia-airway-management" target="_blank" class="topic-chip-tag" title="Basics of Anesthesia & Airway Management">Basics of Anesthesia</a>
+            <a href="https://krrish41.github.io/general-surgery/#/topic/tissue-replacement-grafts-flaps" target="_blank" class="topic-chip-tag" title="Tissue Replacement, Grafts & Flaps">Tissue Replacement, Grafts</a>
+            <a href="https://krrish41.github.io/general-surgery/#/topic/thyroid-gland-comprehensive-master-chapter" target="_blank" class="topic-chip-tag" title="Thyroid Gland: Comprehensive Master Chapter">Thyroid Gland</a>
+            <a href="https://krrish41.github.io/general-surgery/#/topic/rapid-revision-master-cheat-sheet-high-yield-keywords-clinical-signs" target="_blank" class="topic-chip-tag" title="Rapid Revision Master Cheat Sheet: High-Yield Keywords & Clinical Signs">Rapid Revision Master Cheat…</a>
+        </div>
+    </div>
+</div>
+<div class="paper-progress-strip">
                         <div class="progress-bar-track">
                             <div class="progress-bar-fill" id="progressSurgeryFill" style="width: 0%;"></div>
                         </div>
-                        <span id="progressSurgeryText">0 of 23 Done</span>
+                        <span id="progressSurgeryText">0 of 24 Done</span>
                     </div>
                 </div>
 
@@ -1640,20 +1699,35 @@
                     </div>
 
                     <!-- Topic Chips: 3 Primary + Expandable Drawer -->
-                    <div class="topic-chips-container">
-                        <span class="topic-chip-tag">Infective Endocarditis</span>
-                        <span class="topic-chip-tag">Viral Hepatitis</span>
-                        <span class="topic-chip-tag">Diabetes &amp; DKA</span>
-                        <button class="topic-chip-more" onclick="toggleTopicExpand('medicine', this)">+4 more</button>
-                        <div class="topics-expanded-drawer" id="topics-more-medicine">
-                            <span class="topic-chip-tag">Rheumatic Fever</span>
-                            <span class="topic-chip-tag">Leukemia &amp; Anemias</span>
-                            <span class="topic-chip-tag">Hypertension JNC</span>
-                            <span class="topic-chip-tag">Anaphylaxis</span>
-                        </div>
-                    </div>
-
-                    <div class="paper-progress-strip">
+<div class="topic-chips-container">
+    <a href="https://krrish41.github.io/General-Medicine/#/topic/acute-viral-hepatitis-chronic-viral-hepatitis" target="_blank" class="topic-chip-tag" title="Acute Viral Hepatitis & Chronic Viral Hepatitis">Acute Viral Hepatitis</a>
+    <a href="https://krrish41.github.io/General-Medicine/#/topic/acute-liver-failure-hepatic-encephalopathy" target="_blank" class="topic-chip-tag" title="Acute Liver Failure & Hepatic Encephalopathy">Acute Liver Failure</a>
+    <a href="https://krrish41.github.io/General-Medicine/#/topic/cirrhosis-of-the-liver-portal-hypertension" target="_blank" class="topic-chip-tag" title="Cirrhosis of the Liver & Portal Hypertension">Cirrhosis of the Liver</a>
+    <button class="topic-chip-more" onclick="toggleTopicExpand('medicine', this)">+17 more</button>
+    <div class="topics-expanded-drawer" id="topics-more-medicine">
+        <div class="drawer-search-wrap"><input type="text" class="drawer-search-input" placeholder="Filter medicine topics..." oninput="filterDrawerTopics('medicine', this.value)"></div>
+        <div class="drawer-topics-list" id="drawer-list-medicine">
+            <a href="https://krrish41.github.io/General-Medicine/#/topic/protein-energy-malnutrition-kwashiorkor-vs-marasmus" target="_blank" class="topic-chip-tag" title="Protein Energy Malnutrition: Kwashiorkor vs Marasmus">Protein Energy Malnutrition</a>
+            <a href="https://krrish41.github.io/General-Medicine/#/topic/dysphagia-peptic-ulcer-disease" target="_blank" class="topic-chip-tag" title="Dysphagia & Peptic Ulcer Disease">Dysphagia</a>
+            <a href="https://krrish41.github.io/General-Medicine/#/topic/acute-rheumatic-fever-rheumatic-heart-disease" target="_blank" class="topic-chip-tag" title="Acute Rheumatic Fever & Rheumatic Heart Disease">Acute Rheumatic Fever</a>
+            <a href="https://krrish41.github.io/General-Medicine/#/topic/infective-endocarditis-aha-dental-prophylaxis-guidelines" target="_blank" class="topic-chip-tag" title="Infective Endocarditis & AHA Dental Prophylaxis Guidelines">Infective Endocarditis</a>
+            <a href="https://krrish41.github.io/General-Medicine/#/topic/ischemic-heart-disease-acute-myocardial-infarction-stemi" target="_blank" class="topic-chip-tag" title="Ischemic Heart Disease & Acute Myocardial Infarction (STEMI)">Ischemic Heart Disease</a>
+            <a href="https://krrish41.github.io/General-Medicine/#/topic/heart-failure-systemic-hypertension" target="_blank" class="topic-chip-tag" title="Heart Failure & Systemic Hypertension">Heart Failure</a>
+            <a href="https://krrish41.github.io/General-Medicine/#/topic/congenital-heart-diseases-asd-vsd-pda-tetralogy-of-fallot" target="_blank" class="topic-chip-tag" title="Congenital Heart Diseases: ASD, VSD, PDA & Tetralogy of Fallot">Congenital Heart Diseases</a>
+            <a href="https://krrish41.github.io/General-Medicine/#/topic/enteric-fever-typhoid-paratyphoid-fever" target="_blank" class="topic-chip-tag" title="Enteric Fever: Typhoid & Paratyphoid Fever">Enteric Fever</a>
+            <a href="https://krrish41.github.io/General-Medicine/#/topic/syphilis-sexually-transmitted-orofacial-infections" target="_blank" class="topic-chip-tag" title="Syphilis & Sexually Transmitted Orofacial Infections">Syphilis</a>
+            <a href="https://krrish41.github.io/General-Medicine/#/topic/systemic-bacterial-infections-diphtheria-tetanus" target="_blank" class="topic-chip-tag" title="Systemic Bacterial Infections: Diphtheria & Tetanus">Systemic Bacterial Infections</a>
+            <a href="https://krrish41.github.io/General-Medicine/#/topic/systemic-viral-exanthems-hiv-aids" target="_blank" class="topic-chip-tag" title="Systemic Viral Exanthems & HIV/AIDS">Systemic Viral Exanthems</a>
+            <a href="https://krrish41.github.io/General-Medicine/#/topic/diabetes-mellitus-diabetic-ketoacidosis-dka" target="_blank" class="topic-chip-tag" title="Diabetes Mellitus & Diabetic Ketoacidosis (DKA)">Diabetes Mellitus</a>
+            <a href="https://krrish41.github.io/General-Medicine/#/topic/the-leukemias-aml-all-cml-cll-oral-manifestations" target="_blank" class="topic-chip-tag" title="The Leukemias: AML, ALL, CML, CLL & Oral Manifestations">The Leukemias</a>
+            <a href="https://krrish41.github.io/General-Medicine/#/topic/nephrotic-vs-nephritic-syndrome-chronic-kidney-disease-ckd" target="_blank" class="topic-chip-tag" title="Nephrotic vs Nephritic Syndrome & Chronic Kidney Disease (CKD)">Nephrotic vs Nephritic Syndr…</a>
+            <a href="https://krrish41.github.io/General-Medicine/#/topic/facial-nerve-paralysis-bell-s-palsy-headaches" target="_blank" class="topic-chip-tag" title="Facial Nerve Paralysis (Bell's Palsy) & Headaches">Facial Nerve Paralysis (Bell…</a>
+            <a href="https://krrish41.github.io/General-Medicine/#/topic/acute-meningitis-neurological-infections" target="_blank" class="topic-chip-tag" title="Acute Meningitis & Neurological Infections">Acute Meningitis</a>
+            <a href="https://krrish41.github.io/General-Medicine/#/topic/shock-syndromes-cardiopulmonary-resuscitation-bls-acls" target="_blank" class="topic-chip-tag" title="Shock Syndromes & Cardiopulmonary Resuscitation (BLS / ACLS)">Shock Syndromes</a>
+        </div>
+    </div>
+</div>
+<div class="paper-progress-strip">
                         <div class="progress-bar-track">
                             <div class="progress-bar-fill" id="progressMedicineFill" style="width: 0%;"></div>
                         </div>
@@ -1721,20 +1795,35 @@
                     </div>
 
                     <!-- Topic Chips: 3 Primary + Expandable Drawer -->
-                    <div class="topic-chips-container">
-                        <span class="topic-chip-tag">Ameloblastoma</span>
-                        <span class="topic-chip-tag">OKC / KCOT</span>
-                        <span class="topic-chip-tag">OSCC Carcinoma</span>
-                        <button class="topic-chip-more" onclick="toggleTopicExpand('pathology', this)">+4 more</button>
-                        <div class="topics-expanded-drawer" id="topics-more-pathology">
-                            <span class="topic-chip-tag">Broders Grading</span>
-                            <span class="topic-chip-tag">Pleomorphic Adenoma</span>
-                            <span class="topic-chip-tag">Dentigerous Cyst</span>
-                            <span class="topic-chip-tag">Enamel Caries</span>
-                        </div>
-                    </div>
-
-                    <div class="paper-progress-strip">
+<div class="topic-chips-container">
+    <a href="https://krrish41.github.io/Oral-Pathology/#/topic/ameloblastoma-histological-variants" target="_blank" class="topic-chip-tag" title="Ameloblastoma & Histological Variants">Ameloblastoma</a>
+    <a href="https://krrish41.github.io/Oral-Pathology/#/topic/benign-odontogenic-tumors-ceot-aot-odontoma-myxoma" target="_blank" class="topic-chip-tag" title="Benign Odontogenic Tumors: CEOT, AOT, Odontoma & Myxoma">Benign Odontogenic Tumors</a>
+    <a href="https://krrish41.github.io/Oral-Pathology/#/topic/odontogenic-keratocyst-okc-kcot-gorlin-goltz-syndrome" target="_blank" class="topic-chip-tag" title="Odontogenic Keratocyst (OKC / KCOT) & Gorlin-Goltz Syndrome">Odontogenic Keratocyst (OKC…</a>
+    <button class="topic-chip-more" onclick="toggleTopicExpand('pathology', this)">+17 more</button>
+    <div class="topics-expanded-drawer" id="topics-more-pathology">
+        <div class="drawer-search-wrap"><input type="text" class="drawer-search-input" placeholder="Filter pathology topics..." oninput="filterDrawerTopics('pathology', this.value)"></div>
+        <div class="drawer-topics-list" id="drawer-list-pathology">
+            <a href="https://krrish41.github.io/Oral-Pathology/#/topic/dentigerous-cyst-inflammatory-odontogenic-cysts" target="_blank" class="topic-chip-tag" title="Dentigerous Cyst & Inflammatory Odontogenic Cysts">Dentigerous Cyst</a>
+            <a href="https://krrish41.github.io/Oral-Pathology/#/topic/non-odontogenic-developmental-cysts-of-the-oral-region" target="_blank" class="topic-chip-tag" title="Non-Odontogenic & Developmental Cysts of the Oral Region">Non-Odontogenic</a>
+            <a href="https://krrish41.github.io/Oral-Pathology/#/topic/salivary-gland-neoplasms-pleomorphic-adenoma-warthin-s-mec-adcc" target="_blank" class="topic-chip-tag" title="Salivary Gland Neoplasms: Pleomorphic Adenoma, Warthin's, MEC & AdCC">Salivary Gland Neoplasms</a>
+            <a href="https://krrish41.github.io/Oral-Pathology/#/topic/non-neoplastic-salivary-pathologies-mucocele-ranula-sialolithiasis-sjogren-s" target="_blank" class="topic-chip-tag" title="Non-Neoplastic Salivary Pathologies: Mucocele, Ranula, Sialolithiasis & Sjogren's">Non-Neoplastic Salivary Path…</a>
+            <a href="https://krrish41.github.io/Oral-Pathology/#/topic/oral-potentially-malignant-disorders-opmd-leukoplakia-erythroplakia" target="_blank" class="topic-chip-tag" title="Oral Potentially Malignant Disorders (OPMD): Leukoplakia & Erythroplakia">Oral Potentially Malignant D…</a>
+            <a href="https://krrish41.github.io/Oral-Pathology/#/topic/oral-submucous-fibrosis-osmf-oral-lichen-planus" target="_blank" class="topic-chip-tag" title="Oral Submucous Fibrosis (OSMF) & Oral Lichen Planus">Oral Submucous Fibrosis (OSMF)</a>
+            <a href="https://krrish41.github.io/Oral-Pathology/#/topic/oral-squamous-cell-carcinoma-oscc-etiology-broders-grading-tnm-staging" target="_blank" class="topic-chip-tag" title="Oral Squamous Cell Carcinoma (OSCC): Etiology, Broders Grading & TNM Staging">Oral Squamous Cell Carcinoma…</a>
+            <a href="https://krrish41.github.io/Oral-Pathology/#/topic/benign-malignant-mesenchymal-soft-tissue-tumors-of-the-oral-cavity" target="_blank" class="topic-chip-tag" title="Benign & Malignant Mesenchymal Soft Tissue Tumors of the Oral Cavity">Benign</a>
+            <a href="https://krrish41.github.io/Oral-Pathology/#/topic/dental-caries-etiopathogenesis-histopathology-of-enamel-dentin" target="_blank" class="topic-chip-tag" title="Dental Caries: Etiopathogenesis & Histopathology of Enamel & Dentin">Dental Caries</a>
+            <a href="https://krrish41.github.io/Oral-Pathology/#/topic/developmental-disturbances-of-tooth-structure-ai-di-dentin-dysplasia" target="_blank" class="topic-chip-tag" title="Developmental Disturbances of Tooth Structure: AI, DI & Dentin Dysplasia">Developmental Disturbances o…</a>
+            <a href="https://krrish41.github.io/Oral-Pathology/#/topic/developmental-disturbances-of-tooth-number-size-shape" target="_blank" class="topic-chip-tag" title="Developmental Disturbances of Tooth Number, Size & Shape">Developmental Disturbances o…</a>
+            <a href="https://krrish41.github.io/Oral-Pathology/#/topic/developmental-anomalies-of-craniofacial-jaws-oral-soft-tissues" target="_blank" class="topic-chip-tag" title="Developmental Anomalies of Craniofacial Jaws & Oral Soft Tissues">Developmental Anomalies of C…</a>
+            <a href="https://krrish41.github.io/Oral-Pathology/#/topic/oral-bacterial-fungal-infections-tb-syphilis-actinomycosis-candidiasis" target="_blank" class="topic-chip-tag" title="Oral Bacterial & Fungal Infections: TB, Syphilis, Actinomycosis & Candidiasis">Oral Bacterial</a>
+            <a href="https://krrish41.github.io/Oral-Pathology/#/topic/oral-viral-infections-hsv-vzv-ebv-oral-hairy-leukoplakia-hpv" target="_blank" class="topic-chip-tag" title="Oral Viral Infections: HSV, VZV, EBV (Oral Hairy Leukoplakia) & HPV">Oral Viral Infections</a>
+            <a href="https://krrish41.github.io/Oral-Pathology/#/topic/vesiculobullous-immunological-diseases-pemphigus-pemphigoid-aphthae-em" target="_blank" class="topic-chip-tag" title="Vesiculobullous & Immunological Diseases: Pemphigus, Pemphigoid, Aphthae & EM">Vesiculobullous</a>
+            <a href="https://krrish41.github.io/Oral-Pathology/#/topic/metabolic-fibro-osseous-neoplastic-bone-diseases-of-the-jaws" target="_blank" class="topic-chip-tag" title="Metabolic, Fibro-Osseous & Neoplastic Bone Diseases of the Jaws">Metabolic, Fibro-Osseous</a>
+            <a href="https://krrish41.github.io/Oral-Pathology/#/topic/forensic-odontology-gustafson-s-method-cheiloscopy-rugoscopy-bite-marks" target="_blank" class="topic-chip-tag" title="Forensic Odontology: Gustafson's Method, Cheiloscopy, Rugoscopy & Bite Marks">Forensic Odontology</a>
+        </div>
+    </div>
+</div>
+<div class="paper-progress-strip">
                         <div class="progress-bar-track">
                             <div class="progress-bar-fill" id="progressPathologyFill" style="width: 0%;"></div>
                         </div>
@@ -1912,42 +2001,391 @@
     <script>
         // --- 1. Comprehensive Curriculum Dataset for CmdK Search ---
         const ALL_TOPICS = [
-            // General Surgery Topics
-            { title: "Thyroid Gland Anatomy & Carcinoma", sub: "General Surgery", tag: "Paper I", url: "https://krrish41.github.io/general-surgery/" },
-            { title: "Parkland Burns Resuscitation & Rule of 9s", sub: "General Surgery", tag: "Paper I", url: "https://krrish41.github.io/general-surgery/" },
-            { title: "Neck Swellings & Cervical Lymphadenopathy", sub: "General Surgery", tag: "Paper I", url: "https://krrish41.github.io/general-surgery/" },
-            { title: "Pleomorphic Adenoma & Salivary Glands", sub: "General Surgery", tag: "Paper I", url: "https://krrish41.github.io/general-surgery/" },
-            { title: "Wound Healing & Ballistics", sub: "General Surgery", tag: "Paper I", url: "https://krrish41.github.io/general-surgery/" },
-            { title: "Surgical Shock & Hemostasis", sub: "General Surgery", tag: "Paper I", url: "https://krrish41.github.io/general-surgery/" },
-            { title: "Gas Gangrene & Clostridial Infections", sub: "General Surgery", tag: "Paper I", url: "https://krrish41.github.io/general-surgery/" },
-            { title: "TNM Clinical Staging Classification", sub: "General Surgery", tag: "Paper I", url: "https://krrish41.github.io/general-surgery/" },
-            { title: "Cysts & Sinuses of Head and Neck", sub: "General Surgery", tag: "Paper I", url: "https://krrish41.github.io/general-surgery/" },
-            { title: "Orocutaneous Fistulas & Flaps", sub: "General Surgery", tag: "Paper I", url: "https://krrish41.github.io/general-surgery/" },
-            
-            // General Medicine Topics
-            { title: "Infective Endocarditis (Duke Criteria)", sub: "General Medicine", tag: "Paper II", url: "https://krrish41.github.io/General-Medicine/" },
-            { title: "Acute & Chronic Viral Hepatitis (A-E)", sub: "General Medicine", tag: "Paper II", url: "https://krrish41.github.io/General-Medicine/" },
-            { title: "Diabetes Mellitus & Diabetic Ketoacidosis (DKA)", sub: "General Medicine", tag: "Paper II", url: "https://krrish41.github.io/General-Medicine/" },
-            { title: "Rheumatic Heart Disease (Jones Criteria)", sub: "General Medicine", tag: "Paper II", url: "https://krrish41.github.io/General-Medicine/" },
-            { title: "Acute & Chronic Leukemias", sub: "General Medicine", tag: "Paper II", url: "https://krrish41.github.io/General-Medicine/" },
-            { title: "Megaloblastic & Iron Deficiency Anemias", sub: "General Medicine", tag: "Paper II", url: "https://krrish41.github.io/General-Medicine/" },
-            { title: "Hypertension & JNC-7 Classification", sub: "General Medicine", tag: "Paper II", url: "https://krrish41.github.io/General-Medicine/" },
-            { title: "Bronchial Asthma & Status Asthmaticus", sub: "General Medicine", tag: "Paper II", url: "https://krrish41.github.io/General-Medicine/" },
-            { title: "Anaphylactic Shock & Emergency Adrenaline", sub: "General Medicine", tag: "Paper II", url: "https://krrish41.github.io/General-Medicine/" },
-            { title: "Dental Chairside Bleeding Protocols", sub: "General Medicine", tag: "Paper II", url: "https://krrish41.github.io/General-Medicine/" },
-
-            // Oral Pathology Topics
-            { title: "Ameloblastoma & Histological Variants", sub: "Oral Pathology", tag: "Paper III", url: "https://krrish41.github.io/Oral-Pathology/" },
-            { title: "Odontogenic Keratocyst (OKC / KCOT)", sub: "Oral Pathology", tag: "Paper III", url: "https://krrish41.github.io/Oral-Pathology/" },
-            { title: "Oral Squamous Cell Carcinoma (OSCC)", sub: "Oral Pathology", tag: "Paper III", url: "https://krrish41.github.io/Oral-Pathology/" },
-            { title: "Broders Histopathological Grading", sub: "Oral Pathology", tag: "Paper III", url: "https://krrish41.github.io/Oral-Pathology/" },
-            { title: "Dentigerous Cyst & Gorlin-Goltz", sub: "Oral Pathology", tag: "Paper III", url: "https://krrish41.github.io/Oral-Pathology/" },
-            { title: "Pleomorphic Adenoma & Adenoid Cystic", sub: "Oral Pathology", tag: "Paper III", url: "https://krrish41.github.io/Oral-Pathology/" },
-            { title: "Enamel Caries & Zones of Dentin Caries", sub: "Oral Pathology", tag: "Paper III", url: "https://krrish41.github.io/Oral-Pathology/" },
-            { title: "Oral Submucous Fibrosis (OSMF)", sub: "Oral Pathology", tag: "Paper III", url: "https://krrish41.github.io/Oral-Pathology/" },
-            { title: "Leukoplakia & Erythroplakia Premalignancy", sub: "Oral Pathology", tag: "Paper III", url: "https://krrish41.github.io/Oral-Pathology/" },
-            { title: "Vickers-Gorlin Sign & Pathognomonics", sub: "Oral Pathology", tag: "Paper III", url: "https://krrish41.github.io/Oral-Pathology/" }
-        ];
+            {
+                        "title": "Shock, Fluid Resuscitation & Acid-Base Balance",
+                        "sub": "General Surgery",
+                        "tag": "Paper I",
+                        "url": "https://krrish41.github.io/general-surgery/#/topic/shock-fluid-resuscitation-acid-base-balance"
+            },
+            {
+                        "title": "Hemorrhage, Blood Transfusion & Bleeding Disorders",
+                        "sub": "General Surgery",
+                        "tag": "Paper I",
+                        "url": "https://krrish41.github.io/general-surgery/#/topic/hemorrhage-blood-transfusion-bleeding-disorders"
+            },
+            {
+                        "title": "Surgical Infections: Boils, Carbuncle, Cellulitis, Erysipelas, Ludwig's Angina & Cancrum Oris",
+                        "sub": "General Surgery",
+                        "tag": "Paper I",
+                        "url": "https://krrish41.github.io/general-surgery/#/topic/surgical-infections-boils-carbuncle-cellulitis-erysipelas-ludwig-s-angina-cancrum-oris"
+            },
+            {
+                        "title": "Abscess & Hilton's Method of Incision and Drainage",
+                        "sub": "General Surgery",
+                        "tag": "Paper I",
+                        "url": "https://krrish41.github.io/general-surgery/#/topic/abscess-hilton-s-method-of-incision-and-drainage"
+            },
+            {
+                        "title": "Surgical Site Infections (SSI) & Surgical Wound Classification",
+                        "sub": "General Surgery",
+                        "tag": "Paper I",
+                        "url": "https://krrish41.github.io/general-surgery/#/topic/surgical-site-infections-ssi-surgical-wound-classification"
+            },
+            {
+                        "title": "Gas Gangrene & Tetanus",
+                        "sub": "General Surgery",
+                        "tag": "Paper I",
+                        "url": "https://krrish41.github.io/general-surgery/#/topic/gas-gangrene-tetanus"
+            },
+            {
+                        "title": "Swellings of the Neck: Comprehensive Master Chapter",
+                        "sub": "General Surgery",
+                        "tag": "Paper I",
+                        "url": "https://krrish41.github.io/general-surgery/#/topic/swellings-of-the-neck-comprehensive-master-chapter"
+            },
+            {
+                        "title": "Cervical Lymphadenopathy & Scrofula / TB Lymphadenitis",
+                        "sub": "General Surgery",
+                        "tag": "Paper I",
+                        "url": "https://krrish41.github.io/general-surgery/#/topic/cervical-lymphadenopathy-scrofula-tb-lymphadenitis"
+            },
+            {
+                        "title": "Wound Healing, Scars, Keloid vs. Hypertrophic Scar",
+                        "sub": "General Surgery",
+                        "tag": "Paper I",
+                        "url": "https://krrish41.github.io/general-surgery/#/topic/wound-healing-scars-keloid-vs-hypertrophic-scar"
+            },
+            {
+                        "title": "Electrosurgery & Diathermy",
+                        "sub": "General Surgery",
+                        "tag": "Paper I",
+                        "url": "https://krrish41.github.io/general-surgery/#/topic/electrosurgery-diathermy"
+            },
+            {
+                        "title": "Faciomaxillary Trauma & Fractures",
+                        "sub": "General Surgery",
+                        "tag": "Paper I",
+                        "url": "https://krrish41.github.io/general-surgery/#/topic/faciomaxillary-trauma-fractures"
+            },
+            {
+                        "title": "Tuberculosis in General Surgery (Abdominal TB, Pott's Spine & Cold Abscess)",
+                        "sub": "General Surgery",
+                        "tag": "Paper I",
+                        "url": "https://krrish41.github.io/general-surgery/#/topic/tuberculosis-in-general-surgery-abdominal-tb-pott-s-spine-cold-abscess"
+            },
+            {
+                        "title": "Actinomycosis, Vincent's Angina & Cancrum Oris (Noma)",
+                        "sub": "General Surgery",
+                        "tag": "Paper I",
+                        "url": "https://krrish41.github.io/general-surgery/#/topic/actinomycosis-vincent-s-angina-cancrum-oris-noma"
+            },
+            {
+                        "title": "Trigeminal Neuralgia (Tic Douloureux)",
+                        "sub": "General Surgery",
+                        "tag": "Paper I",
+                        "url": "https://krrish41.github.io/general-surgery/#/topic/trigeminal-neuralgia-tic-douloureux"
+            },
+            {
+                        "title": "Head Injury & Traumatic Brain Injury (TBI)",
+                        "sub": "General Surgery",
+                        "tag": "Paper I",
+                        "url": "https://krrish41.github.io/general-surgery/#/topic/head-injury-traumatic-brain-injury-tbi"
+            },
+            {
+                        "title": "Sterilization, Disinfection & Asepsis in Surgery",
+                        "sub": "General Surgery",
+                        "tag": "Paper I",
+                        "url": "https://krrish41.github.io/general-surgery/#/topic/sterilization-disinfection-asepsis-in-surgery"
+            },
+            {
+                        "title": "Sutures & Surgical Needles",
+                        "sub": "General Surgery",
+                        "tag": "Paper I",
+                        "url": "https://krrish41.github.io/general-surgery/#/topic/sutures-surgical-needles"
+            },
+            {
+                        "title": "Surgical Drains",
+                        "sub": "General Surgery",
+                        "tag": "Paper I",
+                        "url": "https://krrish41.github.io/general-surgery/#/topic/surgical-drains"
+            },
+            {
+                        "title": "Lasers in Surgery",
+                        "sub": "General Surgery",
+                        "tag": "Paper I",
+                        "url": "https://krrish41.github.io/general-surgery/#/topic/lasers-in-surgery"
+            },
+            {
+                        "title": "Cryosurgery",
+                        "sub": "General Surgery",
+                        "tag": "Paper I",
+                        "url": "https://krrish41.github.io/general-surgery/#/topic/cryosurgery"
+            },
+            {
+                        "title": "Basics of Anesthesia & Airway Management",
+                        "sub": "General Surgery",
+                        "tag": "Paper I",
+                        "url": "https://krrish41.github.io/general-surgery/#/topic/basics-of-anesthesia-airway-management"
+            },
+            {
+                        "title": "Tissue Replacement, Grafts & Flaps",
+                        "sub": "General Surgery",
+                        "tag": "Paper I",
+                        "url": "https://krrish41.github.io/general-surgery/#/topic/tissue-replacement-grafts-flaps"
+            },
+            {
+                        "title": "Thyroid Gland: Comprehensive Master Chapter",
+                        "sub": "General Surgery",
+                        "tag": "Paper I",
+                        "url": "https://krrish41.github.io/general-surgery/#/topic/thyroid-gland-comprehensive-master-chapter"
+            },
+            {
+                        "title": "Rapid Revision Master Cheat Sheet: High-Yield Keywords & Clinical Signs",
+                        "sub": "General Surgery",
+                        "tag": "Paper I",
+                        "url": "https://krrish41.github.io/general-surgery/#/topic/rapid-revision-master-cheat-sheet-high-yield-keywords-clinical-signs"
+            },
+            {
+                        "title": "Acute Viral Hepatitis & Chronic Viral Hepatitis",
+                        "sub": "General Medicine",
+                        "tag": "Paper II",
+                        "url": "https://krrish41.github.io/General-Medicine/#/topic/acute-viral-hepatitis-chronic-viral-hepatitis"
+            },
+            {
+                        "title": "Acute Liver Failure & Hepatic Encephalopathy",
+                        "sub": "General Medicine",
+                        "tag": "Paper II",
+                        "url": "https://krrish41.github.io/General-Medicine/#/topic/acute-liver-failure-hepatic-encephalopathy"
+            },
+            {
+                        "title": "Cirrhosis of the Liver & Portal Hypertension",
+                        "sub": "General Medicine",
+                        "tag": "Paper II",
+                        "url": "https://krrish41.github.io/General-Medicine/#/topic/cirrhosis-of-the-liver-portal-hypertension"
+            },
+            {
+                        "title": "Protein Energy Malnutrition: Kwashiorkor vs Marasmus",
+                        "sub": "General Medicine",
+                        "tag": "Paper II",
+                        "url": "https://krrish41.github.io/General-Medicine/#/topic/protein-energy-malnutrition-kwashiorkor-vs-marasmus"
+            },
+            {
+                        "title": "Dysphagia & Peptic Ulcer Disease",
+                        "sub": "General Medicine",
+                        "tag": "Paper II",
+                        "url": "https://krrish41.github.io/General-Medicine/#/topic/dysphagia-peptic-ulcer-disease"
+            },
+            {
+                        "title": "Acute Rheumatic Fever & Rheumatic Heart Disease",
+                        "sub": "General Medicine",
+                        "tag": "Paper II",
+                        "url": "https://krrish41.github.io/General-Medicine/#/topic/acute-rheumatic-fever-rheumatic-heart-disease"
+            },
+            {
+                        "title": "Infective Endocarditis & AHA Dental Prophylaxis Guidelines",
+                        "sub": "General Medicine",
+                        "tag": "Paper II",
+                        "url": "https://krrish41.github.io/General-Medicine/#/topic/infective-endocarditis-aha-dental-prophylaxis-guidelines"
+            },
+            {
+                        "title": "Ischemic Heart Disease & Acute Myocardial Infarction (STEMI)",
+                        "sub": "General Medicine",
+                        "tag": "Paper II",
+                        "url": "https://krrish41.github.io/General-Medicine/#/topic/ischemic-heart-disease-acute-myocardial-infarction-stemi"
+            },
+            {
+                        "title": "Heart Failure & Systemic Hypertension",
+                        "sub": "General Medicine",
+                        "tag": "Paper II",
+                        "url": "https://krrish41.github.io/General-Medicine/#/topic/heart-failure-systemic-hypertension"
+            },
+            {
+                        "title": "Congenital Heart Diseases: ASD, VSD, PDA & Tetralogy of Fallot",
+                        "sub": "General Medicine",
+                        "tag": "Paper II",
+                        "url": "https://krrish41.github.io/General-Medicine/#/topic/congenital-heart-diseases-asd-vsd-pda-tetralogy-of-fallot"
+            },
+            {
+                        "title": "Enteric Fever: Typhoid & Paratyphoid Fever",
+                        "sub": "General Medicine",
+                        "tag": "Paper II",
+                        "url": "https://krrish41.github.io/General-Medicine/#/topic/enteric-fever-typhoid-paratyphoid-fever"
+            },
+            {
+                        "title": "Syphilis & Sexually Transmitted Orofacial Infections",
+                        "sub": "General Medicine",
+                        "tag": "Paper II",
+                        "url": "https://krrish41.github.io/General-Medicine/#/topic/syphilis-sexually-transmitted-orofacial-infections"
+            },
+            {
+                        "title": "Systemic Bacterial Infections: Diphtheria & Tetanus",
+                        "sub": "General Medicine",
+                        "tag": "Paper II",
+                        "url": "https://krrish41.github.io/General-Medicine/#/topic/systemic-bacterial-infections-diphtheria-tetanus"
+            },
+            {
+                        "title": "Systemic Viral Exanthems & HIV/AIDS",
+                        "sub": "General Medicine",
+                        "tag": "Paper II",
+                        "url": "https://krrish41.github.io/General-Medicine/#/topic/systemic-viral-exanthems-hiv-aids"
+            },
+            {
+                        "title": "Diabetes Mellitus & Diabetic Ketoacidosis (DKA)",
+                        "sub": "General Medicine",
+                        "tag": "Paper II",
+                        "url": "https://krrish41.github.io/General-Medicine/#/topic/diabetes-mellitus-diabetic-ketoacidosis-dka"
+            },
+            {
+                        "title": "The Leukemias: AML, ALL, CML, CLL & Oral Manifestations",
+                        "sub": "General Medicine",
+                        "tag": "Paper II",
+                        "url": "https://krrish41.github.io/General-Medicine/#/topic/the-leukemias-aml-all-cml-cll-oral-manifestations"
+            },
+            {
+                        "title": "Nephrotic vs Nephritic Syndrome & Chronic Kidney Disease (CKD)",
+                        "sub": "General Medicine",
+                        "tag": "Paper II",
+                        "url": "https://krrish41.github.io/General-Medicine/#/topic/nephrotic-vs-nephritic-syndrome-chronic-kidney-disease-ckd"
+            },
+            {
+                        "title": "Facial Nerve Paralysis (Bell's Palsy) & Headaches",
+                        "sub": "General Medicine",
+                        "tag": "Paper II",
+                        "url": "https://krrish41.github.io/General-Medicine/#/topic/facial-nerve-paralysis-bell-s-palsy-headaches"
+            },
+            {
+                        "title": "Acute Meningitis & Neurological Infections",
+                        "sub": "General Medicine",
+                        "tag": "Paper II",
+                        "url": "https://krrish41.github.io/General-Medicine/#/topic/acute-meningitis-neurological-infections"
+            },
+            {
+                        "title": "Shock Syndromes & Cardiopulmonary Resuscitation (BLS / ACLS)",
+                        "sub": "General Medicine",
+                        "tag": "Paper II",
+                        "url": "https://krrish41.github.io/General-Medicine/#/topic/shock-syndromes-cardiopulmonary-resuscitation-bls-acls"
+            },
+            {
+                        "title": "Ameloblastoma & Histological Variants",
+                        "sub": "Oral Pathology",
+                        "tag": "Paper III",
+                        "url": "https://krrish41.github.io/Oral-Pathology/#/topic/ameloblastoma-histological-variants"
+            },
+            {
+                        "title": "Benign Odontogenic Tumors: CEOT, AOT, Odontoma & Myxoma",
+                        "sub": "Oral Pathology",
+                        "tag": "Paper III",
+                        "url": "https://krrish41.github.io/Oral-Pathology/#/topic/benign-odontogenic-tumors-ceot-aot-odontoma-myxoma"
+            },
+            {
+                        "title": "Odontogenic Keratocyst (OKC / KCOT) & Gorlin-Goltz Syndrome",
+                        "sub": "Oral Pathology",
+                        "tag": "Paper III",
+                        "url": "https://krrish41.github.io/Oral-Pathology/#/topic/odontogenic-keratocyst-okc-kcot-gorlin-goltz-syndrome"
+            },
+            {
+                        "title": "Dentigerous Cyst & Inflammatory Odontogenic Cysts",
+                        "sub": "Oral Pathology",
+                        "tag": "Paper III",
+                        "url": "https://krrish41.github.io/Oral-Pathology/#/topic/dentigerous-cyst-inflammatory-odontogenic-cysts"
+            },
+            {
+                        "title": "Non-Odontogenic & Developmental Cysts of the Oral Region",
+                        "sub": "Oral Pathology",
+                        "tag": "Paper III",
+                        "url": "https://krrish41.github.io/Oral-Pathology/#/topic/non-odontogenic-developmental-cysts-of-the-oral-region"
+            },
+            {
+                        "title": "Salivary Gland Neoplasms: Pleomorphic Adenoma, Warthin's, MEC & AdCC",
+                        "sub": "Oral Pathology",
+                        "tag": "Paper III",
+                        "url": "https://krrish41.github.io/Oral-Pathology/#/topic/salivary-gland-neoplasms-pleomorphic-adenoma-warthin-s-mec-adcc"
+            },
+            {
+                        "title": "Non-Neoplastic Salivary Pathologies: Mucocele, Ranula, Sialolithiasis & Sjogren's",
+                        "sub": "Oral Pathology",
+                        "tag": "Paper III",
+                        "url": "https://krrish41.github.io/Oral-Pathology/#/topic/non-neoplastic-salivary-pathologies-mucocele-ranula-sialolithiasis-sjogren-s"
+            },
+            {
+                        "title": "Oral Potentially Malignant Disorders (OPMD): Leukoplakia & Erythroplakia",
+                        "sub": "Oral Pathology",
+                        "tag": "Paper III",
+                        "url": "https://krrish41.github.io/Oral-Pathology/#/topic/oral-potentially-malignant-disorders-opmd-leukoplakia-erythroplakia"
+            },
+            {
+                        "title": "Oral Submucous Fibrosis (OSMF) & Oral Lichen Planus",
+                        "sub": "Oral Pathology",
+                        "tag": "Paper III",
+                        "url": "https://krrish41.github.io/Oral-Pathology/#/topic/oral-submucous-fibrosis-osmf-oral-lichen-planus"
+            },
+            {
+                        "title": "Oral Squamous Cell Carcinoma (OSCC): Etiology, Broders Grading & TNM Staging",
+                        "sub": "Oral Pathology",
+                        "tag": "Paper III",
+                        "url": "https://krrish41.github.io/Oral-Pathology/#/topic/oral-squamous-cell-carcinoma-oscc-etiology-broders-grading-tnm-staging"
+            },
+            {
+                        "title": "Benign & Malignant Mesenchymal Soft Tissue Tumors of the Oral Cavity",
+                        "sub": "Oral Pathology",
+                        "tag": "Paper III",
+                        "url": "https://krrish41.github.io/Oral-Pathology/#/topic/benign-malignant-mesenchymal-soft-tissue-tumors-of-the-oral-cavity"
+            },
+            {
+                        "title": "Dental Caries: Etiopathogenesis & Histopathology of Enamel & Dentin",
+                        "sub": "Oral Pathology",
+                        "tag": "Paper III",
+                        "url": "https://krrish41.github.io/Oral-Pathology/#/topic/dental-caries-etiopathogenesis-histopathology-of-enamel-dentin"
+            },
+            {
+                        "title": "Developmental Disturbances of Tooth Structure: AI, DI & Dentin Dysplasia",
+                        "sub": "Oral Pathology",
+                        "tag": "Paper III",
+                        "url": "https://krrish41.github.io/Oral-Pathology/#/topic/developmental-disturbances-of-tooth-structure-ai-di-dentin-dysplasia"
+            },
+            {
+                        "title": "Developmental Disturbances of Tooth Number, Size & Shape",
+                        "sub": "Oral Pathology",
+                        "tag": "Paper III",
+                        "url": "https://krrish41.github.io/Oral-Pathology/#/topic/developmental-disturbances-of-tooth-number-size-shape"
+            },
+            {
+                        "title": "Developmental Anomalies of Craniofacial Jaws & Oral Soft Tissues",
+                        "sub": "Oral Pathology",
+                        "tag": "Paper III",
+                        "url": "https://krrish41.github.io/Oral-Pathology/#/topic/developmental-anomalies-of-craniofacial-jaws-oral-soft-tissues"
+            },
+            {
+                        "title": "Oral Bacterial & Fungal Infections: TB, Syphilis, Actinomycosis & Candidiasis",
+                        "sub": "Oral Pathology",
+                        "tag": "Paper III",
+                        "url": "https://krrish41.github.io/Oral-Pathology/#/topic/oral-bacterial-fungal-infections-tb-syphilis-actinomycosis-candidiasis"
+            },
+            {
+                        "title": "Oral Viral Infections: HSV, VZV, EBV (Oral Hairy Leukoplakia) & HPV",
+                        "sub": "Oral Pathology",
+                        "tag": "Paper III",
+                        "url": "https://krrish41.github.io/Oral-Pathology/#/topic/oral-viral-infections-hsv-vzv-ebv-oral-hairy-leukoplakia-hpv"
+            },
+            {
+                        "title": "Vesiculobullous & Immunological Diseases: Pemphigus, Pemphigoid, Aphthae & EM",
+                        "sub": "Oral Pathology",
+                        "tag": "Paper III",
+                        "url": "https://krrish41.github.io/Oral-Pathology/#/topic/vesiculobullous-immunological-diseases-pemphigus-pemphigoid-aphthae-em"
+            },
+            {
+                        "title": "Metabolic, Fibro-Osseous & Neoplastic Bone Diseases of the Jaws",
+                        "sub": "Oral Pathology",
+                        "tag": "Paper III",
+                        "url": "https://krrish41.github.io/Oral-Pathology/#/topic/metabolic-fibro-osseous-neoplastic-bone-diseases-of-the-jaws"
+            },
+            {
+                        "title": "Forensic Odontology: Gustafson's Method, Cheiloscopy, Rugoscopy & Bite Marks",
+                        "sub": "Oral Pathology",
+                        "tag": "Paper III",
+                        "url": "https://krrish41.github.io/Oral-Pathology/#/topic/forensic-odontology-gustafson-s-method-cheiloscopy-rugoscopy-bite-marks"
+            }
+];
 
         // --- 2. Paper-Specific 15-Mark University Marking Rubrics ---
         const RUBRIC_MODELS = {
@@ -2011,30 +2449,49 @@
         // Initialize Surgery Rubric
         switchRubric('surgery');
 
-        // --- 3. Topic Expansion Drawer Toggle ---
+        // --- 3. Topic Expansion Drawer Toggle & Filter ---
         function toggleTopicExpand(paper, btn) {
             const drawer = document.getElementById(`topics-more-${paper}`);
             if (!drawer) return;
             const isOpen = drawer.classList.contains('open');
+            const totalRemaining = paper === 'surgery' ? 21 : 17;
             if (isOpen) {
                 drawer.classList.remove('open');
-                btn.textContent = '+4 more';
+                btn.textContent = `+${totalRemaining} more`;
             } else {
                 drawer.classList.add('open');
                 btn.textContent = 'Hide';
+                const input = drawer.querySelector('.drawer-search-input');
+                if (input) setTimeout(() => input.focus(), 50);
             }
+        }
+
+        function filterDrawerTopics(paper, query) {
+            const list = document.getElementById(`drawer-list-${paper}`);
+            if (!list) return;
+            const q = query.toLowerCase().trim();
+            const chips = list.querySelectorAll('.topic-chip-tag');
+            chips.forEach(chip => {
+                const text = chip.textContent.toLowerCase() + ' ' + (chip.getAttribute('title') || '').toLowerCase();
+                chip.style.display = (!q || text.includes(q)) ? 'inline-flex' : 'none';
+            });
         }
 
         // --- 4. Live Progress Calculation from localStorage across All 3 Portals ---
         function calculateOverallProgress() {
             try {
-                const surgDone = Object.keys(JSON.parse(localStorage.getItem('surgery_completed_topics') || '{}')).length;
-                const medDone = Object.keys(JSON.parse(localStorage.getItem('medicine_completed_topics') || '{}')).length;
-                const pathDone = Object.keys(JSON.parse(localStorage.getItem('oral_pathology_completed_topics') || '{}')).length;
+                const getCount = (k1, k2) => {
+                    const raw = localStorage.getItem(k1) || localStorage.getItem(k2) || '{}';
+                    try { return Object.keys(JSON.parse(raw)).length; } catch(e) { return 0; }
+                };
+
+                const surgDone = getCount('bds.surgery.progress', 'surgery_completed_topics');
+                const medDone = getCount('bds.medicine.progress', 'medicine_completed_topics');
+                const pathDone = getCount('bds.pathology.progress', 'oral_pathology_completed_topics');
 
                 const totalCompleted = surgDone + medDone + pathDone;
-                const totalTopics = 63;
-                const pct = Math.round((totalCompleted / totalTopics) * 100);
+                const totalTopics = 64;
+                const pct = Math.min(100, Math.round((totalCompleted / totalTopics) * 100));
 
                 const countEl = document.getElementById('totalCompletedDisplay');
                 const pctEl = document.getElementById('overallPercentDisplay');
@@ -2047,19 +2504,19 @@
                 if (textEl) textEl.textContent = `${totalCompleted} of ${totalTopics} Completed`;
 
                 // Update individual card progress bars
-                const surgPct = Math.round((surgDone / 23) * 100);
+                const surgPct = Math.min(100, Math.round((surgDone / 24) * 100));
                 const surgBar = document.getElementById('progressSurgeryFill');
                 const surgTxt = document.getElementById('progressSurgeryText');
                 if (surgBar) surgBar.style.width = `${surgPct}%`;
-                if (surgTxt) surgTxt.textContent = `${surgDone} of 23 Done`;
+                if (surgTxt) surgTxt.textContent = `${surgDone} of 24 Done`;
 
-                const medPct = Math.round((medDone / 20) * 100);
+                const medPct = Math.min(100, Math.round((medDone / 20) * 100));
                 const medBar = document.getElementById('progressMedicineFill');
                 const medTxt = document.getElementById('progressMedicineText');
                 if (medBar) medBar.style.width = `${medPct}%`;
                 if (medTxt) medTxt.textContent = `${medDone} of 20 Done`;
 
-                const pathPct = Math.round((pathDone / 20) * 100);
+                const pathPct = Math.min(100, Math.round((pathDone / 20) * 100));
                 const pathBar = document.getElementById('progressPathologyFill');
                 const pathTxt = document.getElementById('progressPathologyText');
                 if (pathBar) pathBar.style.width = `${pathPct}%`;
@@ -2070,8 +2527,9 @@
             }
         }
 
-        // Calculate progress on page load
+        // Calculate progress on page load & tab focus
         calculateOverallProgress();
+        window.addEventListener('focus', calculateOverallProgress);
 
         // --- 5. Theme Switching Logic ---
         function toggleTheme() {
