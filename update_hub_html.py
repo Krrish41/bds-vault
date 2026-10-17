@@ -23,7 +23,7 @@ with open(INDEX_PATH, "r", encoding="utf-8") as f:
 
 # 1. Update Hero Trust and Filter chips
 html = re.sub(
-    r'3rd Year University Examination Syllabus • \d+ Curated Monograph Essays(?: & Revision Units)?',
+    r'3rd Year University Examination Syllabus • \d+ Curated Monograph Essays(?:\s*&amp;\s*Revision Units|\s*&\s*Revision Units)*',
     f'3rd Year University Examination Syllabus • {total_topics} Curated Monograph Essays &amp; Revision Units',
     html
 )
