@@ -22,6 +22,9 @@ guidelines.md
 
 
 DESIGN.md
+TEST_PLAN.md
+scratch_*.cjs
+*.cjs
 
 site_manifest*.json
 PORTAL_SPEC.md

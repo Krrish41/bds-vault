@@ -1,6 +1,6 @@
 {
   "version": "2.0.0",
-  "generatedAt": "1792171022.673285",
+  "generatedAt": "1792241678.9213512",
   "portals": {
     "surgery": [
       {
@@ -255,17 +255,6 @@
         "type": "essay",
         "url": "https://krrish41.github.io/general-surgery/#/topic/thyroid-gland-comprehensive-master-chapter",
         "order": 23
-      },
-      {
-        "id": "rapid-revision-master-cheat-sheet-high-yield-keywords-clinical-signs",
-        "title": "Rapid Revision Master Cheat Sheet: High-Yield Keywords & Clinical Signs",
-        "portal": "surgery",
-        "portalName": "General Surgery Pro",
-        "paper": "Paper I \u00b7 Surgery",
-        "chapter": 24,
-        "type": "cheat-sheet",
-        "url": "https://krrish41.github.io/general-surgery/#/topic/rapid-revision-master-cheat-sheet-high-yield-keywords-clinical-signs",
-        "order": 24
       }
     ],
     "medicine": [
