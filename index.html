@@ -40,35 +40,35 @@
 
             /* Paper I: General Surgery (Surgical Teal) */
             --surgery-accent: #14b8a6;
-            --surgery-accent-dark: #0d9488;
+            --surgery-accent-dark: #0f766e;
             --surgery-glow: rgba(20, 184, 166, 0.28);
             --surgery-gradient: linear-gradient(135deg, #0d9488 0%, #0f766e 100%);
-            --surgery-btn: linear-gradient(135deg, #0d9488 0%, #115e59 100%);
-            --surgery-btn-hover: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
+            --surgery-btn: linear-gradient(135deg, #14b8a6 0%, #0d9488 100%);
+            --surgery-btn-hover: linear-gradient(135deg, #2dd4bf 0%, #14b8a6 100%);
             --surgery-tag-bg: rgba(20, 184, 166, 0.12);
             --surgery-tag-border: rgba(20, 184, 166, 0.32);
             --surgery-tag-text: #5eead4;
 
-            /* Paper II: General Medicine (Diagnostic Indigo / Cobalt) */
-            --medicine-accent: #6366f1;
-            --medicine-accent-dark: #4f46e5;
-            --medicine-glow: rgba(99, 102, 241, 0.28);
-            --medicine-gradient: linear-gradient(135deg, #4f46e5 0%, #3730a3 100%);
-            --medicine-btn: linear-gradient(135deg, #4f46e5 0%, #4338ca 100%);
-            --medicine-btn-hover: linear-gradient(135deg, #6366f1 0%, #4f46e5 100%);
-            --medicine-tag-bg: rgba(99, 102, 241, 0.12);
-            --medicine-tag-border: rgba(99, 102, 241, 0.32);
-            --medicine-tag-text: #c7d2fe;
+            /* Paper II: General Medicine (Diagnostic Sky / Cobalt) */
+            --medicine-accent: #38bdf8;
+            --medicine-accent-dark: #0284c7;
+            --medicine-glow: rgba(56, 189, 248, 0.28);
+            --medicine-gradient: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+            --medicine-btn: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+            --medicine-btn-hover: linear-gradient(135deg, #7dd3fc 0%, #38bdf8 100%);
+            --medicine-tag-bg: rgba(56, 189, 248, 0.12);
+            --medicine-tag-border: rgba(56, 189, 248, 0.32);
+            --medicine-tag-text: #bae6fd;
 
-            /* Paper III: Oral Pathology (Calibrated Histological Plum / Orchid) */
-            --pathology-accent: #c056d3;
-            --pathology-accent-dark: #a83ec0;
-            --pathology-glow: rgba(192, 86, 211, 0.14);
-            --pathology-gradient: linear-gradient(135deg, #a83ec0 0%, #86198f 100%);
-            --pathology-btn: linear-gradient(135deg, #a83ec0 0%, #86198f 100%);
-            --pathology-btn-hover: linear-gradient(135deg, #c056d3 0%, #a83ec0 100%);
-            --pathology-tag-bg: rgba(192, 86, 211, 0.12);
-            --pathology-tag-border: rgba(192, 86, 211, 0.32);
+            /* Paper III: Oral Pathology (Calibrated Histological Orchid) */
+            --pathology-accent: #c084fc;
+            --pathology-accent-dark: #9333ea;
+            --pathology-glow: rgba(192, 132, 252, 0.25);
+            --pathology-gradient: linear-gradient(135deg, #9333ea 0%, #7e22ce 100%);
+            --pathology-btn: linear-gradient(135deg, #c084fc 0%, #9333ea 100%);
+            --pathology-btn-hover: linear-gradient(135deg, #d8b4fe 0%, #c084fc 100%);
+            --pathology-tag-bg: rgba(192, 132, 252, 0.12);
+            --pathology-tag-border: rgba(192, 132, 252, 0.32);
             --pathology-tag-text: #f5d0fe;
 
             --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.35);
@@ -108,17 +108,17 @@
             --surgery-tag-border: rgba(13, 148, 136, 0.25);
             --surgery-tag-text: #0f766e;
 
-            --medicine-accent: #4f46e5;
-            --medicine-glow: rgba(79, 70, 229, 0.15);
-            --medicine-tag-bg: rgba(79, 70, 229, 0.08);
-            --medicine-tag-border: rgba(79, 70, 229, 0.25);
-            --medicine-tag-text: #3730a3;
+            --medicine-accent: #0284c7;
+            --medicine-glow: rgba(2, 132, 199, 0.15);
+            --medicine-tag-bg: rgba(2, 132, 199, 0.08);
+            --medicine-tag-border: rgba(2, 132, 199, 0.25);
+            --medicine-tag-text: #0369a1;
 
-            --pathology-accent: #c026d3;
-            --pathology-glow: rgba(192, 38, 211, 0.15);
-            --pathology-tag-bg: rgba(192, 38, 211, 0.08);
-            --pathology-tag-border: rgba(192, 38, 211, 0.25);
-            --pathology-tag-text: #86198f;
+            --pathology-accent: #9333ea;
+            --pathology-glow: rgba(147, 51, 234, 0.15);
+            --pathology-tag-bg: rgba(147, 51, 234, 0.08);
+            --pathology-tag-border: rgba(147, 51, 234, 0.25);
+            --pathology-tag-text: #7e22ce;
 
             --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
             --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.07);
@@ -301,6 +301,61 @@
             background: var(--accent-emerald-light);
             border-color: var(--accent-emerald);
             color: #34d399;
+        }
+
+        .focus-timer-container {
+            position: relative;
+        }
+
+        .timer-popover {
+            position: absolute;
+            top: calc(100% + 10px);
+            right: 0;
+            background: var(--bg-surface);
+            border: 1px solid var(--border-strong);
+            border-radius: var(--radius-md);
+            padding: 16px 18px;
+            width: 270px;
+            box-shadow: var(--shadow-lg);
+            z-index: 1000;
+            display: none;
+            flex-direction: column;
+            gap: 12px;
+            animation: cmdk-scale 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .timer-popover.active {
+            display: flex;
+        }
+
+        .timer-popover-header {
+            font-size: 0.74rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            text-align: center;
+        }
+
+        .timer-popover-digits {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            text-align: center;
+            line-height: 1;
+        }
+
+        .timer-popover-sub {
+            font-size: 0.76rem;
+            color: var(--text-secondary);
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .timer-popover-controls {
+            display: flex;
+            gap: 6px;
         }
 
         .pulse-dot {
@@ -1009,13 +1064,15 @@
         }
         .surgery-card .btn-launch-primary {
             background: var(--surgery-btn);
+            color: #090a12;
             box-shadow: 0 4px 14px var(--surgery-glow);
         }
         .surgery-card .btn-launch-primary:hover {
             background: var(--surgery-btn-hover);
+            color: #090a12;
         }
 
-        /* Medicine Card (Indigo) */
+        /* Medicine Card (Sky / Cobalt) */
         .medicine-card:hover {
             border-color: var(--medicine-accent);
             box-shadow: 0 10px 30px -8px var(--medicine-glow);
@@ -1039,13 +1096,15 @@
         }
         .medicine-card .btn-launch-primary {
             background: var(--medicine-btn);
+            color: #090a12;
             box-shadow: 0 4px 14px var(--medicine-glow);
         }
         .medicine-card .btn-launch-primary:hover {
             background: var(--medicine-btn-hover);
+            color: #090a12;
         }
 
-        /* Pathology Card (Magenta) */
+        /* Pathology Card (Orchid) */
         .pathology-card:hover {
             border-color: var(--pathology-accent);
             box-shadow: 0 10px 30px -8px var(--pathology-glow);
@@ -1069,10 +1128,12 @@
         }
         .pathology-card .btn-launch-primary {
             background: var(--pathology-btn);
+            color: #090a12;
             box-shadow: 0 4px 14px var(--pathology-glow);
         }
         .pathology-card .btn-launch-primary:hover {
             background: var(--pathology-btn-hover);
+            color: #090a12;
         }
 
         /* -------------------------------------------------------------
@@ -1344,6 +1405,36 @@
             justify-content: space-between;
         }
 
+        .lab-modal-tabs {
+            display: flex;
+            gap: 8px;
+            padding: 12px 22px 0 22px;
+            border-bottom: 1px solid var(--border-color);
+            background: rgba(0, 0, 0, 0.15);
+        }
+
+        .lab-tab-btn {
+            background: transparent;
+            border: none;
+            border-bottom: 2px solid transparent;
+            color: var(--text-muted);
+            padding: 8px 14px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lab-tab-btn:hover {
+            color: var(--text-primary);
+        }
+
+        .lab-tab-btn.active {
+            color: var(--accent-primary);
+            border-bottom-color: var(--accent-primary);
+            font-weight: 700;
+        }
+
         .lab-modal-body {
             padding: 20px 22px;
             overflow-y: auto;
@@ -1438,10 +1529,7 @@
     <header class="navbar">
         <a href="#" class="brand-cluster" onclick="window.scrollTo({top:0, behavior:'smooth'})">
             <div class="brand-icon-box">
-                <svg width="24" height="24" viewBox="0 0 38 38" fill="none">
-                    <path d="M19 7L30 12V20C30 26.5 25.3 32.5 19 34C12.7 32.5 8 26.5 8 20V12L19 7Z" fill="none" stroke="#ffffff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
-                    <path d="M19 14V26M13 20H25" stroke="#818cf8" stroke-width="2.6" stroke-linecap="round"/>
-                </svg>
+                <img src="favicon.svg" width="26" height="26" alt="BDS Clinical Vault" style="display:block;">
             </div>
             <div class="brand-title-wrap">
                 <h1><span class="cinzel-brand">BDS</span> CLINICAL VAULT</h1>
@@ -1452,22 +1540,34 @@
         <!-- Global CmdK Search Bar Trigger -->
         <button class="cmdk-trigger-btn" onclick="openCmdk()" aria-label="Open Command Palette">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-            <span>Search 63 essays, spotters, cutoffs...</span>
-            <span class="kbd-pill">Ctrl K</span>
+            <span>Search 64 essays, spotters, cutoffs...</span>
+            <span class="kbd-pill kbd-label">Ctrl K</span>
         </button>
 
         <div class="nav-actions">
-            <!-- Study Focus Pomodoro Station Pill -->
-            <button class="focus-timer-pill" id="navTimerPill" onclick="toggleTimer()" title="Toggle Deep Work Study Timer">
-                <span class="pulse-dot"></span>
-                <span id="navTimerDisplay" class="mono-num">25:00</span>
-                <span id="navTimerStateText">Focus</span>
-            </button>
+            <!-- Study Focus Pomodoro Station Pill with Popover -->
+            <div class="focus-timer-container">
+                <button class="focus-timer-pill" id="navTimerPill" onclick="toggleTimerPopover(event)" title="Toggle Deep Work Study Timer">
+                    <span class="pulse-dot"></span>
+                    <span id="navTimerDisplay" class="mono-num">25:00</span>
+                    <span id="navTimerStateText">Focus</span>
+                </button>
+                <div class="timer-popover" id="timerPopover" onclick="event.stopPropagation()">
+                    <div class="timer-popover-header" id="timerModeLabel">High-Yield Focus Block</div>
+                    <div class="timer-popover-digits" id="timerMainDigits">25:00</div>
+                    <div class="timer-popover-sub">Pomodoro Study Interval</div>
+                    <div class="timer-popover-controls">
+                        <button class="timer-btn timer-btn-primary" id="timerStartBtn" onclick="toggleTimer()">Start Study Block</button>
+                        <button class="timer-btn timer-btn-secondary" onclick="resetTimer(25)">25m</button>
+                        <button class="timer-btn timer-btn-secondary" onclick="resetTimer(50)">50m</button>
+                    </div>
+                </div>
+            </div>
 
-            <!-- Chairside Lab Norms -->
-            <button class="nav-btn" onclick="toggleLabModal()" title="View Chairside Normal Clinical Values">
+            <!-- Quick Reference Modal Trigger -->
+            <button class="nav-btn" onclick="toggleLabModal('norm')" title="View Quick Reference &amp; Clinical Safety Margins">
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 2v7.31M14 2v7.31M8.5 2h7M14 9.3a6.5 6.5 0 1 1-4 0"/></svg>
-                <span>Lab Norms</span>
+                <span>Quick Reference</span>
             </button>
 
             <!-- Theme Toggle -->
@@ -1483,80 +1583,17 @@
         <section class="hero-banner">
             <div class="hero-trust-bar">
                 <span class="trust-badge">Accredited Standard</span>
-                <span>3rd Year University Examination Syllabus • 64 Curated Monograph Essays &amp; Revision Units</span>
+                <span>3rd Year University Examination Syllabus • 64 Curated Monograph Essays &amp; Revision Units &amp; Revision Units</span>
             </div>
             <h2 class="hero-title editorial-heading">Dental Surgery &amp; Clinical Sciences</h2>
             <p class="hero-sub">Consolidated high-yield examination portals: 15-mark university essay blueprints, bedside emergency protocols, microscopic spotters, and continuous audio walk islands.</p>
 
-            <!-- Filter Chips -->
-            <div class="filter-chip-bar">
-                <button class="filter-chip active" onclick="filterBento('all')">All Specialties (3)</button>
-                <button class="filter-chip" onclick="filterBento('surgery')">Paper I: Surgery (24)</button>
-                <button class="filter-chip" onclick="filterBento('medicine')">Paper II: Medicine (20)</button>
-                <button class="filter-chip" onclick="filterBento('pathology')">Paper III: Pathology (20)</button>
-                <button class="filter-chip" onclick="toggleLabModal()">🔬 Chairside Cutoffs</button>
-                <button class="filter-chip" onclick="openCmdk()">⚡ Command Palette (Ctrl+K)</button>
-            </div>
         </section>
 
-        <!-- Bento Grid Layout -->
+        <!-- Bento Grid Layout: 3 Subject Portals Above the Fold -->
         <div class="bento-grid" id="bentoGrid">
             
-            <!-- Cell 1: Executive Curriculum Command Cockpit (Span 8) -->
-            <div class="bento-card col-span-8 executive-deck-bento" data-category="overview">
-                <div>
-                    <div class="deck-header-row">
-                        <span class="deck-badge">Executive Study Cockpit</span>
-                        <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent-emerald);">● 3 of 3 Portals Live &amp; Synced</span>
-                    </div>
-                    <h3 class="deck-title editorial-heading">Curriculum Command &amp; Study Intelligence</h3>
-                    <p class="deck-desc">Track your syllabus mastery across all 3 university exam papers. Click any card below to launch full interactive spotters, audio walks, and exam simulators.</p>
-
-                    <div class="deck-metrics-grid">
-                        <div class="deck-stat-box">
-                            <span class="deck-stat-val">64</span>
-                            <span class="deck-stat-label">Total University Essays</span>
-                        </div>
-                        <div class="deck-stat-box">
-                            <span class="deck-stat-val" id="totalCompletedDisplay" style="color: var(--accent-emerald);">0</span>
-                            <span class="deck-stat-label">Topics Completed</span>
-                        </div>
-                        <div class="deck-stat-box">
-                            <span class="deck-stat-val" id="overallPercentDisplay" style="color: var(--accent-primary);">0%</span>
-                            <span class="deck-stat-label">Syllabus Readiness</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div>
-                    <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 6px; font-weight: 600;">
-                        <span>Comprehensive 3-Paper Completion</span>
-                        <span id="progressBarText">0 of 64 Completed</span>
-                    </div>
-                    <div class="deck-progress-bar">
-                        <div class="deck-progress-fill" id="deckProgressBar" style="width: 0%;"></div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Cell 2: Deep Work Focus Station (Span 4) -->
-            <div class="bento-card col-span-4 timer-bento" data-category="timer">
-                <div class="card-top-row">
-                    <span class="card-paper-tag" style="background: rgba(255,255,255,0.05); border: 1px solid var(--border-color); color: var(--text-secondary);">Study Clock</span>
-                    <span class="mono-num" style="font-size:0.75rem; color:var(--text-muted);">Spaced Repetition</span>
-                </div>
-                <div class="timer-display-box">
-                    <div class="timer-digits" id="timerMainDigits">25:00</div>
-                    <div class="timer-mode-label" id="timerModeLabel">High-Yield Focus Block</div>
-                </div>
-                <div class="timer-controls-row">
-                    <button class="timer-btn timer-btn-primary" id="timerStartBtn" onclick="toggleTimer()">Start Study Block</button>
-                    <button class="timer-btn timer-btn-secondary" onclick="resetTimer(25)">25m</button>
-                    <button class="timer-btn timer-btn-secondary" onclick="resetTimer(50)">50m</button>
-                </div>
-            </div>
-
-            <!-- Cell 3: Paper I — General Surgery Pro (Span 4) -->
+            <!-- Cell 1: Paper I — General Surgery Pro (Span 4) -->
             <div class="bento-card col-span-4 specialty-bento surgery-card" data-category="surgery">
                 <!-- Faint Surgical Watermark Pattern -->
                 <svg class="card-corner-watermark" viewBox="0 0 100 100" fill="none" stroke="currentColor">
@@ -1843,7 +1880,44 @@
                 </div>
             </div>
 
-            <!-- Cell 6: Interactive 15-Mark Paper-Specific University Rubric (Span 8) -->
+            <!-- Cell 4: Executive Curriculum Command Cockpit (Span 12) -->
+            <div class="bento-card col-span-12 executive-deck-bento" data-category="overview">
+                <div>
+                    <div class="deck-header-row">
+                        <span class="deck-badge">Executive Study Cockpit</span>
+                        <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent-emerald);">● 3 of 3 Portals Live &amp; Synced</span>
+                    </div>
+                    <h3 class="deck-title editorial-heading">Curriculum Command &amp; Study Intelligence</h3>
+                    <p class="deck-desc">Track your syllabus mastery across all 3 university exam papers with real-time browser storage and cross-monograph completion sync.</p>
+
+                    <div class="deck-metrics-grid">
+                        <div class="deck-stat-box">
+                            <span class="deck-stat-val">64</span>
+                            <span class="deck-stat-label">Total University Essays</span>
+                        </div>
+                        <div class="deck-stat-box">
+                            <span class="deck-stat-val" id="totalCompletedDisplay" style="color: var(--accent-emerald);">0</span>
+                            <span class="deck-stat-label">Topics Completed</span>
+                        </div>
+                        <div class="deck-stat-box">
+                            <span class="deck-stat-val" id="overallPercentDisplay" style="color: var(--accent-primary);">0%</span>
+                            <span class="deck-stat-label">Syllabus Readiness</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <div style="display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-muted); margin-bottom: 6px; font-weight: 600;">
+                        <span>Comprehensive 3-Paper Completion</span>
+                        <span id="progressBarText">0 of 64 Completed</span>
+                    </div>
+                    <div class="deck-progress-bar">
+                        <div class="deck-progress-fill" id="deckProgressBar" style="width: 0%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cell 5: Interactive 15-Mark Paper-Specific University Rubric (Span 8) -->
             <div class="bento-card col-span-8 rubric-matrix-bento" data-category="rubric">
                 <div class="rubric-header-row">
                     <div>
@@ -1868,7 +1942,7 @@
                 </div>
             </div>
 
-            <!-- Cell 7: Chairside Surgical Cutoffs (Span 4) -->
+            <!-- Cell 6: Chairside Surgical Cutoffs (Span 4) -->
             <div class="bento-card col-span-4 chairside-bento" data-category="cutoffs">
                 <div>
                     <div class="card-top-row">
@@ -1899,7 +1973,7 @@
                         </div>
                     </div>
                 </div>
-                <button class="btn-open-full-modal" onclick="toggleLabModal()">
+                <button class="btn-open-full-modal" onclick="toggleLabModal('cutoffs')">
                     Open Complete 10-Parameter Matrix →
                 </button>
             </div>
@@ -1925,68 +1999,132 @@
         </div>
     </div>
 
-    <!-- Normal Laboratory Reference Modal -->
+    <!-- Quick Reference Modal: Normal Laboratory Reference & Chairside Cutoffs -->
     <div class="lab-modal-overlay" id="labModal" onclick="handleModalClick(event)">
         <div class="lab-modal-card" onclick="event.stopPropagation()">
             <div class="lab-modal-header">
                 <div>
-                    <h3 style="font-size:1.15rem; font-weight:800;">Chairside Normal Laboratory Reference Matrix</h3>
+                    <h3 style="font-size:1.15rem; font-weight:800;">Quick Reference &amp; Clinical Safety Margins</h3>
                     <div style="font-size:0.75rem; color:var(--text-muted);">Dental Chairside Safety Margins &amp; Preoperative Screening Parameters</div>
                 </div>
                 <button class="nav-btn" onclick="toggleLabModal()" style="padding:6px 12px;">Close</button>
             </div>
+            <div class="lab-modal-tabs">
+                <button class="lab-tab-btn active" id="labTabBtn-norm" onclick="switchLabTab('norm', this)">Normal Laboratory Reference</button>
+                <button class="lab-tab-btn" id="labTabBtn-cutoffs" onclick="switchLabTab('cutoffs', this)">Chairside Surgical Cutoffs</button>
+            </div>
             <div class="lab-modal-body">
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>Investigation</th>
-                            <th>Reference Normal Range</th>
-                            <th>Chairside Dental Implications</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td><strong>Hemoglobin (Hb)</strong></td>
-                            <td>M: 13.5–17.5 g/dL<br>F: 12.0–15.5 g/dL</td>
-                            <td>Elective surgery postponed if Hb &lt; 10 g/dL</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Platelet Count</strong></td>
-                            <td>150,000 – 450,000 /mm³</td>
-                            <td>Safe for routine extraction: &gt; 50,000 /mm³<br>Major maxillofacial: &gt; 80,000–100,000 /mm³</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Prothrombin Time / INR</strong></td>
-                            <td>PT: 11–13.5 sec<br>INR: 0.8 – 1.1</td>
-                            <td>Minor dental surgery safe: INR &le; 2.5 – 3.0 (with local hemostatics)</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Bleeding Time (Ivy)</strong></td>
-                            <td>2 – 7 minutes</td>
-                            <td>Abnormal: &gt; 10 mins (suspect platelet dysfunction/vWD)</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Clotting Time (Lee-White)</strong></td>
-                            <td>5 – 11 minutes</td>
-                            <td>Abnormal: &gt; 15 mins (suspect coagulation factor deficiency)</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Fasting Blood Glucose</strong></td>
-                            <td>70 – 99 mg/dL</td>
-                            <td>Impaired: 100–125 mg/dL<br>Diabetes: &ge; 126 mg/dL</td>
-                        </tr>
-                        <tr>
-                            <td><strong>HbA1c (Glycated Hb)</strong></td>
-                            <td>Normal: &lt; 5.7%</td>
-                            <td>Well controlled: &lt; 7.0%<br>Poor control (&gt; 8.5%): higher infection &amp; delayed healing risk</td>
-                        </tr>
-                        <tr>
-                            <td><strong>Blood Pressure (JNC-7)</strong></td>
-                            <td>Normal: &lt; 120 / 80 mmHg</td>
-                            <td>Stage 1: 140–159 / 90–99 mmHg<br>Stage 2: &ge; 160 / &ge; 100 mmHg (limit epinephrine)</td>
-                        </tr>
-                    </tbody>
-                </table>
+                <div id="labTabContent-norm">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Investigation</th>
+                                <th>Reference Normal Range</th>
+                                <th>Chairside Dental Implications</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Hemoglobin (Hb)</strong></td>
+                                <td>M: 13.5–17.5 g/dL<br>F: 12.0–15.5 g/dL</td>
+                                <td>Elective surgery postponed if Hb &lt; 10 g/dL</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Platelet Count</strong></td>
+                                <td>150,000 – 450,000 /mm³</td>
+                                <td>Safe for routine extraction: &gt; 50,000 /mm³<br>Major maxillofacial: &gt; 80,000–100,000 /mm³</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Prothrombin Time / INR</strong></td>
+                                <td>PT: 11–13.5 sec<br>INR: 0.8 – 1.1</td>
+                                <td>Minor dental surgery safe: INR &le; 2.5 – 3.0 (with local hemostatics)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Bleeding Time (Ivy)</strong></td>
+                                <td>2 – 7 minutes</td>
+                                <td>Abnormal: &gt; 10 mins (suspect platelet dysfunction/vWD)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Clotting Time (Lee-White)</strong></td>
+                                <td>5 – 11 minutes</td>
+                                <td>Abnormal: &gt; 15 mins (suspect coagulation factor deficiency)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Fasting Blood Glucose</strong></td>
+                                <td>70 – 99 mg/dL</td>
+                                <td>Impaired: 100–125 mg/dL<br>Diabetes: &ge; 126 mg/dL</td>
+                            </tr>
+                            <tr>
+                                <td><strong>HbA1c (Glycated Hb)</strong></td>
+                                <td>Normal: &lt; 5.7%</td>
+                                <td>Well controlled: &lt; 7.0%<br>Poor control (&gt; 8.5%): higher infection &amp; delayed healing risk</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Absolute Neutrophil Count (ANC)</strong></td>
+                                <td>1,500 – 8,000 /mm³</td>
+                                <td>Safe chairside: &gt; 1,000 /mm³<br>Severe neutropenia (&lt; 500 /mm³): postpone elective care</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Serum Creatinine</strong></td>
+                                <td>0.6 – 1.2 mg/dL</td>
+                                <td>Elevated (&gt; 1.5 mg/dL): caution with NSAIDs, dose-reduce antibiotics</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Blood Pressure (JNC-7)</strong></td>
+                                <td>Normal: &lt; 120 / 80 mmHg</td>
+                                <td>Stage 1: 140–159 / 90–99 mmHg<br>Stage 2: &ge; 160 / &ge; 100 mmHg (limit epinephrine)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="labTabContent-cutoffs" style="display: none;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Clinical Parameter</th>
+                                <th>Safe Chairside Cutoff</th>
+                                <th>Action If Beyond Cutoff</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>Platelet Count</strong></td>
+                                <td>&gt; 50,000 /mm³ (routine)<br>&gt; 80,000 /mm³ (major)</td>
+                                <td>Postpone surgery; hematology consult; consider platelet transfusion</td>
+                            </tr>
+                            <tr>
+                                <td><strong>PT / INR</strong></td>
+                                <td>&le; 2.5 – 3.0</td>
+                                <td>Consult physician for anticoagulant tapering; local hemostatic agents</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Fasting Blood Glucose</strong></td>
+                                <td>&lt; 126 mg/dL (target &lt; 180 mg/dL postprandial)</td>
+                                <td>Risk of surgical wound infection; treat acute odontogenic infection first</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Glycated Hb (HbA1c)</strong></td>
+                                <td>&lt; 7.0% (moderately safe &lt; 8.0%)</td>
+                                <td>Avoid elective major flaps if &gt; 8.5%; antimicrobial prophylaxis considered</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Absolute Neutrophil Count (ANC)</strong></td>
+                                <td>&gt; 1,000 /mm³</td>
+                                <td>Antibiotic prophylaxis if 500–1,000; defer elective procedures if &lt; 500</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Blood Pressure</strong></td>
+                                <td>&lt; 160 / 100 mmHg</td>
+                                <td>Stage 2 (&ge; 160/100): defer elective surgery; avoid high-dose adrenaline</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Bleeding Time</strong></td>
+                                <td>&lt; 10 minutes</td>
+                                <td>Investigate for antiplatelet therapy (aspirin/clopidogrel) or vWD</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
@@ -2754,14 +2892,57 @@
             });
         }
 
-        // --- 9. Chairside Laboratory Norms Modal ---
-        function toggleLabModal() {
+        // --- 9. Quick Reference & Clinical Cutoffs Modal ---
+        function switchLabTab(tab, btn) {
+            document.querySelectorAll('.lab-tab-btn').forEach(b => b.classList.remove('active'));
+            if (btn) btn.classList.add('active');
+            const normTab = document.getElementById('labTabContent-norm');
+            const cutoffsTab = document.getElementById('labTabContent-cutoffs');
+            if (tab === 'norm') {
+                if (normTab) normTab.style.display = 'block';
+                if (cutoffsTab) cutoffsTab.style.display = 'none';
+            } else {
+                if (normTab) normTab.style.display = 'none';
+                if (cutoffsTab) cutoffsTab.style.display = 'block';
+            }
+        }
+
+        function toggleLabModal(defaultTab = 'norm') {
             const modal = document.getElementById('labModal');
+            if (!modal) return;
+            const willOpen = !modal.classList.contains('active');
             modal.classList.toggle('active');
+            if (willOpen) {
+                const btn = defaultTab === 'cutoffs' ? document.getElementById('labTabBtn-cutoffs') : document.getElementById('labTabBtn-norm');
+                switchLabTab(defaultTab, btn);
+            }
         }
 
         function handleModalClick(e) {
             if (e.target.id === 'labModal') toggleLabModal();
+        }
+
+        // --- 10. Focus Timer Popover Logic ---
+        function toggleTimerPopover(e) {
+            if (e) e.stopPropagation();
+            const pop = document.getElementById('timerPopover');
+            if (pop) pop.classList.toggle('active');
+        }
+
+        document.addEventListener('click', (e) => {
+            const pop = document.getElementById('timerPopover');
+            const pill = document.getElementById('navTimerPill');
+            if (pop && pop.classList.contains('active')) {
+                if (!pop.contains(e.target) && !pill.contains(e.target)) {
+                    pop.classList.remove('active');
+                }
+            }
+        });
+
+        // Platform detection for keyboard shortcut
+        if (navigator.platform && navigator.platform.toUpperCase().indexOf('MAC') >= 0) {
+            const kbd = document.querySelector('.cmdk-trigger-btn .kbd-pill');
+            if (kbd) kbd.textContent = '⌘K';
         }
 
         updateTimerDisplay();

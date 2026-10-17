@@ -1,12 +1,12 @@
 /* ==========================================================================
-   BDS CLINICAL VAULT — CANONICAL CORE STYLESHEET
+   BDS CLINICAL VAULT — CANONICAL CORE STYLESHEET (v2.1)
    Unified Component Shell for Surgery Pro, Medicine Pro, Pathology Pro & Hub
    ========================================================================== */
 
 :root {
-  /* Dynamic tokens populated per portal from design-tokens.json */
   --bg-base: #090a12;
   --bg-surface: #101322;
+  --bg-surface-2: rgba(255, 255, 255, 0.04);
   --bg-elevated: #161a2e;
   --bg-glass: rgba(16, 19, 34, 0.85);
   --border-color: rgba(255, 255, 255, 0.08);
@@ -16,8 +16,8 @@
   --text-secondary: #cbd5e1;
   --text-muted: #94a3b8;
   --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
   --radius-full: 9999px;
   --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
   --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
@@ -30,8 +30,9 @@
 [data-theme="light"], body.light {
   --bg-base: #f8fafc;
   --bg-surface: #ffffff;
+  --bg-surface-2: rgba(15, 23, 42, 0.04);
   --bg-elevated: #f1f5f9;
-  --bg-glass: rgba(255, 255, 255, 0.9);
+  --bg-glass: rgba(255, 255, 255, 0.92);
   --border-color: rgba(15, 23, 42, 0.1);
   --border-strong: rgba(15, 23, 42, 0.2);
   --text-primary: #0f172a;
@@ -53,7 +54,7 @@ body {
   background-color: var(--bg-base);
   color: var(--text-primary);
   line-height: 1.6;
-  font-size: 15.5px;
+  font-size: 15px;
   -webkit-font-smoothing: antialiased;
   min-height: 100vh;
   overflow-x: hidden;
@@ -65,56 +66,205 @@ body {
   outline-offset: 2px !important;
 }
 
-/* Topbar Double-Bezel Floating Architecture */
-.canonical-topbar {
+/* ==========================================================================
+   DOCKED SHELL LAYOUT ARCHITECTURE (Spec 2.6)
+   ========================================================================== */
+.app-container {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  background: var(--bg-base);
+  overflow-x: hidden;
+}
+
+/* Docked 304px Sidebar */
+.sidebar {
+  width: 304px;
+  min-width: 304px;
+  max-width: 304px;
+  height: 100vh;
   position: sticky;
-  top: 14px;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-surface);
+  border-right: 1px solid var(--border-color);
+  box-sizing: border-box;
+  overflow: hidden;
   z-index: 100;
-  width: calc(100% - 32px);
-  max-width: 1440px;
-  margin: 0 auto 1.5rem auto;
-  background: var(--bg-glass);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Brand Block (Spec 2.2) */
+.brand-block {
+  height: 64px;
+  min-height: 64px;
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-sizing: border-box;
+  border-bottom: 1px solid var(--border-color);
+  cursor: pointer;
+  user-select: none;
+}
+
+.brand-logo-tile {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
+.brand-text-stack {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-width: 0;
+  overflow: hidden;
+}
+
+.brand-wordmark {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: 0.03em;
+  line-height: 1.15;
+  white-space: nowrap;
+}
+
+.brand-subtitle {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  line-height: 1.2;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-top: 2px;
+}
+
+/* Back to BDS Clinical Vault Button (Spec 2.1) */
+.sidebar-back-row {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--border-color);
+  background: rgba(0, 0, 0, 0.12);
+  box-sizing: border-box;
+}
+
+.back-to-vault-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  height: 40px;
+  padding: 0 12px;
+  border-radius: 10px;
   border: 1px solid var(--border-color);
-  border-radius: var(--radius-lg);
-  padding: 10px 20px;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  white-space: nowrap;
+  flex: none;
+  box-sizing: border-box;
+  transition: all var(--transition-fast);
+}
+
+@media (pointer: coarse) {
+  .back-to-vault-btn {
+    height: 44px;
+  }
+}
+
+.back-to-vault-btn:hover {
+  background: var(--bg-surface-2);
+  border-color: var(--border-strong);
+  color: var(--text-primary);
+}
+
+.back-to-vault-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--accent-primary);
+}
+
+.back-to-vault-btn svg {
+  flex-shrink: 0;
+}
+
+/* Main Column */
+.main-column {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-base);
+  overflow-x: hidden;
+}
+
+/* 64px Topbar */
+.top-bar {
+  height: 64px;
+  min-height: 64px;
+  padding: 0 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  box-shadow: var(--shadow-sm);
-  transition: all var(--transition-normal);
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-glass);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  position: sticky;
+  top: 0;
+  z-index: 90;
+  box-sizing: border-box;
+  gap: 12px;
 }
 
-.topbar-left {
+.top-bar-left {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
+  min-width: 0;
+  overflow: hidden;
 }
 
-.topbar-right-cluster {
+.top-right-tools {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
-/* Nav Action Buttons */
+/* Responsive label collapsing to prevent top-right overflow (Issue 7) */
+@media (max-width: 1150px) {
+  .top-right-tools .btn-label {
+    display: none;
+  }
+}
+
+/* Buttons */
 .nav-pill-btn {
-  background: rgba(255, 255, 255, 0.04);
+  background: var(--bg-surface-2);
   border: 1px solid var(--border-color);
   color: var(--text-primary);
-  padding: 8px 14px;
-  border-radius: var(--radius-full);
-  font-size: 0.82rem;
+  padding: 7px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
   font-weight: 600;
   cursor: pointer;
   display: inline-flex;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
   transition: all var(--transition-fast);
   text-decoration: none;
   white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .nav-pill-btn:hover {
@@ -125,7 +275,7 @@ body {
 
 .nav-pill-btn.primary-accent {
   background: var(--accent-primary);
-  color: #ffffff;
+  color: #090a12;
   border-color: var(--accent-primary-dark);
 }
 
@@ -134,85 +284,18 @@ body {
   box-shadow: 0 2px 12px var(--accent-glow);
 }
 
-/* Floating Audio Walkthrough Player Dock */
-.audio-dock-overlay {
-  position: fixed;
-  bottom: 24px;
-  right: 24px;
-  z-index: 1000;
-  background: var(--bg-surface);
-  border: 1px solid var(--accent-primary);
-  border-radius: var(--radius-lg);
-  padding: 16px 20px;
-  box-shadow: 0 12px 36px rgba(0, 0, 0, 0.6);
-  display: none;
-  flex-direction: column;
-  gap: 12px;
-  width: 340px;
-  animation: slideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.audio-dock-overlay.active {
-  display: flex;
-}
-
-@keyframes slideUp {
-  from { transform: translateY(20px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
-}
-
-.audio-speed-btn {
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid var(--border-color);
-  color: var(--text-secondary);
-  padding: 3px 8px;
-  border-radius: var(--radius-sm);
-  font-size: 0.75rem;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.audio-speed-btn.active {
-  background: var(--accent-primary);
-  color: #ffffff;
-  border-color: var(--accent-primary-dark);
-}
-
-/* Command Palette Modal */
-.cmdk-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(8px);
-  z-index: 2000;
-  display: none;
-  align-items: flex-start;
-  justify-content: center;
-  padding-top: 10vh;
-}
-
-.cmdk-backdrop.active {
-  display: flex;
-}
-
-.cmdk-box {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-lg);
-  width: 90%;
-  max-width: 600px;
-  box-shadow: var(--shadow-lg);
-  overflow: hidden;
-}
-
-.cmdk-search-input {
-  width: 100%;
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid var(--border-color);
-  padding: 16px 20px;
-  font-size: 1.05rem;
-  color: var(--text-primary);
-  outline: none;
-  font-family: inherit;
+/* Off-canvas mobile drawer (Issue 6) */
+@media (max-width: 1023px) {
+  .sidebar {
+    position: fixed;
+    left: -320px;
+    top: 0;
+    bottom: 0;
+    width: 290px;
+    min-width: 290px;
+    box-shadow: 0 0 32px rgba(0,0,0,0.7);
+  }
+  .sidebar.active {
+    transform: translateX(320px);
+  }
 }
