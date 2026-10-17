@@ -17,7 +17,7 @@ import json
 import os
 import re
 
-HUB_DIR = r"c:\Users\Krrish\Desktop\Krrish\bds-vault"
+HUB_DIR = os.path.dirname(os.path.abspath(__file__))
 INDEX_PATH = os.path.join(HUB_DIR, "index.html")
 SNAPSHOT_PATH = os.path.join(HUB_DIR, "topics.snapshot.json")
 TOKENS_PATH = os.path.join(HUB_DIR, "portal-core", "design-tokens.json")
@@ -721,13 +721,18 @@ html_content = f"""<!DOCTYPE html>
         .card-logo-box {{
             width: 44px;
             height: 44px;
-            border-radius: var(--radius-sm);
+            border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
             flex-shrink: 0;
-            border: 1px solid var(--border-color);
-            background: rgba(255, 255, 255, 0.03);
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.35);
+        }}
+        .card-logo-box svg {{
+            width: 44px;
+            height: 44px;
+            display: block;
         }}
         .card-title-stack {{
             display: flex;
@@ -1662,16 +1667,23 @@ html_content = f"""<!DOCTYPE html>
                 </div>
 
                 <div class="card-identity-row">
-                    <div class="card-logo-box">
-                        <!-- Authentic Scalpel Vector -->
-                        <svg width="26" height="26" viewBox="0 0 512 512" fill="none">
-                            <g stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round">
+                    <div class="card-logo-box" title="General Surgery Pro">
+                        <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="surgBgCard" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#0f766e"/>
+                                    <stop offset="100%" stop-color="#042f2e"/>
+                                </linearGradient>
+                            </defs>
+                            <rect width="512" height="512" rx="112" fill="url(#surgBgCard)" stroke="rgba(255,255,255,0.20)" stroke-width="16"/>
+                            <g fill="none" stroke="#f8fafc" stroke-linecap="round" stroke-linejoin="round">
                                 <path d="M128 384 L244 268" stroke-width="28"/>
-                                <line x1="148" y1="336" x2="164" y2="352" stroke="#5eead4" stroke-width="12"/>
-                                <line x1="172" y1="312" x2="188" y2="328" stroke="#5eead4" stroke-width="12"/>
-                                <line x1="196" y1="288" x2="212" y2="304" stroke="#5eead4" stroke-width="12"/>
-                                <path d="M236 276 L252 260" stroke="#ffffff" stroke-width="34"/>
-                                <path d="M244 268 L384 128 C416 148 400 200 364 236 C324 276 276 280 244 268 Z" fill="#5eead4" fill-opacity="0.3" stroke="#ffffff" stroke-width="24"/>
+                                <line x1="148" y1="336" x2="164" y2="352" stroke="#5eead4" stroke-width="10"/>
+                                <line x1="172" y1="312" x2="188" y2="328" stroke="#5eead4" stroke-width="10"/>
+                                <line x1="196" y1="288" x2="212" y2="304" stroke="#5eead4" stroke-width="10"/>
+                                <path d="M236 276 L252 260" stroke="#f8fafc" stroke-width="34"/>
+                                <path d="M244 268 L384 128 C416 148 400 200 364 236 C324 276 276 280 244 268 Z" fill="#5eead4" fill-opacity="0.25" stroke="#ffffff" stroke-width="24"/>
+                                <line x1="272" y1="240" x2="324" y2="188" stroke="#5eead4" stroke-width="12"/>
                             </g>
                         </svg>
                     </div>
@@ -1738,15 +1750,22 @@ html_content = f"""<!DOCTYPE html>
                 </div>
 
                 <div class="card-identity-row">
-                    <div class="card-logo-box">
-                        <!-- Authentic Stethoscope Vector -->
-                        <svg width="26" height="26" viewBox="0 0 512 512" fill="none">
-                            <g fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="26">
-                                <circle cx="180" cy="130" r="14" fill="#c7d2fe" stroke="none"/>
-                                <circle cx="332" cy="130" r="14" fill="#c7d2fe" stroke="none"/>
+                    <div class="card-logo-box" title="General Medicine Pro">
+                        <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="medBgCard" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#1e3a8a"/>
+                                    <stop offset="100%" stop-color="#0f172a"/>
+                                </linearGradient>
+                            </defs>
+                            <rect width="512" height="512" rx="112" fill="url(#medBgCard)" stroke="rgba(255,255,255,0.20)" stroke-width="16"/>
+                            <g fill="none" stroke="#f8fafc" stroke-linecap="round" stroke-linejoin="round" stroke-width="26">
+                                <circle cx="180" cy="130" r="14" fill="#93c5fd" stroke="none"/>
+                                <circle cx="332" cy="130" r="14" fill="#93c5fd" stroke="none"/>
                                 <path d="M180 144 V180 C180 220 220 250 256 250 C292 250 332 220 332 180 V144"/>
                                 <path d="M256 250 V290 C256 360 190 390 190 340 C190 290 290 300 290 370 C290 410 320 410 336 410"/>
-                                <circle cx="356" cy="410" r="30" fill="#c7d2fe" fill-opacity="0.3" stroke="#ffffff" stroke-width="24"/>
+                                <circle cx="356" cy="410" r="30" fill="#93c5fd" fill-opacity="0.25" stroke="#ffffff" stroke-width="24"/>
+                                <circle cx="356" cy="410" r="12" fill="#38bdf8" stroke="none"/>
                             </g>
                         </svg>
                     </div>
@@ -1814,10 +1833,16 @@ html_content = f"""<!DOCTYPE html>
                 </div>
 
                 <div class="card-identity-row">
-                    <div class="card-logo-box">
-                        <!-- Authentic Microscope Vector -->
-                        <svg width="26" height="26" viewBox="0 0 512 512" fill="none">
-                            <g fill="none" stroke="#ffffff" stroke-linecap="round" stroke-linejoin="round" stroke-width="24">
+                    <div class="card-logo-box" title="Oral Pathology Pro">
+                        <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="pathBgCard" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" stop-color="#581c87"/>
+                                    <stop offset="100%" stop-color="#1e102d"/>
+                                </linearGradient>
+                            </defs>
+                            <rect width="512" height="512" rx="112" fill="url(#pathBgCard)" stroke="rgba(255,255,255,0.20)" stroke-width="16"/>
+                            <g fill="none" stroke="#f8fafc" stroke-linecap="round" stroke-linejoin="round" stroke-width="24">
                                 <path d="M140 420 H372" stroke-width="28"/>
                                 <path d="M290 420 C290 340 370 330 370 230 C370 170 320 150 280 150"/>
                                 <path d="M190 310 H310" stroke-width="26" stroke="#c084fc"/>
@@ -2330,65 +2355,18 @@ html_content = f"""<!DOCTYPE html>
             }}
         }});
 
-        // --- 4. Deep Work Pomodoro Study Timer (Header Chip Popover) ---
-        let timerSeconds = 25 * 60;
-        let timerInterval = null;
-        let isTimerRunning = false;
-
-        function updateTimerDisplay() {{
-            const mins = Math.floor(timerSeconds / 60);
-            const secs = timerSeconds % 60;
-            const str = `${{String(mins).padStart(2, '0')}}:${{String(secs).padStart(2, '0')}}`;
-            
-            const navEl = document.getElementById('navTimerDisplay');
-            const mainEl = document.getElementById('timerMainDigits');
-            if (navEl) navEl.textContent = str;
-            if (mainEl) mainEl.textContent = str;
-        }}
-
+        // --- 4. Deep Work Pomodoro Study Timer (Synchronized via BdsTimer) ---
         function toggleTimer() {{
-            const btn = document.getElementById('timerStartBtn');
-            const navPill = document.getElementById('navTimerPill');
-            const stateText = document.getElementById('navTimerStateText');
-
-            if (isTimerRunning) {{
-                clearInterval(timerInterval);
-                isTimerRunning = false;
-                if (btn) btn.textContent = 'Resume Focus';
-                if (stateText) stateText.textContent = 'Paused';
-                if (navPill) navPill.classList.remove('running');
-            }} else {{
-                isTimerRunning = true;
-                if (btn) btn.textContent = 'Pause Focus';
-                if (stateText) stateText.textContent = 'Active';
-                if (navPill) navPill.classList.add('running');
-                
-                timerInterval = setInterval(() => {{
-                    if (timerSeconds > 0) {{
-                        timerSeconds--;
-                        updateTimerDisplay();
-                    }} else {{
-                        clearInterval(timerInterval);
-                        isTimerRunning = false;
-                        alert('Deep Work Study Block Complete! Take a 5-minute break.');
-                        resetTimer(25);
-                    }}
-                }}, 1000);
+            if (window.BdsTimer) {{
+                window.BdsTimer.toggle();
             }}
         }}
 
         function resetTimer(minutes) {{
-            clearInterval(timerInterval);
-            isTimerRunning = false;
-            timerSeconds = minutes * 60;
-            updateTimerDisplay();
-            
-            const btn = document.getElementById('timerStartBtn');
-            const navPill = document.getElementById('navTimerPill');
-            const stateText = document.getElementById('navTimerStateText');
-            if (btn) btn.textContent = 'Start Focus';
-            if (stateText) stateText.textContent = 'Focus';
-            if (navPill) navPill.classList.remove('running');
+            if (window.BdsTimer) {{
+                window.BdsTimer.reset(minutes);
+                window.BdsTimer.start(minutes);
+            }}
         }}
 
         function toggleTimerPopover(event) {{
@@ -2617,6 +2595,7 @@ html_content = f"""<!DOCTYPE html>
             }}
         }});
     </script>
+    <script src="portal-core/core-engine.js"></script>
 </body>
 </html>
 """

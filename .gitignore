@@ -11,7 +11,14 @@ desktop.ini
 scratch/
 *.png
 test_*.mjs
+*.cjs
+scratch_*.cjs
 node_modules/
+package-lock.json
+
+# Python & caches
+__pycache__/
+*.py[cod]
 
 # UI Consistency audit and tests
 _ui_audit/
@@ -20,12 +27,14 @@ CHANGELOG_CONSISTENCY.md
 GEMINI.md
 guidelines.md
 
-
 DESIGN.md
 TEST_PLAN.md
-scratch_*.cjs
-*.cjs
 
 site_manifest*.json
 PORTAL_SPEC.md
 sync_portal_core*
+
+# Core generator helpers (preserve only the 3 canonical synced files in git)
+portal-core/brand-*.svg
+portal-core/generate_brand_icons.js
+portal-core/registry_builder.py

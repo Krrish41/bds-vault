@@ -251,41 +251,12 @@
     },
 
     /* -------------------------------------------------------------
-       FOCUS TIMER (25m / 50m)
+       FOCUS TIMER (25m / 50m — Synchronized Cross-Tab Engine)
     ------------------------------------------------------------- */
     initTimer() {
-      const timerBtn = document.querySelector('[data-testid="focus-timer"]');
-      if (timerBtn) {
-        timerBtn.addEventListener('click', () => {
-          this.toggleTimerPrompt();
-        });
+      if (window.BdsTimer) {
+        window.BdsTimer.init();
       }
-    },
-
-    toggleTimerPrompt() {
-      if (this.timerInterval) {
-        clearInterval(this.timerInterval);
-        this.timerInterval = null;
-        const timerBtn = document.querySelector('[data-testid="focus-timer"]');
-        if (timerBtn) timerBtn.classList.remove('running');
-        alert('Focus timer paused.');
-      } else {
-        this.timerSeconds = 25 * 60;
-        this.startTimer();
-      }
-    },
-
-    startTimer() {
-      const timerBtn = document.querySelector('[data-testid="focus-timer"]');
-      if (timerBtn) timerBtn.classList.add('running');
-      this.timerInterval = setInterval(() => {
-        this.timerSeconds--;
-        if (this.timerSeconds <= 0) {
-          clearInterval(this.timerInterval);
-          this.timerInterval = null;
-          alert('Focus block complete! Great progress.');
-        }
-      }, 1000);
     },
 
     /* -------------------------------------------------------------
@@ -420,5 +391,403 @@
     }
   };
 
+  /* =============================================================
+     BDS CLINICAL VAULT — UNIVERSAL SYNCHRONIZED FOCUS TIMER
+     Persists across BDS Vault Hub, Surgery, Medicine & Pathology
+     ============================================================= */
+  const BdsTimer = {
+    STORAGE_KEY: 'bds.focus.timer',
+    localInterval: null,
+    walkInterval: null,
+    audioCtx: null,
+
+    getState() {
+      try {
+        const raw = localStorage.getItem(this.STORAGE_KEY);
+        if (raw) {
+          return JSON.parse(raw);
+        }
+      } catch (e) {}
+      return {
+        status: 'idle', // 'running' | 'paused' | 'idle'
+        durationMinutes: 25,
+        remainingSeconds: 25 * 60,
+        targetEndTime: null,
+        lastUpdated: Date.now()
+      };
+    },
+
+    saveState(state) {
+      state.lastUpdated = Date.now();
+      try {
+        localStorage.setItem(this.STORAGE_KEY, JSON.stringify(state));
+      } catch (e) {}
+      this.render();
+    },
+
+    init() {
+      this.ensureRewardModal();
+      this.render();
+
+      window.addEventListener('storage', (e) => {
+        if (e.key === this.STORAGE_KEY) {
+          this.render();
+        }
+      });
+
+      if (this.localInterval) clearInterval(this.localInterval);
+      this.localInterval = setInterval(() => this.tick(), 500);
+
+      // Wire up any focus-timer trigger button with data-testid="focus-timer"
+      const timerBtn = document.querySelector('[data-testid="focus-timer"]');
+      if (timerBtn && !timerBtn.hasAttribute('data-bds-bound')) {
+        timerBtn.setAttribute('data-bds-bound', 'true');
+        timerBtn.addEventListener('click', (e) => {
+          // If on hub, popover is handled by index.html; if in portal, toggle directly
+          if (typeof window.toggleTimerPopover !== 'function') {
+            this.toggle();
+          }
+        });
+      }
+    },
+
+    tick() {
+      const state = this.getState();
+      if (state.status === 'running') {
+        const now = Date.now();
+        const remaining = Math.max(0, Math.round((state.targetEndTime - now) / 1000));
+        this.updateAllDisplays(remaining, true, false);
+
+        if (remaining <= 0) {
+          state.status = 'idle';
+          state.remainingSeconds = (state.durationMinutes || 25) * 60;
+          state.targetEndTime = null;
+          this.saveState(state);
+          this.triggerReward();
+        }
+      } else {
+        this.updateAllDisplays(state.remainingSeconds, false, state.status === 'paused');
+      }
+    },
+
+    start(minutes) {
+      const state = this.getState();
+      if (minutes) {
+        state.durationMinutes = minutes;
+        state.remainingSeconds = minutes * 60;
+      }
+      if (!state.remainingSeconds || state.remainingSeconds <= 0) {
+        state.remainingSeconds = (state.durationMinutes || 25) * 60;
+      }
+      state.status = 'running';
+      state.targetEndTime = Date.now() + (state.remainingSeconds * 1000);
+      this.saveState(state);
+    },
+
+    pause() {
+      const state = this.getState();
+      if (state.status === 'running') {
+        const remaining = Math.max(0, Math.round((state.targetEndTime - Date.now()) / 1000));
+        state.remainingSeconds = remaining;
+        state.status = 'paused';
+        state.targetEndTime = null;
+        this.saveState(state);
+      }
+    },
+
+    toggle() {
+      const state = this.getState();
+      if (state.status === 'running') {
+        this.pause();
+      } else {
+        this.start();
+      }
+    },
+
+    reset(minutes) {
+      const mins = minutes || 25;
+      const state = {
+        status: 'idle',
+        durationMinutes: mins,
+        remainingSeconds: mins * 60,
+        targetEndTime: null,
+        lastUpdated: Date.now()
+      };
+      this.saveState(state);
+    },
+
+    formatTime(sec) {
+      const m = Math.floor(sec / 60);
+      const s = sec % 60;
+      return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+    },
+
+    updateAllDisplays(seconds, isRunning, isPaused) {
+      const timeStr = this.formatTime(seconds);
+
+      // Hub Displays
+      const navTimerDisp = document.getElementById('navTimerDisplay');
+      if (navTimerDisp) navTimerDisp.textContent = timeStr;
+      
+      const timerMainDigits = document.getElementById('timerMainDigits');
+      if (timerMainDigits) timerMainDigits.textContent = timeStr;
+
+      const navPill = document.getElementById('navTimerPill');
+      if (navPill) {
+        if (isRunning) navPill.classList.add('running');
+        else navPill.classList.remove('running');
+      }
+
+      const navStateText = document.getElementById('navTimerStateText');
+      if (navStateText) {
+        navStateText.textContent = isRunning ? 'Active' : (isPaused ? 'Paused' : 'Focus');
+      }
+
+      const timerStartBtn = document.getElementById('timerStartBtn');
+      if (timerStartBtn) {
+        timerStartBtn.textContent = isRunning ? 'Pause Focus' : (isPaused ? 'Resume Focus' : 'Start Focus');
+      }
+
+      // Portal Displays (General Surgery, General Medicine, Oral Pathology)
+      const portalDisp = document.getElementById('focusTimerDisplay');
+      if (portalDisp) portalDisp.textContent = timeStr;
+
+      const portalBtn = document.getElementById('btnFocusTimer');
+      if (portalBtn) {
+        if (isRunning) portalBtn.classList.add('running');
+        else portalBtn.classList.remove('running');
+      }
+    },
+
+    render() {
+      const state = this.getState();
+      if (state.status === 'running') {
+        const remaining = Math.max(0, Math.round((state.targetEndTime - Date.now()) / 1000));
+        this.updateAllDisplays(remaining, true, false);
+      } else {
+        this.updateAllDisplays(state.remainingSeconds, false, state.status === 'paused');
+      }
+    },
+
+    playChime() {
+      try {
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        if (!AudioContext) return;
+        const ctx = new AudioContext();
+        const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6 chord
+        notes.forEach((freq, i) => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'sine';
+          osc.frequency.value = freq;
+          gain.gain.setValueAtTime(0, ctx.currentTime + i * 0.15);
+          gain.gain.linearRampToValueAtTime(0.2, ctx.currentTime + i * 0.15 + 0.05);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.15 + 0.8);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start(ctx.currentTime + i * 0.15);
+          osc.stop(ctx.currentTime + i * 0.15 + 0.85);
+        });
+      } catch (e) {
+        console.warn('Audio chime unable to play:', e);
+      }
+    },
+
+    triggerReward() {
+      this.playChime();
+      this.showRewardModal();
+    },
+
+    ensureRewardModal() {
+      if (document.getElementById('bdsFocusRewardModal')) return;
+      const modal = document.createElement('div');
+      modal.id = 'bdsFocusRewardModal';
+      modal.className = 'bds-reward-modal-backdrop';
+      modal.innerHTML = `
+        <div class="bds-reward-modal-card" role="dialog" aria-modal="true" aria-labelledby="bdsRewardTitle">
+          <div class="bds-reward-icon-badge">💧</div>
+          <h3 id="bdsRewardTitle" class="bds-reward-title">Focus Block Completed!</h3>
+          <p class="bds-reward-msg">
+            Walk for 3 mins without music or phone and hydrate yourself even if you're not feeling like drinking water.
+          </p>
+          <div class="bds-walk-timer-box" id="bdsWalkTimerBox" style="display:none;">
+            <div class="bds-walk-digits" id="bdsWalkDigits">03:00</div>
+            <div class="bds-walk-sub">Walking Break in Progress</div>
+          </div>
+          <div class="bds-reward-actions">
+            <button class="bds-reward-btn primary" id="bdsStartWalkBtn" onclick="window.BdsTimer.startWalkBreak()">Start 3m Walk</button>
+            <button class="bds-reward-btn secondary" onclick="window.BdsTimer.closeRewardModal()">Dismiss</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(modal);
+
+      if (!document.getElementById('bdsRewardModalStyles')) {
+        const style = document.createElement('style');
+        style.id = 'bdsRewardModalStyles';
+        style.textContent = `
+          .bds-reward-modal-backdrop {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(9, 10, 18, 0.85);
+            backdrop-filter: blur(8px);
+            z-index: 999999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+          }
+          .bds-reward-modal-backdrop.open {
+            display: flex;
+            animation: bdsModalFadeIn 0.25s ease-out;
+          }
+          @keyframes bdsModalFadeIn {
+            from { opacity: 0; transform: scale(0.96); }
+            to { opacity: 1; transform: scale(1); }
+          }
+          .bds-reward-modal-card {
+            background: #101322;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.75);
+            border-radius: 16px;
+            max-width: 440px;
+            width: 100%;
+            padding: 28px 24px;
+            text-align: center;
+            box-sizing: border-box;
+            color: #f8fafc;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+          }
+          .bds-reward-icon-badge {
+            font-size: 2.4rem;
+            line-height: 1;
+            margin-bottom: 12px;
+          }
+          .bds-reward-title {
+            font-size: 1.28rem;
+            font-weight: 800;
+            margin: 0 0 10px 0;
+            color: #f8fafc;
+            letter-spacing: -0.01em;
+          }
+          .bds-reward-msg {
+            font-size: 0.95rem;
+            line-height: 1.55;
+            color: #cbd5e1;
+            margin: 0 0 20px 0;
+            background: rgba(255, 255, 255, 0.04);
+            padding: 14px 16px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            font-weight: 500;
+          }
+          .bds-walk-timer-box {
+            margin-bottom: 18px;
+            padding: 12px;
+            background: rgba(20, 184, 166, 0.1);
+            border: 1px solid rgba(20, 184, 166, 0.3);
+            border-radius: 10px;
+          }
+          .bds-walk-digits {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #5eead4;
+          }
+          .bds-walk-sub {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: #94a3b8;
+            letter-spacing: 0.05em;
+            margin-top: 2px;
+          }
+          .bds-reward-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+          }
+          .bds-reward-btn {
+            padding: 10px 18px;
+            border-radius: 8px;
+            font-size: 0.88rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            border: 1px solid transparent;
+          }
+          .bds-reward-btn.primary {
+            background: #14b8a6;
+            color: #090a12;
+            flex: 1;
+          }
+          .bds-reward-btn.primary:hover {
+            background: #0d9488;
+            color: #ffffff;
+          }
+          .bds-reward-btn.secondary {
+            background: rgba(255, 255, 255, 0.06);
+            color: #94a3b8;
+            border-color: rgba(255, 255, 255, 0.12);
+          }
+          .bds-reward-btn.secondary:hover {
+            background: rgba(255, 255, 255, 0.12);
+            color: #f8fafc;
+          }
+        `;
+        document.head.appendChild(style);
+      }
+    },
+
+    showRewardModal() {
+      this.ensureRewardModal();
+      const modal = document.getElementById('bdsFocusRewardModal');
+      if (modal) modal.classList.add('open');
+    },
+
+    closeRewardModal() {
+      const modal = document.getElementById('bdsFocusRewardModal');
+      if (modal) modal.classList.remove('open');
+      if (this.walkInterval) {
+        clearInterval(this.walkInterval);
+        this.walkInterval = null;
+      }
+      const box = document.getElementById('bdsWalkTimerBox');
+      const startBtn = document.getElementById('bdsStartWalkBtn');
+      if (box) box.style.display = 'none';
+      if (startBtn) startBtn.style.display = 'inline-block';
+    },
+
+    startWalkBreak() {
+      const box = document.getElementById('bdsWalkTimerBox');
+      const startBtn = document.getElementById('bdsStartWalkBtn');
+      if (box) box.style.display = 'block';
+      if (startBtn) startBtn.style.display = 'none';
+
+      let walkSec = 3 * 60;
+      const digits = document.getElementById('bdsWalkDigits');
+      if (this.walkInterval) clearInterval(this.walkInterval);
+      this.walkInterval = setInterval(() => {
+        walkSec--;
+        if (digits) digits.textContent = this.formatTime(walkSec);
+        if (walkSec <= 0) {
+          clearInterval(this.walkInterval);
+          this.walkInterval = null;
+          this.playChime();
+          if (digits) digits.textContent = "Done! Welcome back";
+        }
+      }, 1000);
+    }
+  };
+
   window.CoreEngine = CoreEngine;
+  window.BdsTimer = BdsTimer;
+
+  // Auto-initialize BdsTimer on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => BdsTimer.init());
+  } else {
+    BdsTimer.init();
+  }
 })(window);
+
