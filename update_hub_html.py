@@ -756,14 +756,14 @@ html_content = f"""<!DOCTYPE html>
         .card-desc {{
             font-size: 0.88rem;
             color: var(--text-secondary);
-            line-height: 1.5;
+            line-height: 1.45;
             margin-bottom: 12px;
             display: -webkit-box;
             -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
-            min-height: 3.95em;
-            max-height: 3.95em;
+            min-height: 4.45em;
+            max-height: 4.45em;
             z-index: 1;
         }}
 
