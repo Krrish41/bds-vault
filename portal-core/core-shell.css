@@ -1205,6 +1205,9 @@ mark.search-match {
   .topbar-tool-btn.theme-toggle-btn {
     display: none !important;
   }
+  .topbar-title-block {
+    display: none !important;
+  }
   .topbar-overflow-wrapper {
     display: block;
   }
