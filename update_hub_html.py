@@ -1003,28 +1003,80 @@ html_content = f"""<!DOCTYPE html>
         }}
         .progress-strip-track {{
             flex: 1;
-            height: 8px;
-            background: rgba(255, 255, 255, 0.05);
+            height: 14px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: var(--radius-pill);
             display: flex;
-            overflow: hidden;
-            gap: 2px;
+            align-items: stretch;
+            overflow: visible;
+            position: relative;
+            padding: 2px;
+            gap: 3px;
             cursor: pointer;
         }}
         .progress-strip-segment {{
             height: 100%;
-            background: rgba(255, 255, 255, 0.04);
+            min-height: 8px;
+            background: rgba(255, 255, 255, 0.05);
             position: relative;
             overflow: hidden;
+            display: block;
+            cursor: pointer;
+            text-decoration: none;
+            outline: none;
+            border-radius: 3px;
+            transition: filter 0.18s ease, transform 0.18s ease, box-shadow 0.18s ease;
+        }}
+        .progress-strip-segment::before {{
+            content: '';
+            position: absolute;
+            top: -10px;
+            bottom: -10px;
+            left: 0;
+            right: 0;
+            z-index: 2;
+        }}
+        .segment-surgery {{
+            border-top-left-radius: 9999px;
+            border-bottom-left-radius: 9999px;
+        }}
+        .segment-pathology {{
+            border-top-right-radius: 9999px;
+            border-bottom-right-radius: 9999px;
         }}
         .segment-fill {{
             height: 100%;
             transition: width 0.5s ease;
             border-radius: var(--radius-pill);
+            pointer-events: none;
         }}
         .segment-surgery .segment-fill {{ background: var(--surgery-accent); }}
         .segment-medicine .segment-fill {{ background: var(--medicine-accent); }}
         .segment-pathology .segment-fill {{ background: var(--pathology-accent); }}
+
+        .progress-strip-segment:hover,
+        .progress-strip-segment:focus-visible {{
+            filter: brightness(1.35);
+            transform: translateY(-1px);
+            z-index: 5;
+        }}
+        .progress-strip-segment:focus-visible {{
+            outline: 2px solid var(--accent-emerald);
+            outline-offset: 2px;
+        }}
+        .segment-surgery:hover,
+        .segment-surgery:focus-visible {{
+            box-shadow: 0 0 12px rgba(20, 184, 166, 0.55);
+        }}
+        .segment-medicine:hover,
+        .segment-medicine:focus-visible {{
+            box-shadow: 0 0 12px rgba(99, 102, 241, 0.55);
+        }}
+        .segment-pathology:hover,
+        .segment-pathology:focus-visible {{
+            box-shadow: 0 0 12px rgba(217, 70, 239, 0.55);
+        }}
 
         .progress-strip-right {{
             font-family: 'JetBrains Mono', monospace;
@@ -1034,13 +1086,108 @@ html_content = f"""<!DOCTYPE html>
             white-space: nowrap;
         }}
 
-        /* Progress Breakdown Popover Tooltip */
+        /* Progress Segment Floating Hover Tooltip */
+        .progress-segment-tooltip {{
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 50%;
+            transform: translateX(-50%) translateY(4px);
+            background: #101322;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 8px;
+            padding: 10px 14px;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.65), 0 0 0 1px rgba(255, 255, 255, 0.05);
+            z-index: 1050;
+            min-width: 250px;
+            max-width: 320px;
+            opacity: 0;
+            pointer-events: none;
+            cursor: pointer;
+            transition: opacity 0.18s cubic-bezier(0.16, 1, 0.3, 1), transform 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+        }}
+        .progress-segment-tooltip.visible {{
+            opacity: 1;
+            pointer-events: auto;
+            transform: translateX(-50%) translateY(0);
+        }}
+        .segment-tooltip-arrow {{
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            width: 10px;
+            height: 10px;
+            background: #101322;
+            border-left: 1px solid rgba(255, 255, 255, 0.14);
+            border-top: 1px solid rgba(255, 255, 255, 0.14);
+            transform: translateX(-50%) rotate(45deg);
+            pointer-events: none;
+            transition: left 0.15s ease;
+        }}
+        .segment-tooltip-top {{
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+        }}
+        .segment-tooltip-dot {{
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            flex-shrink: 0;
+            background: var(--surgery-accent);
+            box-shadow: 0 0 8px currentColor;
+        }}
+        .segment-tooltip-title {{
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            white-space: nowrap;
+            flex: 1;
+        }}
+        .segment-tooltip-badge {{
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.72rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            background: rgba(255, 255, 255, 0.06);
+            padding: 2px 6px;
+            border-radius: 4px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }}
+        .segment-tooltip-bottom {{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            font-size: 0.78rem;
+        }}
+        .segment-tooltip-stats {{
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            color: var(--text-secondary);
+        }}
+        .segment-tooltip-cta {{
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            color: var(--accent-emerald);
+            white-space: nowrap;
+        }}
+        .segment-tooltip-cta svg {{
+            transition: transform 0.15s ease;
+        }}
+        .progress-segment-tooltip:hover .segment-tooltip-cta svg {{
+            transform: translateX(3px);
+        }}
+
+        /* Progress Breakdown Popover Tooltip for Overall Progress */
         .progress-breakdown-popover {{
             display: none;
             position: absolute;
             top: calc(100% + 6px);
-            left: 50%;
-            transform: translateX(-50%);
+            left: 20px;
             background: var(--bg-surface-elevated);
             border: 1px solid var(--border-strong);
             border-radius: var(--radius-sm);
@@ -1979,7 +2126,7 @@ html_content = f"""<!DOCTYPE html>
             }}
             .progress-strip-track {{
                 width: 100%;
-                height: 7px;
+                height: 14px;
             }}
             .progress-strip-right {{
                 font-size: 0.78rem;
@@ -2206,7 +2353,7 @@ html_content = f"""<!DOCTYPE html>
         <!-- 3. SLIM OVERALL PROGRESS STRIP (<=56px) -->
         <section class="progress-strip-container" data-testid="progress-strip">
             <div class="progress-strip-inner">
-                <div class="progress-strip-left">
+                <div class="progress-strip-left" id="progressOverallToggle" style="cursor: pointer;" title="Click for multi-paper breakdown">
                     <div style="display:flex; align-items:center; gap:8px;">
                         <span class="progress-pulse-dot"></span>
                         <span>Overall Progress</span>
@@ -2215,32 +2362,51 @@ html_content = f"""<!DOCTYPE html>
                         <span id="progressOverallStats">0 of {total_essays} completed · 0%</span>
                     </div>
                 </div>
-                <div class="progress-strip-track" id="progressStripTrack" title="Click for paper breakdown">
-                    <div class="progress-strip-segment segment-surgery" data-testid="progress-strip-segment-surgery" style="width: calc(23 / 63 * 100%);">
+                <div class="progress-strip-track" id="progressStripTrack" role="navigation" aria-label="Curriculum subjects progress">
+                    <a href="https://krrish41.github.io/general-surgery/" target="_blank" rel="noopener noreferrer" class="progress-strip-segment segment-surgery" data-portal="surgery" data-testid="progress-strip-segment-surgery" style="width: calc({len(surgery_topics)} / {total_essays} * 100%);" aria-label="Paper I: Surgery Pro. {len(surgery_topics)} topics. Click to launch portal." title="Paper I: Surgery Pro — Click to launch portal">
                         <div class="segment-fill" id="stripFillSurgery" style="width: 0%;"></div>
-                    </div>
-                    <div class="progress-strip-segment segment-medicine" data-testid="progress-strip-segment-medicine" style="width: calc(20 / 63 * 100%);">
+                    </a>
+                    <a href="https://krrish41.github.io/General-Medicine/" target="_blank" rel="noopener noreferrer" class="progress-strip-segment segment-medicine" data-portal="medicine" data-testid="progress-strip-segment-medicine" style="width: calc({len(medicine_topics)} / {total_essays} * 100%);" aria-label="Paper II: Medicine Pro. {len(medicine_topics)} topics. Click to launch portal." title="Paper II: Medicine Pro — Click to launch portal">
                         <div class="segment-fill" id="stripFillMedicine" style="width: 0%;"></div>
-                    </div>
-                    <div class="progress-strip-segment segment-pathology" data-testid="progress-strip-segment-pathology" style="width: calc(20 / 63 * 100%);">
+                    </a>
+                    <a href="https://krrish41.github.io/Oral-Pathology/" target="_blank" rel="noopener noreferrer" class="progress-strip-segment segment-pathology" data-portal="pathology" data-testid="progress-strip-segment-pathology" style="width: calc({len(pathology_topics)} / {total_essays} * 100%);" aria-label="Paper III: Pathology Pro. {len(pathology_topics)} topics. Click to launch portal." title="Paper III: Pathology Pro — Click to launch portal">
                         <div class="segment-fill" id="stripFillPathology" style="width: 0%;"></div>
-                    </div>
+                    </a>
                 </div>
             </div>
 
-            <!-- Hover/Tap Breakdown Tooltip -->
+            <!-- Segment Hover Tooltip (Subject Specific) -->
+            <div class="progress-segment-tooltip" id="progressSegmentTooltip" role="tooltip" aria-hidden="true" title="Click to launch portal">
+                <div class="segment-tooltip-inner">
+                    <div class="segment-tooltip-top">
+                        <span class="segment-tooltip-dot" id="segTooltipDot"></span>
+                        <span class="segment-tooltip-title" id="segTooltipTitle">Surgery Pro · Paper I</span>
+                        <span class="segment-tooltip-badge" id="segTooltipBadge">{len(surgery_topics)} topics</span>
+                    </div>
+                    <div class="segment-tooltip-bottom">
+                        <span class="segment-tooltip-stats" id="segTooltipStats">0 of {len(surgery_topics)} completed (0%)</span>
+                        <span class="segment-tooltip-cta">
+                            <span>Launch Portal</span>
+                            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                        </span>
+                    </div>
+                </div>
+                <div class="segment-tooltip-arrow" id="segTooltipArrow"></div>
+            </div>
+
+            <!-- Tap/Click Breakdown Popover for Overall Progress -->
             <div class="progress-breakdown-popover" id="progressBreakdownPopover">
                 <div class="breakdown-row surgery-row">
                     <span class="breakdown-dot"></span>
-                    <span>Surgery: <strong id="breakdownValSurgery">0/23</strong></span>
+                    <span>Surgery: <strong id="breakdownValSurgery">0/{len(surgery_topics)}</strong></span>
                 </div>
                 <div class="breakdown-row medicine-row">
                     <span class="breakdown-dot"></span>
-                    <span>Medicine: <strong id="breakdownValMedicine">0/20</strong></span>
+                    <span>Medicine: <strong id="breakdownValMedicine">0/{len(medicine_topics)}</strong></span>
                 </div>
                 <div class="breakdown-row pathology-row">
                     <span class="breakdown-dot"></span>
-                    <span>Pathology: <strong id="breakdownValPathology">0/20</strong></span>
+                    <span>Pathology: <strong id="breakdownValPathology">0/{len(pathology_topics)}</strong></span>
                 </div>
             </div>
         </section>
@@ -2672,6 +2838,36 @@ html_content = f"""<!DOCTYPE html>
         }};
 
         // --- 2. Live Progress Calculation from localStorage across All 3 Portals ---
+        const SUBJECT_STATS = {{
+            surgery: {{
+                name: "Surgery Pro · Paper I",
+                badge: "{len(surgery_topics)} topics",
+                color: "var(--surgery-accent)",
+                url: "https://krrish41.github.io/general-surgery/",
+                total: {len(surgery_topics)},
+                done: 0,
+                pct: 0
+            }},
+            medicine: {{
+                name: "Medicine Pro · Paper II",
+                badge: "{len(medicine_topics)} topics",
+                color: "var(--medicine-accent)",
+                url: "https://krrish41.github.io/General-Medicine/",
+                total: {len(medicine_topics)},
+                done: 0,
+                pct: 0
+            }},
+            pathology: {{
+                name: "Oral Pathology Pro · Paper III",
+                badge: "{len(pathology_topics)} topics",
+                color: "var(--pathology-accent)",
+                url: "https://krrish41.github.io/Oral-Pathology/",
+                total: {len(pathology_topics)},
+                done: 0,
+                pct: 0
+            }}
+        }};
+
         function calculateOverallProgress() {{
             try {{
                 const getCount = (k1, k2) => {{
@@ -2694,6 +2890,13 @@ html_content = f"""<!DOCTYPE html>
                 const surgPct = Math.min(100, Math.round((surgDone / {len(surgery_topics)}) * 100));
                 const medPct = Math.min(100, Math.round((medDone / {len(medicine_topics)}) * 100));
                 const pathPct = Math.min(100, Math.round((pathDone / {len(pathology_topics)}) * 100));
+
+                SUBJECT_STATS.surgery.done = surgDone;
+                SUBJECT_STATS.surgery.pct = surgPct;
+                SUBJECT_STATS.medicine.done = medDone;
+                SUBJECT_STATS.medicine.pct = medPct;
+                SUBJECT_STATS.pathology.done = pathDone;
+                SUBJECT_STATS.pathology.pct = pathPct;
 
                 const fillSurg = document.getElementById('stripFillSurgery');
                 const fillMed = document.getElementById('stripFillMedicine');
@@ -2733,6 +2936,100 @@ html_content = f"""<!DOCTYPE html>
 
         calculateOverallProgress();
         window.addEventListener('focus', calculateOverallProgress);
+
+        // --- 2b. Progress Strip Segment Tooltip Positioning & Interactions ---
+        let activeHoveredPortal = null;
+        let tooltipHideTimeout = null;
+
+        function showSegmentTooltip(segEl) {{
+            clearTimeout(tooltipHideTimeout);
+            const portal = segEl.getAttribute('data-portal');
+            const data = SUBJECT_STATS[portal];
+            if (!data) return;
+            activeHoveredPortal = portal;
+
+            const tooltip = document.getElementById('progressSegmentTooltip');
+            const dot = document.getElementById('segTooltipDot');
+            const title = document.getElementById('segTooltipTitle');
+            const badge = document.getElementById('segTooltipBadge');
+            const stats = document.getElementById('segTooltipStats');
+            const arrow = document.getElementById('segTooltipArrow');
+            const container = document.querySelector('.progress-strip-container');
+
+            if (!tooltip || !container) return;
+
+            if (dot) {{
+                dot.style.background = data.color;
+                dot.style.boxShadow = `0 0 8px ${{data.color}}`;
+            }}
+            if (title) title.textContent = data.name;
+            if (badge) badge.textContent = data.badge;
+            if (stats) stats.textContent = `${{data.done}} of ${{data.total}} completed (${{data.pct}}%)`;
+
+            tooltip.classList.add('visible');
+            tooltip.setAttribute('aria-hidden', 'false');
+
+            const containerRect = container.getBoundingClientRect();
+            const segRect = segEl.getBoundingClientRect();
+            const segCenterX = segRect.left + (segRect.width / 2) - containerRect.left;
+
+            const tooltipWidth = tooltip.offsetWidth || 260;
+            const halfWidth = tooltipWidth / 2;
+            const minLeft = halfWidth + 12;
+            const maxLeft = containerRect.width - halfWidth - 12;
+            const clampedLeft = Math.max(minLeft, Math.min(segCenterX, maxLeft));
+
+            tooltip.style.left = `${{clampedLeft}}px`;
+
+            if (arrow) {{
+                const arrowOffset = Math.round(segCenterX - clampedLeft);
+                arrow.style.left = `calc(50% + ${{arrowOffset}}px)`;
+            }}
+        }}
+
+        function hideSegmentTooltip() {{
+            tooltipHideTimeout = setTimeout(() => {{
+                const tooltip = document.getElementById('progressSegmentTooltip');
+                if (tooltip) {{
+                    tooltip.classList.remove('visible');
+                    tooltip.setAttribute('aria-hidden', 'true');
+                }}
+                activeHoveredPortal = null;
+            }}, 120);
+        }}
+
+        document.querySelectorAll('.progress-strip-segment').forEach(seg => {{
+            seg.addEventListener('mouseenter', () => showSegmentTooltip(seg));
+            seg.addEventListener('mouseleave', hideSegmentTooltip);
+            seg.addEventListener('focus', () => showSegmentTooltip(seg));
+            seg.addEventListener('blur', hideSegmentTooltip);
+        }});
+
+        const progressTooltipEl = document.getElementById('progressSegmentTooltip');
+        if (progressTooltipEl) {{
+            progressTooltipEl.addEventListener('mouseenter', () => clearTimeout(tooltipHideTimeout));
+            progressTooltipEl.addEventListener('mouseleave', hideSegmentTooltip);
+            progressTooltipEl.addEventListener('click', () => {{
+                if (activeHoveredPortal && SUBJECT_STATS[activeHoveredPortal]) {{
+                    window.open(SUBJECT_STATS[activeHoveredPortal].url, '_blank', 'noopener,noreferrer');
+                }}
+            }});
+        }}
+
+        // Overall progress toggle popover
+        const overallToggleBtn = document.getElementById('progressOverallToggle');
+        const overallPopoverEl = document.getElementById('progressBreakdownPopover');
+        if (overallToggleBtn && overallPopoverEl) {{
+            overallToggleBtn.addEventListener('click', (e) => {{
+                e.stopPropagation();
+                overallPopoverEl.classList.toggle('open');
+            }});
+            document.addEventListener('click', (e) => {{
+                if (!overallPopoverEl.contains(e.target) && !overallToggleBtn.contains(e.target)) {{
+                    overallPopoverEl.classList.remove('open');
+                }}
+            }});
+        }}
 
         // --- 3. Topic Panel Logic (Popover on Desktop, Bottom Sheet on Mobile) ---
         let currentPanelPortal = null;
