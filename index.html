@@ -1842,11 +1842,11 @@
             color: #34d399;
         }
 
-        /* 3-Column Navigation Grid */
+        /* 2-Column Navigation Grid */
         .footer-grid {
             display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 24px;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 32px;
             width: 100%;
             box-sizing: border-box;
         }
@@ -1899,15 +1899,6 @@
         .footer-link-btn:hover svg {
             color: var(--accent-emerald);
         }
-        .footer-link-dot {
-            width: 7px;
-            height: 7px;
-            border-radius: 50%;
-            flex-shrink: 0;
-        }
-        .footer-link-dot.surgery-dot { background: var(--surgery-accent); box-shadow: 0 0 5px var(--surgery-accent); }
-        .footer-link-dot.medicine-dot { background: var(--medicine-accent); box-shadow: 0 0 5px var(--medicine-accent); }
-        .footer-link-dot.pathology-dot { background: var(--pathology-accent); box-shadow: 0 0 5px var(--pathology-accent); }
 
         /* Actions Group */
         .footer-actions-group {
@@ -3163,7 +3154,7 @@
                 </div>
             </div>
 
-            <!-- 3-Column Navigation & Action Grid -->
+            <!-- 2-Column Navigation & Action Grid -->
             <div class="footer-grid">
                 <!-- Col 1: University Clinical Reference -->
                 <div class="footer-col">
@@ -3187,41 +3178,10 @@
                                 <span>Normal Laboratory Values</span>
                             </button>
                         </li>
-                        <li>
-                            <button type="button" class="footer-link-btn" onclick="focusHubSearch()">
-                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-                                <span>Curriculum Search (Press /)</span>
-                            </button>
-                        </li>
                     </ul>
                 </div>
 
-                <!-- Col 2: Specialty Monograph Portals -->
-                <div class="footer-col">
-                    <h3 class="footer-col-heading">Specialty Portals</h3>
-                    <ul class="footer-links-list">
-                        <li>
-                            <a href="https://krrish41.github.io/general-surgery/" target="_blank" rel="noopener" class="footer-link-btn">
-                                <span class="footer-link-dot surgery-dot"></span>
-                                <span>Paper I: General Surgery Pro (24 Topics)</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://krrish41.github.io/General-Medicine/" target="_blank" rel="noopener" class="footer-link-btn">
-                                <span class="footer-link-dot medicine-dot"></span>
-                                <span>Paper II: General Medicine Pro (21 Topics)</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="https://krrish41.github.io/Oral-Pathology/" target="_blank" rel="noopener" class="footer-link-btn">
-                                <span class="footer-link-dot pathology-dot"></span>
-                                <span>Paper III: Oral Pathology Pro (21 Topics)</span>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- Col 3: Community & Direct Feedback -->
+                <!-- Col 2: Community & Direct Feedback -->
                 <div class="footer-col">
                     <h3 class="footer-col-heading">Community &amp; Feedback</h3>
                     <div class="footer-actions-group">
