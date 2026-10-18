@@ -542,6 +542,18 @@
       // Update Continue shortcut
       this.updateContinueShortcut();
 
+      // Synchronize all sidebar checkboxes with current completion map
+      document.querySelectorAll('.topic-row').forEach(row => {
+        const id = row.getAttribute('data-topic-id');
+        const cb = row.querySelector('.topic-checkbox');
+        if (cb && id) {
+          const isDone = !!map[id];
+          cb.classList.toggle('checked', isDone);
+          cb.setAttribute('aria-checked', isDone ? 'true' : 'false');
+          cb.innerHTML = isDone ? '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>' : '';
+        }
+      });
+
       // Update category header counts
       const groups = this.getGroupedTopics();
       Object.keys(groups).forEach(cat => {
@@ -562,42 +574,67 @@
       if (dashProgressPercent) dashProgressPercent.textContent = `${pct}%`;
     },
 
+    getNextTopicToStudy() {
+      if (!this.topics || this.topics.length === 0) return null;
+      const map = this.getCompletedTopicsMap();
+      const lastVisited = localStorage.getItem(`bds.${this.portalKey}.lastTopic`);
+
+      // If last visited topic exists and is still uncompleted, resume it
+      if (lastVisited) {
+        const found = this.topics.findIndex(t => t.id === lastVisited);
+        if (found !== -1 && !map[this.topics[found].id]) {
+          return { index: found, topic: this.topics[found], isAllComplete: false };
+        }
+        // If last visited topic IS completed, find the next incomplete topic forward in sequence
+        if (found !== -1) {
+          for (let i = found + 1; i < this.topics.length; i++) {
+            if (!map[this.topics[i].id]) {
+              return { index: i, topic: this.topics[i], isAllComplete: false };
+            }
+          }
+          // Wrap around to search from start to found
+          for (let i = 0; i < found; i++) {
+            if (!map[this.topics[i].id]) {
+              return { index: i, topic: this.topics[i], isAllComplete: false };
+            }
+          }
+          // All topics are completed
+          return { index: 0, topic: this.topics[0], isAllComplete: true };
+        }
+      }
+
+      // No last visited topic: find the first uncompleted topic
+      const firstIncomplete = this.topics.findIndex(t => !map[t.id]);
+      if (firstIncomplete !== -1) {
+        return { index: firstIncomplete, topic: this.topics[firstIncomplete], isAllComplete: false };
+      }
+
+      // All topics completed
+      return { index: 0, topic: this.topics[0], isAllComplete: true };
+    },
+
     updateContinueShortcut() {
       const textEl = document.getElementById('sidebarContinueText');
       if (!textEl || this.topics.length === 0) return;
 
+      const next = this.getNextTopicToStudy();
+      if (!next) return;
+
       const map = this.getCompletedTopicsMap();
-      const lastVisited = localStorage.getItem(`bds.${this.portalKey}.lastTopic`);
-      let targetIdx = 0;
-
-      if (lastVisited) {
-        const found = this.topics.findIndex(t => t.id === lastVisited);
-        if (found !== -1) targetIdx = found;
-      } else {
-        // First incomplete topic
-        const firstIncomplete = this.topics.findIndex(t => !map[t.id]);
-        if (firstIncomplete !== -1) targetIdx = firstIncomplete;
-      }
-
-      const targetTopic = this.topics[targetIdx];
       const hasProgress = Object.keys(map).length > 0;
-      textEl.textContent = `${hasProgress ? 'Continue' : 'Start'}: ${targetIdx + 1}. ${targetTopic.title}`;
+
+      if (next.isAllComplete) {
+        textEl.textContent = `✓ Review: 1. ${next.topic.title}`;
+      } else {
+        const prefix = hasProgress ? 'Continue' : 'Start';
+        textEl.textContent = `${prefix}: ${next.index + 1}. ${next.topic.title}`;
+      }
     },
 
     onContinueClick() {
-      const map = this.getCompletedTopicsMap();
-      const lastVisited = localStorage.getItem(`bds.${this.portalKey}.lastTopic`);
-      let targetIdx = 0;
-
-      if (lastVisited) {
-        const found = this.topics.findIndex(t => t.id === lastVisited);
-        if (found !== -1) targetIdx = found;
-      } else {
-        const firstIncomplete = this.topics.findIndex(t => !map[t.id]);
-        if (firstIncomplete !== -1) targetIdx = firstIncomplete;
-      }
-
-      this.selectTopic(targetIdx);
+      const next = this.getNextTopicToStudy();
+      if (!next) return;
+      this.selectTopic(next.index);
     },
 
     /* -------------------------------------------------------------
@@ -943,7 +980,18 @@
     toggleAudioWalk() {
       if (typeof this.config.onToggleAudioWalk === 'function') {
         this.config.onToggleAudioWalk();
+      } else if (typeof window.togglePlayPauseAudio === 'function') {
+        window.togglePlayPauseAudio();
+      } else if (typeof window.playContinuousChapterAudio === 'function') {
+        window.playContinuousChapterAudio();
       }
+    },
+
+    setAudioPlayingState(isPlaying) {
+      document.querySelectorAll('.audio-walk-btn').forEach(btn => {
+        btn.classList.toggle('active', !!isPlaying);
+        btn.classList.toggle('is-playing', !!isPlaying);
+      });
     },
 
     toggleTimerPopover(event) {

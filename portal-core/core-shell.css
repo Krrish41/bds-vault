@@ -1067,9 +1067,11 @@ mark.search-match {
   color: var(--text-primary);
 }
 
-.topbar-tool-btn.active {
+.topbar-tool-btn.active,
+.audio-walk-btn.is-playing {
   border-color: var(--accent-primary);
   color: var(--accent-primary);
+  box-shadow: 0 0 12px rgba(20, 184, 166, 0.2);
 }
 
 /* Responsive label collapse for top-right tools */
