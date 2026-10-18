@@ -28,13 +28,13 @@ with open(SNAPSHOT_PATH, "r", encoding="utf-8") as f:
 
 portals = snapshot["portals"]
 
-# Filter out non-essay types (e.g. cheat sheets) so topic counts reflect university monograph essays
-surgery_topics = [t for t in portals.get("surgery", []) if t.get("type", "essay") == "essay"]
-medicine_topics = [t for t in portals.get("medicine", []) if t.get("type", "essay") == "essay"]
-pathology_topics = [t for t in portals.get("pathology", []) if t.get("type", "essay") == "essay"]
+# Include all curriculum topics (university essays and rapid revision master cheat sheets)
+surgery_topics = portals.get("surgery", [])
+medicine_topics = portals.get("medicine", [])
+pathology_topics = portals.get("pathology", [])
 
 total_essays = len(surgery_topics) + len(medicine_topics) + len(pathology_topics)
-print(f"Loaded verified essays: {total_essays} (Surgery: {len(surgery_topics)}, Medicine: {len(medicine_topics)}, Pathology: {len(pathology_topics)})")
+print(f"Loaded verified curriculum topics: {total_essays} (Surgery: {len(surgery_topics)}, Medicine: {len(medicine_topics)}, Pathology: {len(pathology_topics)})")
 
 # Helper for display titles
 def get_short_title(title):
@@ -2109,7 +2109,7 @@ html_content = f"""<!DOCTYPE html>
             <div class="hub-search-box">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
                 <input type="search" id="hubSearchInput" class="hub-search-input" data-testid="search" placeholder="Search essays, spotters, cutoffs... (/)" autocomplete="off" oninput="onHubSearchInput(this.value)" onfocus="onHubSearchFocus()">
-                <button type="button" class="hub-search-clear" id="hubSearchClear" style="display:none;" onclick="clearHubSearch()" aria-label="Clear search">✕</button>
+                <button type="button" class="hub-search-clear" id="hubSearchClear" style="display:none;" onclick="clearHubSearch()" aria-label="Clear search"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
             </div>
             <div class="hub-search-results" id="hubSearchResults" style="display:none;"></div>
         </div>
@@ -2296,11 +2296,11 @@ html_content = f"""<!DOCTYPE html>
                 </p>
 
                 <div class="card-features-row">
-                    <span class="feature-chip">🎧 Voice Walk</span>
-                    <span class="feature-chip">⏱️ Exam Simulator</span>
-                    <span class="feature-chip">🔬 Spotters</span>
-                    <span class="feature-chip">🃏 Flashcards</span>
-                    <span class="feature-chip">📄 Monograph</span>
+                    <span class="feature-chip">Voice Walk</span>
+                    <span class="feature-chip">Exam Simulator</span>
+                    <span class="feature-chip">Spotters</span>
+                    <span class="feature-chip">Flashcards</span>
+                    <span class="feature-chip">Monograph</span>
                 </div>
 
                 <div class="card-topic-preview-box">
@@ -2378,11 +2378,11 @@ html_content = f"""<!DOCTYPE html>
                 </p>
 
                 <div class="card-features-row">
-                    <span class="feature-chip">🎧 Voice Walk</span>
-                    <span class="feature-chip">⏱️ Exam Simulator</span>
-                    <span class="feature-chip">🔬 Spotters</span>
-                    <span class="feature-chip">🃏 Flashcards</span>
-                    <span class="feature-chip">📄 Monograph</span>
+                    <span class="feature-chip">Voice Walk</span>
+                    <span class="feature-chip">Exam Simulator</span>
+                    <span class="feature-chip">Spotters</span>
+                    <span class="feature-chip">Flashcards</span>
+                    <span class="feature-chip">Monograph</span>
                 </div>
 
                 <div class="card-topic-preview-box">
@@ -2460,11 +2460,11 @@ html_content = f"""<!DOCTYPE html>
                 </p>
 
                 <div class="card-features-row">
-                    <span class="feature-chip">🎧 Voice Walk</span>
-                    <span class="feature-chip">⏱️ Exam Simulator</span>
-                    <span class="feature-chip">🔬 Spotters</span>
-                    <span class="feature-chip">🃏 Flashcards</span>
-                    <span class="feature-chip">📄 Monograph</span>
+                    <span class="feature-chip">Voice Walk</span>
+                    <span class="feature-chip">Exam Simulator</span>
+                    <span class="feature-chip">Spotters</span>
+                    <span class="feature-chip">Flashcards</span>
+                    <span class="feature-chip">Monograph</span>
                 </div>
 
                 <div class="card-topic-preview-box">
@@ -2818,11 +2818,14 @@ html_content = f"""<!DOCTYPE html>
                 listEl.innerHTML = topicList.map((t, idx) => {{
                     const isDone = !!completedObj[t.id];
                     const numStr = String(idx + 1).padStart(2, '0');
+                    const tickSvg = isDone
+                        ? '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>'
+                        : '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/></svg>';
                     return `
                         <a href="${{t.url}}" target="_blank" class="panel-topic-row" data-title="${{t.title.toLowerCase()}}" onclick="closeTopicPanel(false)">
                             <span class="panel-topic-num">${{numStr}}</span>
                             <span class="panel-topic-title">${{t.title}}</span>
-                            <span class="panel-topic-tick ${{isDone ? 'completed' : ''}}" title="${{isDone ? 'Completed' : 'Not completed'}}">${{isDone ? '✓' : '○'}}</span>
+                            <span class="panel-topic-tick ${{isDone ? 'completed' : ''}}" title="${{isDone ? 'Completed' : 'Not completed'}}">${{tickSvg}}</span>
                         </a>
                     `;
                 }}).join('');
@@ -2834,17 +2837,20 @@ html_content = f"""<!DOCTYPE html>
                         <div class="panel-category-group">
                             <button type="button" class="panel-category-header" onclick="this.parentElement.classList.toggle('collapsed')">
                                 <span>${{cat}} (${{catDoneCount}}/${{items.length}})</span>
-                                <span class="panel-category-chevron">▾</span>
+                                <span class="panel-category-chevron"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="6 9 12 15 18 9"/></svg></span>
                             </button>
                             <div class="panel-category-items">
                                 ${{items.map(t => {{
                                     const isDone = !!completedObj[t.id];
                                     const numStr = String(t.globalIdx + 1).padStart(2, '0');
+                                    const catTickSvg = isDone
+                                        ? '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>'
+                                        : '<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/></svg>';
                                     return `
                                         <a href="${{t.url}}" target="_blank" class="panel-topic-row" data-title="${{t.title.toLowerCase()}}" onclick="closeTopicPanel(false)">
                                             <span class="panel-topic-num">${{numStr}}</span>
                                             <span class="panel-topic-title">${{t.title}}</span>
-                                            <span class="panel-topic-tick ${{isDone ? 'completed' : ''}}" title="${{isDone ? 'Completed' : 'Not completed'}}">${{isDone ? '✓' : '○'}}</span>
+                                            <span class="panel-topic-tick ${{isDone ? 'completed' : ''}}" title="${{isDone ? 'Completed' : 'Not completed'}}">${{catTickSvg}}</span>
                                         </a>
                                     `;
                                 }}).join('')}}
@@ -3295,12 +3301,12 @@ html_content = f"""<!DOCTYPE html>
 
             // Group by category / type
             const groups = {{
-                'surgery': {{ label: '📖 General Surgery Essays', items: [] }},
-                'medicine': {{ label: '🩺 General Medicine Essays', items: [] }},
-                'pathology': {{ label: '🔬 Oral Pathology Essays', items: [] }},
-                'spotters': {{ label: '🎯 Microscopic & Surgical Spotters', items: [] }},
-                'flashcards': {{ label: '🎴 Active Recall Flashcards', items: [] }},
-                'schematics': {{ label: '📐 Schematics & Algorithms', items: [] }}
+                'surgery': {{ label: 'General Surgery Curriculum', items: [] }},
+                'medicine': {{ label: 'General Medicine Curriculum', items: [] }},
+                'pathology': {{ label: 'Oral Pathology Curriculum', items: [] }},
+                'spotters': {{ label: 'Microscopic & Surgical Spotters', items: [] }},
+                'flashcards': {{ label: 'Active Recall Flashcards', items: [] }},
+                'schematics': {{ label: 'Schematics & Algorithms', items: [] }}
             }};
 
             list.forEach(item => {{

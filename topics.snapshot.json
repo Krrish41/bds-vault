@@ -439,6 +439,25 @@
           "surgery",
           "thyroid-gland-comprehensive-master-chapter"
         ]
+      },
+      {
+        "id": "rapid-revision-master-cheat-sheet-high-yield-keywords-clinical-signs",
+        "title": "Rapid Revision Master Cheat Sheet: High-Yield Keywords & Clinical Signs",
+        "category": "Rapid Revision & Cheat Sheet",
+        "readMinutes": 10,
+        "readingTime": "10 min read",
+        "portal": "surgery",
+        "portalName": "General Surgery Pro",
+        "paper": "Paper I \u00b7 Surgery",
+        "chapter": 24,
+        "type": "cheat-sheet",
+        "url": "https://krrish41.github.io/general-surgery/#/topic/rapid-revision-master-cheat-sheet-high-yield-keywords-clinical-signs",
+        "order": 24,
+        "tags": [
+          "Rapid Revision & Cheat Sheet",
+          "surgery",
+          "rapid-revision-master-cheat-sheet-high-yield-keywords-clinical-signs"
+        ]
       }
     ],
     "medicine": [
@@ -821,6 +840,25 @@
           "medicine",
           "shock-syndromes-cardiopulmonary-resuscitation-bls-acls"
         ]
+      },
+      {
+        "id": "rapid-revision-master-cheat-sheet-high-yield-clinical-matrices-emergency-dosages-chairside-protocols",
+        "title": "Rapid Revision Master Cheat Sheet: High-Yield Clinical Matrices, Emergency Dosages & Chairside Protocols",
+        "category": "Rapid Revision & Cheat Sheet",
+        "readMinutes": 16,
+        "readingTime": "16 min read",
+        "portal": "medicine",
+        "portalName": "General Medicine Pro",
+        "paper": "Paper II \u00b7 Medicine",
+        "chapter": 21,
+        "type": "cheat-sheet",
+        "url": "https://krrish41.github.io/General-Medicine/#/topic/rapid-revision-master-cheat-sheet-high-yield-clinical-matrices-emergency-dosages-chairside-protocols",
+        "order": 21,
+        "tags": [
+          "Rapid Revision & Cheat Sheet",
+          "medicine",
+          "rapid-revision-master-cheat-sheet-high-yield-clinical-matrices-emergency-dosages-chairside-protocols"
+        ]
       }
     ],
     "pathology": [
@@ -1172,6 +1210,24 @@
         ],
         "url": "https://krrish41.github.io/Oral-Pathology/#/topic/forensic-odontology-gustafson-s-method-cheiloscopy-rugoscopy-bite-marks",
         "order": 20
+      },
+      {
+        "id": "rapid-revision-master-cheat-sheet-pathognomonic-histopathology-buzzwords-cyst-tumor-matrices-syndromic-associations",
+        "title": "Rapid Revision Master Cheat Sheet: Pathognomonic Histopathology Buzzwords, Cyst/Tumor Matrices & Syndromic Associations",
+        "portal": "pathology",
+        "portalName": "Oral Pathology Pro",
+        "paper": "Paper III \u00b7 Pathology",
+        "category": "Rapid Revision & Cheat Sheet",
+        "chapter": 21,
+        "type": "cheat-sheet",
+        "readMinutes": 15,
+        "readingTime": "15 min read",
+        "tags": [
+          "Rapid Revision",
+          "Cheat Sheet"
+        ],
+        "url": "https://krrish41.github.io/Oral-Pathology/#/topic/rapid-revision-master-cheat-sheet-pathognomonic-histopathology-buzzwords-cyst-tumor-matrices-syndromic-associations",
+        "order": 21
       }
     ]
   }

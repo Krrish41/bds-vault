@@ -398,7 +398,7 @@
                   <span class="topic-row-num">${idx + 1}.</span>
                   <div class="topic-row-title">${ch.title}</div>
                   <span class="topic-row-meta">${readTime}</span>
-                  ${hasNotes ? '<span class="topic-row-notes-icon" title="Has Notes">📝</span>' : ''}
+                  ${hasNotes ? '<svg class="topic-row-notes-icon" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-label="Has Notes"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>' : ''}
                 </div>
               </div>
             </div>
@@ -624,7 +624,7 @@
       const hasProgress = Object.keys(map).length > 0;
 
       if (next.isAllComplete) {
-        textEl.textContent = `✓ Review: 1. ${next.topic.title}`;
+        textEl.textContent = `Review: 1. ${next.topic.title}`;
       } else {
         const prefix = hasProgress ? 'Continue' : 'Start';
         textEl.textContent = `${prefix}: ${next.index + 1}. ${next.topic.title}`;
@@ -833,7 +833,13 @@
             </div>
           </div>
 
-          <!-- 3. Master PDF -->
+          <!-- 3. Command Palette / Search Trigger -->
+          <button class="topbar-tool-btn palette-btn" data-testid="palette" onclick="CoreEngine.toggleSidebar(true); const el = document.getElementById('sidebarSearchInput'); if (el) { el.focus(); el.select(); }" title="Search Curriculum (/)" aria-label="Search Curriculum">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <span class="btn-text">Search</span>
+          </button>
+
+          <!-- 4. Master PDF -->
           <a href="${cfg.pdfUrl || '#'}" class="topbar-tool-btn pdf-btn" data-testid="open-pdf" title="Typeset Master PDF Monograph" target="_blank" rel="noopener">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
             <span class="btn-text">Master PDF</span>
@@ -850,8 +856,8 @@
             <button class="topbar-tool-btn overflow-btn" data-testid="topbar-overflow" onclick="CoreEngine.toggleTopbarOverflow()" aria-label="More tools">⋯</button>
             <div class="topbar-overflow-menu" id="topbarOverflowMenu">
               <a href="${cfg.hubUrl || 'https://krrish41.github.io/bds-vault/'}" class="overflow-item">‹ Back to Vault</a>
-              <a href="${cfg.pdfUrl || '#'}" class="overflow-item" target="_blank" rel="noopener">📄 Master PDF</a>
-              <button class="overflow-item" onclick="CoreEngine.toggleTheme()">🌓 Toggle Theme</button>
+              <a href="${cfg.pdfUrl || '#'}" class="overflow-item" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block; vertical-align:middle; margin-right:6px;" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Master PDF</a>
+              <button class="overflow-item" onclick="CoreEngine.toggleTheme()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block; vertical-align:middle; margin-right:6px;" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 0 0 20z" fill="currentColor"/></svg>Toggle Theme</button>
             </div>
           </div>
         </div>
@@ -1244,7 +1250,7 @@
       modal.className = 'bds-reward-modal-backdrop';
       modal.innerHTML = `
         <div class="bds-reward-modal-card" role="dialog" aria-modal="true" aria-labelledby="bdsRewardTitle">
-          <div class="bds-reward-icon-badge">💧</div>
+          <div class="bds-reward-icon-badge"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg></div>
           <h3 id="bdsRewardTitle" class="bds-reward-title">Focus Block Completed!</h3>
           <p class="bds-reward-msg">
             Walk for 3 mins without music or phone and hydrate yourself even if you're not feeling like drinking water.
@@ -1444,7 +1450,7 @@
       toast.className = 'bds-toast';
       toast.innerHTML = `
         <span class="bds-toast-msg">${message}</span>
-        <button class="bds-toast-close" aria-label="Dismiss notification" onclick="this.parentElement.remove()">✕</button>
+        <button class="bds-toast-close" aria-label="Dismiss notification" onclick="this.parentElement.remove()"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
       `;
       container.appendChild(toast);
 
@@ -1671,7 +1677,7 @@
       if (saveBtn) {
         const origText = saveBtn.getAttribute('data-orig-text') || saveBtn.textContent;
         saveBtn.setAttribute('data-orig-text', origText);
-        saveBtn.textContent = 'Saved ✓';
+        saveBtn.textContent = 'Saved';
         saveBtn.classList.add('saved');
         setTimeout(() => {
           saveBtn.textContent = origText;
@@ -1710,7 +1716,7 @@
               </div>
               <div style="display:flex; gap:6px;">
                 <button style="background:none; border:1px solid var(--border-color); color:var(--text-secondary); border-radius:4px; padding:2px 8px; font-size:0.72rem; cursor:pointer;" onclick="window.BdsSimulator.loadEvaluation('${portalKey}', '${topicId}', '${item.id}')">Load</button>
-                <button style="background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:0.85rem;" title="Delete" onclick="window.BdsSimulator.deleteEvaluation('${portalKey}', '${topicId}', '${item.id}')">✕</button>
+                <button style="background:none; border:none; color:var(--text-muted); cursor:pointer; padding:2px; display:inline-flex; align-items:center;" title="Delete" onclick="window.BdsSimulator.deleteEvaluation('${portalKey}', '${topicId}', '${item.id}')"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
               </div>
             </div>
           `).join('')}
