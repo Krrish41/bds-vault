@@ -37,6 +37,18 @@
   --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.45);
   --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.65);
 
+  /* Touch & Z-Index Tokens */
+  --tap-min: 44px;
+  --tap-primary: 48px;
+  --z-header: 30;
+  --z-scrim: 90;
+  --z-overlay: 100;
+  --z-toast: 110;
+
+  /* Global Scrollbars */
+  --scroll-thumb: rgba(255, 255, 255, 0.2);
+  --scroll-thumb-hover: rgba(255, 255, 255, 0.35);
+
   --transition-fast: 0.15s ease;
   --transition-normal: 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
@@ -55,13 +67,42 @@
   --text-muted: #64748b;
   --shadow-sm: 0 2px 8px rgba(15, 23, 42, 0.06);
   --shadow-md: 0 8px 24px rgba(15, 23, 42, 0.08);
+  --scroll-thumb: rgba(15, 23, 42, 0.2);
+  --scroll-thumb-hover: rgba(15, 23, 42, 0.35);
 }
 
-/* Base Reset */
+/* Base Reset & Global Scrollbars */
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+  scrollbar-width: thin;
+  scrollbar-color: var(--scroll-thumb) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scroll-thumb);
+  border-radius: 8px;
+  border: 2px solid transparent;
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--scroll-thumb-hover);
+  background-clip: content-box;
+}
+
+::-webkit-scrollbar-button {
+  display: none;
 }
 
 html {
@@ -150,7 +191,6 @@ body {
 .portal-sidebar.rail-collapsed .sidebar-subtitle,
 .portal-sidebar.rail-collapsed .back-to-vault-link span,
 .portal-sidebar.rail-collapsed .sidebar-nav-item span,
-.portal-sidebar.rail-collapsed .sidebar-tools-grid,
 .portal-sidebar.rail-collapsed .sidebar-search-box,
 .portal-sidebar.rail-collapsed .sidebar-progress-card,
 .portal-sidebar.rail-collapsed .sidebar-topics-wrapper,
@@ -270,7 +310,7 @@ body {
 
 /* 2. Back to Vault (Pill on seamless surface) */
 .sidebar-back-row {
-  padding: 8px 14px;
+  padding: 8px 16px;
   background: var(--bg-surface);
   border-bottom: 1px solid var(--border-color);
   box-sizing: border-box;
@@ -321,7 +361,7 @@ body {
 
 /* 3. Dashboard Nav Item */
 .sidebar-nav-section {
-  padding: 10px 14px 6px 14px;
+  padding: 10px 16px 6px 16px;
   box-sizing: border-box;
 }
 
@@ -373,52 +413,69 @@ body {
   background: var(--accent-primary);
 }
 
-/* 4. Tools Grid (Compact 2x2 grid of ghost buttons) */
-.sidebar-tools-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 6px;
-  padding: 6px 14px 10px 14px;
-  box-sizing: border-box;
+/* ==========================================================================
+   TOPIC VIEW TABS (Shared ARIA Tabs Component)
+   ========================================================================== */
+.tab-bar-container {
+  width: 100%;
+  margin-bottom: 24px;
 }
 
-.tool-btn {
+.tab-bar {
   display: flex;
-  align-items: center;
-  justify-content: center;
   gap: 6px;
-  min-height: 36px;
-  padding: 0 8px;
-  border-radius: var(--radius-sm);
+  overflow-x: auto;
+  padding: 4px 2px 8px 2px;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.tab-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.tab-btn {
   background: var(--bg-surface-2);
   border: 1px solid var(--border-color);
   color: var(--text-secondary);
-  font-size: 0.78rem;
+  font-size: 0.84rem;
   font-weight: 600;
+  padding: 8px 16px;
+  min-height: 40px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
-  transition: all var(--transition-fast);
   white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  transition: all var(--transition-fast);
+  touch-action: manipulation;
+  outline: none;
 }
 
-@media (pointer: coarse) {
-  .tool-btn {
-    min-height: 44px;
-  }
-}
-
-.tool-btn:hover {
+.tab-btn:hover {
   background: rgba(255, 255, 255, 0.08);
-  border-color: var(--border-strong);
   color: var(--text-primary);
+  border-color: var(--border-strong);
 }
 
-.tool-btn svg {
-  flex-shrink: 0;
+.tab-btn:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+.tab-btn.active,
+.tab-btn[aria-selected="true"] {
+  background: var(--accent-light, rgba(20, 184, 166, 0.14)) !important;
+  color: var(--accent-text, #5eead4) !important;
+  border-color: var(--accent-primary, #14b8a6) !important;
+  box-shadow: none !important;
+  font-weight: 700;
 }
 
 /* 5. Search Box (Single plain search — NO Ctrl K / cmdk keycaps) */
 .sidebar-search-box {
-  padding: 6px 14px 10px 14px;
+  padding: 6px 16px 10px 16px;
   border-bottom: 1px solid var(--border-color);
   box-sizing: border-box;
 }
@@ -533,7 +590,7 @@ body {
 
 /* 6. Progress Card & 7. Continue Shortcut */
 .sidebar-progress-card {
-  padding: 10px 14px;
+  padding: 10px 16px;
   border-bottom: 1px solid var(--border-color);
   box-sizing: border-box;
 }
@@ -886,12 +943,10 @@ mark.search-match {
   align-items: center;
   justify-content: space-between;
   border-bottom: 1px solid var(--border-color);
-  background: var(--bg-glass);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
+  background: var(--bg-surface);
   position: sticky;
   top: 0;
-  z-index: 90;
+  z-index: var(--z-header, 30);
   box-sizing: border-box;
   gap: 12px;
 }
@@ -1276,10 +1331,10 @@ body.light .theme-toggle-btn .icon-moon {
     max-width: 320px;
     transform: translateX(-100%);
     box-shadow: 0 0 40px rgba(0, 0, 0, 0.75);
-    z-index: 1050;
+    z-index: var(--z-overlay, 100);
   }
   .portal-sidebar.open {
-    transform: translateX(0);
+    transform: none !important;
   }
   .main-column {
     margin-left: 0 !important;
@@ -1287,13 +1342,11 @@ body.light .theme-toggle-btn .icon-moon {
   .drawer-scrim {
     position: fixed;
     inset: 0;
-    background: rgba(0, 0, 0, 0.65);
-    backdrop-filter: blur(4px);
-    -webkit-backdrop-filter: blur(4px);
+    background: rgba(0, 0, 0, 0.55);
     opacity: 0;
     pointer-events: none;
     transition: opacity var(--transition-normal);
-    z-index: 1040;
+    z-index: var(--z-scrim, 90);
   }
   .drawer-scrim.open {
     opacity: 1;
@@ -1357,3 +1410,173 @@ body.light .theme-toggle-btn .icon-moon {
     scroll-behavior: auto !important;
   }
 }
+
+/* ==========================================================================
+   THEMED RANGE SLIDERS (Simulator & Rubrics)
+   ========================================================================== */
+input[type="range"] {
+  touch-action: pan-y !important;
+}
+
+input[type="range"].rubric-slider,
+.rubric-item-score-select input[type="range"],
+.rubric-slider input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.12);
+  outline: none;
+  touch-action: pan-y;
+  cursor: pointer;
+  accent-color: var(--accent-primary, #14b8a6);
+}
+
+input[type="range"].rubric-slider::-webkit-slider-thumb,
+.rubric-item-score-select input[type="range"]::-webkit-slider-thumb,
+.rubric-slider input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: var(--accent-primary, #14b8a6);
+  border: 2px solid #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+input[type="range"].rubric-slider:focus-visible::-webkit-slider-thumb,
+.rubric-item-score-select input[type="range"]:focus-visible::-webkit-slider-thumb,
+.rubric-slider input[type="range"]:focus-visible::-webkit-slider-thumb {
+  box-shadow: 0 0 0 4px var(--accent-glow, rgba(20, 184, 166, 0.3));
+}
+
+@media (pointer: coarse) {
+  input[type="range"].rubric-slider::-webkit-slider-thumb,
+  .rubric-item-score-select input[type="range"]::-webkit-slider-thumb,
+  .rubric-slider input[type="range"]::-webkit-slider-thumb {
+    width: 28px;
+    height: 28px;
+  }
+}
+
+/* ==========================================================================
+   IN-APP ACCESSIBLE TOAST & DIALOG
+   ========================================================================== */
+#bdsToastContainer {
+  position: fixed;
+  bottom: calc(20px + env(safe-area-inset-bottom));
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 8px;
+  z-index: var(--z-toast, 110);
+  pointer-events: none;
+  max-width: 90vw;
+  width: 380px;
+}
+
+.bds-toast {
+  pointer-events: auto;
+  background: var(--bg-surface-elevated, #161a2e);
+  border: 1px solid var(--border-strong, rgba(255, 255, 255, 0.16));
+  color: var(--text-primary, #f8fafc);
+  padding: 12px 16px;
+  border-radius: var(--radius-md, 10px);
+  box-shadow: var(--shadow-lg, 0 10px 30px rgba(0, 0, 0, 0.7));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 0.88rem;
+  font-weight: 500;
+  animation: bdsToastIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes bdsToastIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.bds-toast-close {
+  background: transparent;
+  border: none;
+  color: var(--text-muted, #94a3b8);
+  cursor: pointer;
+  padding: 4px;
+  border-radius: 4px;
+  font-size: 1rem;
+  line-height: 1;
+}
+
+.bds-toast-close:hover {
+  color: var(--text-primary, #ffffff);
+}
+
+.bds-dialog-scrim {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  z-index: var(--z-overlay, 100);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.bds-dialog-card {
+  background: var(--bg-surface, #101322);
+  border: 1px solid var(--border-strong, rgba(255, 255, 255, 0.16));
+  border-radius: 14px;
+  padding: 24px;
+  max-width: 400px;
+  width: 100%;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8);
+  color: var(--text-primary, #f8fafc);
+}
+
+.bds-dialog-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  margin: 0 0 10px 0;
+}
+
+.bds-dialog-msg {
+  font-size: 0.92rem;
+  color: var(--text-secondary, #cbd5e1);
+  margin: 0 0 20px 0;
+  line-height: 1.5;
+}
+
+.bds-dialog-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+/* ==========================================================================
+   TOUCH & MOBILE SIZING ENFORCEMENT
+   ========================================================================== */
+@media (pointer: coarse), (max-width: 767px) {
+  button, input, select, textarea, [role="button"], [role="tab"] {
+    touch-action: manipulation;
+  }
+  .nav-btn, .topbar-tool-btn, .tab-btn {
+    min-height: 44px;
+  }
+  .btn-primary, .btn-save-evaluation {
+    min-height: 48px;
+  }
+  input, textarea, select {
+    font-size: 16px !important;
+  }
+  .sidebar-topic-row, .category-toggle {
+    min-height: 44px;
+  }
+}
+

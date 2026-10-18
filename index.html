@@ -17,6 +17,16 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
+    <!-- Zero-Flash Pre-Paint Script -->
+    <script>
+        (function() {
+            var saved = localStorage.getItem('bds_hub_theme') || localStorage.getItem('bds_theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', saved);
+            document.documentElement.style.backgroundColor = saved === 'light' ? '#f8fafc' : '#090a12';
+            document.documentElement.style.colorScheme = saved;
+        })();
+    </script>
+
     <style>
         /* =============================================================
            1. ECOSYSTEM DESIGN TOKENS (CALIBRATED ACCENT HUES & NEUTRALS)
@@ -130,12 +140,39 @@
         html {
             scroll-padding-top: 76px;
             scroll-behavior: smooth;
+            background-color: var(--bg-base);
+            color-scheme: dark;
+        }
+        [data-theme="light"], body.light {
+            color-scheme: light;
         }
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
             -webkit-tap-highlight-color: transparent;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(255, 255, 255, 0.2) transparent;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            border: 2px solid transparent;
+            background-clip: content-box;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.35);
+            background-clip: content-box;
+        }
+        ::-webkit-scrollbar-button {
+            display: none;
         }
         body {
             font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -143,10 +180,11 @@
             color: var(--text-primary);
             line-height: 1.6;
             font-size: 15px;
-            min-height: 100vh;
+            min-height: 100dvh;
             display: flex;
             flex-direction: column;
             overflow-x: hidden;
+            width: 100%;
             -webkit-font-smoothing: antialiased;
         }
 
@@ -176,7 +214,7 @@
         }
 
         /* =============================================================
-           2. SOLID FULL-BLEED STICKY HEADER (64px, NO FLOAT, NO BLEED)
+           2. SOLID FULL-BLEED STICKY HEADER (64px, NEVER OVERFLOWS)
            ============================================================= */
         .header-solid {
             position: sticky;
@@ -189,17 +227,19 @@
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 24px;
+            padding: 0 20px;
             box-sizing: border-box;
+            min-width: 0;
         }
 
         .brand-link {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
             text-decoration: none;
             color: inherit;
             flex-shrink: 0;
+            min-width: 0;
         }
         .brand-logo-tile {
             width: 38px;
@@ -213,35 +253,42 @@
             flex-shrink: 0;
         }
         .brand-logo-tile img {
-            width: 26px;
-            height: 26px;
+            width: 24px;
+            height: 24px;
             display: block;
         }
         .brand-wordmark-group {
             display: flex;
             flex-direction: column;
             line-height: 1.15;
+            min-width: 0;
+            overflow: hidden;
         }
         .brand-wordmark {
-            font-size: 0.98rem;
+            font-size: 0.95rem;
             font-weight: 800;
             letter-spacing: 0.04em;
             color: var(--text-primary);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
         .brand-sub {
             font-size: 0.68rem;
             color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 0.06em;
+            letter-spacing: 0.05em;
             font-weight: 600;
+            white-space: nowrap;
         }
 
         /* Center Search with Inline Dropdown */
         .header-search-wrap {
             flex: 1;
             max-width: 440px;
-            margin: 0 20px;
+            margin: 0 16px;
             position: relative;
+            min-width: 0;
         }
         .hub-search-box {
             width: 100%;
@@ -268,6 +315,7 @@
             font-family: inherit;
             font-size: 0.84rem;
             color: var(--text-primary);
+            min-width: 0;
         }
         .hub-search-input::placeholder {
             color: var(--text-muted);
@@ -284,6 +332,24 @@
         .hub-search-clear:hover {
             color: var(--text-primary);
         }
+        .search-back-btn {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            width: 38px;
+            height: 38px;
+            border-radius: var(--radius-sm);
+            background: transparent;
+            border: none;
+            color: var(--text-secondary);
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+        .search-back-btn:hover {
+            color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
         .hub-search-results {
             position: absolute;
             top: calc(100% + 6px);
@@ -300,6 +366,170 @@
             display: flex;
             flex-direction: column;
             gap: 4px;
+        }
+
+        /* Mobile Trigger Buttons (<768px) */
+        .mobile-search-btn,
+        .mobile-overflow-btn {
+            display: none;
+            align-items: center;
+            justify-content: center;
+            width: 44px;
+            height: 44px;
+            border-radius: var(--radius-sm);
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            cursor: pointer;
+            position: relative;
+            flex-shrink: 0;
+            transition: all 0.15s ease;
+        }
+        .mobile-search-btn:hover,
+        .mobile-overflow-btn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            color: var(--text-primary);
+        }
+        .overflow-timer-dot {
+            position: absolute;
+            top: 9px;
+            right: 9px;
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--text-muted);
+            opacity: 0;
+            transition: all 0.2s ease;
+        }
+        .mobile-overflow-btn.running .overflow-timer-dot {
+            opacity: 1;
+            background: var(--accent-emerald, #10b981);
+            box-shadow: 0 0 8px var(--accent-emerald, #10b981);
+        }
+
+        /* Mobile Overflow Scrim & Menu */
+        .hub-overflow-scrim {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.55);
+            z-index: 1040;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+        }
+        .hub-overflow-scrim.open {
+            display: block;
+        }
+
+        .hub-overflow-menu {
+            display: none;
+            background: var(--bg-surface-elevated, #161a2e);
+            border: 1px solid var(--border-strong);
+            box-shadow: var(--shadow-lg);
+            z-index: 1050;
+            box-sizing: border-box;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .hub-overflow-menu.open {
+            display: flex;
+        }
+
+        .overflow-header-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .overflow-menu-title {
+            font-size: 0.80rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+        }
+        .overflow-close-btn {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            font-size: 1.1rem;
+            padding: 4px;
+        }
+
+        .overflow-timer-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .overflow-timer-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+        .overflow-timer-digits {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            text-align: center;
+        }
+        .overflow-timer-actions {
+            display: flex;
+            gap: 6px;
+        }
+        .overflow-timer-btn {
+            flex: 1;
+            min-height: 38px;
+            border-radius: var(--radius-sm);
+            font-size: 0.8rem;
+            font-weight: 700;
+            cursor: pointer;
+            border: 1px solid var(--border-color);
+            background: var(--bg-surface-2, rgba(255, 255, 255, 0.04));
+            color: var(--text-secondary);
+            transition: all 0.15s ease;
+        }
+        .overflow-timer-btn.primary {
+            background: var(--accent-emerald, #10b981);
+            color: #090a12;
+            border-color: var(--accent-emerald, #10b981);
+            flex: 1.4;
+        }
+        .overflow-timer-btn.active {
+            border-color: var(--accent-emerald, #10b981);
+            color: var(--accent-emerald, #10b981);
+        }
+
+        .overflow-action-row {
+            width: 100%;
+            min-height: 46px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 0 14px;
+            border-radius: var(--radius-sm);
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            font-size: 0.88rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-align: left;
+            transition: all 0.15s ease;
+            box-sizing: border-box;
+        }
+        .overflow-action-row:hover {
+            background: rgba(255, 255, 255, 0.07);
         }
         .hub-search-group {
             margin-bottom: 6px;
@@ -963,8 +1193,9 @@
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(0, 0, 0, 0.55);
-            backdrop-filter: blur(2px);
+            background: rgba(0, 0, 0, 0.65);
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
             z-index: 1090;
         }
         .topic-panel-scrim.open {
@@ -1214,7 +1445,8 @@
             position: fixed;
             inset: 0;
             background: rgba(0, 0, 0, 0.7);
-            backdrop-filter: blur(8px);
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
             z-index: 2000;
             align-items: center;
             justify-content: center;
@@ -1398,47 +1630,150 @@
         /* =============================================================
            10. RESPONSIVE BREAKPOINTS & ADAPTIVE LAYOUTS
            ============================================================= */
+        /* Desktop Large (>=1024px) */
+        @media (min-width: 1024px) {
+            .mobile-search-btn,
+            .mobile-overflow-btn,
+            .search-back-btn {
+                display: none !important;
+            }
+            .header-search-wrap {
+                display: flex;
+                flex: 1 1 auto;
+                max-width: 380px;
+                min-width: 0;
+            }
+            .header-right-tools {
+                display: flex;
+            }
+        }
+
         /* Tablet Portrait (768px - 1023px) */
         @media (max-width: 1023px) and (min-width: 768px) {
+            .brand-sub {
+                display: none;
+            }
+            .mobile-search-btn,
+            .mobile-overflow-btn,
+            .search-back-btn {
+                display: none !important;
+            }
+            .header-search-wrap {
+                display: flex;
+                flex: 1 1 auto;
+                max-width: 240px;
+                min-width: 0;
+                margin: 0 10px;
+            }
+            .header-right-tools {
+                display: flex;
+                gap: 6px;
+            }
+            [data-testid="quick-reference"] span {
+                display: none;
+            }
+            .timer-nav-pill #navTimerStateText {
+                display: none;
+            }
             .portal-cards-grid {
                 grid-template-columns: 1fr;
                 gap: 16px;
-            }
-            .portal-card {
-                display: grid;
-                grid-template-columns: 1.1fr 1fr;
-                column-gap: 24px;
-            }
-            .card-left-pane {
-                display: flex;
-                flex-direction: column;
-            }
-            .card-right-pane {
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                border-left: 1px solid var(--border-subtle);
-                padding-left: 20px;
             }
         }
 
         /* Mobile (<768px) */
         @media (max-width: 767px) {
             .header-solid {
-                padding: 0 16px;
+                padding: 0 14px;
+                padding-left: max(14px, env(safe-area-inset-left));
+                padding-right: max(14px, env(safe-area-inset-right));
+            }
+            .brand-link {
+                min-width: 0;
+                flex-shrink: 1;
+            }
+            .brand-wordmark-group {
+                min-width: 0;
+            }
+            .brand-wordmark {
+                font-size: 1.05rem;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+            .brand-sub {
+                display: none;
             }
             .header-search-wrap {
-                margin: 0 10px;
+                display: none;
             }
+            .header-right-tools {
+                display: none;
+            }
+            .mobile-search-btn,
+            .mobile-overflow-btn {
+                display: inline-flex;
+            }
+
+            /* Search Expanded Mode on Mobile */
+            .header-solid.search-expanded .brand-link,
+            .header-solid.search-expanded .mobile-search-btn,
+            .header-solid.search-expanded .mobile-overflow-btn {
+                display: none !important;
+            }
+            .header-solid.search-expanded .header-search-wrap {
+                display: flex !important;
+                flex: 1 1 100% !important;
+                max-width: 100% !important;
+                margin: 0 !important;
+                min-width: 0 !important;
+            }
+            .header-solid.search-expanded .search-back-btn {
+                display: inline-flex !important;
+            }
+            .header-solid.search-expanded .hub-search-results {
+                position: fixed;
+                top: 64px;
+                left: 0;
+                right: 0;
+                width: 100%;
+                max-height: calc(100dvh - 64px);
+                border-radius: 0;
+                border-top: none;
+            }
+
             .main-content {
-                padding: 16px 16px 32px 16px;
+                padding: 16px 14px 32px 14px;
             }
             .hero-title {
-                font-size: 1.6rem;
+                font-size: 1.55rem;
+                line-height: 1.25;
+            }
+            .hero-sub {
+                font-size: 0.88rem;
+                line-height: 1.45;
             }
             .portal-cards-grid {
                 grid-template-columns: 1fr;
                 gap: 16px;
+            }
+            .portal-card {
+                padding: 18px 16px;
+            }
+            .corner-watermark {
+                top: 10px;
+                right: 10px;
+                bottom: auto;
+                left: auto;
+                opacity: 0.035;
+                pointer-events: none;
+                width: 80px;
+                height: 80px;
+            }
+
+            /* Compact 2-row progress strip */
+            .progress-strip-container {
+                padding: 12px 14px;
             }
             .progress-strip-inner {
                 flex-direction: column;
@@ -1447,23 +1782,111 @@
                 gap: 8px;
             }
             .progress-strip-left {
+                display: flex;
+                align-items: center;
                 justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 4px;
+                width: 100%;
+                min-width: 0;
             }
+            .progress-strip-track {
+                width: 100%;
+                height: 7px;
+            }
+            .progress-strip-right {
+                font-size: 0.78rem;
+                white-space: normal;
+                word-break: break-word;
+            }
+
+            /* Card Actions Dock: 48px stacked primary buttons */
             .card-actions-dock {
                 flex-direction: column;
+                gap: 8px;
             }
-            .btn-pdf {
+            .btn-launch, .btn-pdf {
                 width: 100%;
+                height: 48px;
+                min-height: 48px;
+                font-size: 0.92rem;
+                border-radius: var(--radius-sm);
+            }
+
+            /* Topic preview bubbles on phones: exactly 2 bubbles */
+            .preview-bubbles-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 6px;
+            }
+            .preview-bubbles-grid .preview-bubble:nth-child(n+3) {
+                display: none;
+            }
+
+            /* Minimum 12px text across mobile cards */
+            .card-paper-tag, .card-specialty-sub, .feature-chip, .preview-bubble, .essay-count-label {
+                font-size: 0.75rem; /* 12px */
+            }
+        }
+
+        /* Anchored Popover for 480px - 767px */
+        @media (min-width: 480px) and (max-width: 767px) {
+            .hub-overflow-menu {
+                position: absolute;
+                top: calc(100% + 8px);
+                right: 14px;
+                width: 320px;
+                border-radius: var(--radius-md);
+                padding: 16px;
+                transform-origin: top right;
+                animation: popoverFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+            }
+        }
+
+        /* Bottom Sheet for <480px */
+        @media (max-width: 479px) {
+            .brand-wordmark {
+                max-width: 150px;
+                font-size: 0.98rem;
+            }
+            .hub-overflow-menu {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                width: 100%;
+                max-height: 85dvh;
+                border-radius: 20px 20px 0 0;
+                border-bottom: none;
+                padding: 16px 18px env(safe-area-inset-bottom, 20px) 18px;
+                animation: sheetSlideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+                overflow-y: auto;
             }
         }
 
         /* Very Small Phones (<=359px down to 280px) */
         @media (max-width: 359px) {
+            .header-solid {
+                padding: 0 10px;
+            }
+            .brand-wordmark {
+                max-width: 110px;
+                font-size: 0.88rem;
+            }
+            .brand-logo-tile {
+                width: 32px;
+                height: 32px;
+            }
+            .mobile-search-btn, .mobile-overflow-btn {
+                width: 40px;
+                height: 40px;
+            }
+            .progress-strip-left {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 2px;
+            }
             .preview-bubbles-grid {
                 grid-template-columns: 1fr;
-            }
-            .header-search-wrap {
-                display: none;
             }
         }
 
@@ -1480,7 +1903,7 @@
 <body>
 
     <!-- 1. SOLID FULL-BLEED STICKY HEADER -->
-    <header class="header-solid" data-testid="hub-header">
+    <header class="header-solid" data-testid="hub-header" id="hubHeader">
         <a href="#" class="brand-link" onclick="window.scrollTo({top:0, behavior:'smooth'})" aria-label="BDS Clinical Vault Home">
             <div class="brand-logo-tile">
                 <img src="favicon.svg" width="26" height="26" alt="BDS Clinical Vault Shield Logo">
@@ -1493,6 +1916,9 @@
 
         <!-- Ordinary Search with Inline Dropdown -->
         <div class="header-search-wrap" id="hubSearchContainer">
+            <button type="button" class="search-back-btn" id="hubSearchBackBtn" onclick="closeMobileSearch()" aria-label="Back to navigation">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+            </button>
             <div class="hub-search-box">
                 <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
                 <input type="search" id="hubSearchInput" class="hub-search-input" data-testid="search" placeholder="Search essays, spotters, cutoffs... (/)" autocomplete="off" oninput="onHubSearchInput(this.value)" onfocus="onHubSearchFocus()">
@@ -1501,7 +1927,7 @@
             <div class="hub-search-results" id="hubSearchResults" style="display:none;"></div>
         </div>
 
-        <!-- Right Nav Tools -->
+        <!-- Desktop Right Nav Tools -->
         <div class="header-right-tools">
             <!-- Focus Study Timer -->
             <div class="focus-timer-container">
@@ -1532,15 +1958,59 @@
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
             </button>
         </div>
+
+        <!-- Mobile Action Buttons (<768px) -->
+        <button type="button" class="mobile-search-btn" id="hubSearchIconBtn" onclick="openMobileSearch()" aria-label="Open search">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+        </button>
+        <button type="button" class="mobile-overflow-btn" id="hubOverflowBtn" onclick="toggleHubOverflow(event)" aria-label="Open menu" aria-haspopup="dialog" aria-expanded="false">
+            <span class="overflow-timer-dot" id="overflowTimerDot"></span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
+        </button>
+
+        <!-- Mobile Overflow Scrim & Menu -->
+        <div class="hub-overflow-scrim" id="hubOverflowScrim" onclick="closeHubOverflow()"></div>
+        <div class="hub-overflow-menu" id="hubOverflowMenu" role="dialog" aria-modal="true" aria-labelledby="overflowMenuTitle">
+            <div class="overflow-header-row">
+                <span class="overflow-menu-title" id="overflowMenuTitle">Ecosystem Controls</span>
+                <button type="button" class="overflow-close-btn" id="hubOverflowCloseBtn" onclick="closeHubOverflow()" aria-label="Close menu">&times;</button>
+            </div>
+            
+            <!-- Focus Study Timer Card -->
+            <div class="overflow-timer-card">
+                <div class="overflow-timer-header">
+                    <span>Study Focus Block</span>
+                    <span id="overflowTimerState" style="color:var(--text-muted);">25m Preset</span>
+                </div>
+                <div class="overflow-timer-digits mono-num" id="overflowTimerDigits">25:00</div>
+                <div class="overflow-timer-actions">
+                    <button type="button" class="overflow-timer-btn primary" id="overflowTimerStartBtn" onclick="toggleTimer()">Start Focus</button>
+                    <button type="button" class="overflow-timer-btn" onclick="resetTimer(25)">25m</button>
+                    <button type="button" class="overflow-timer-btn" onclick="resetTimer(50)">50m</button>
+                </div>
+            </div>
+
+            <!-- Quick Reference Action -->
+            <button type="button" class="overflow-action-row" onclick="closeHubOverflow(); toggleLabModal('norm')">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10M6 10h10"/></svg>
+                <span>Quick Reference &amp; Lab Norms</span>
+            </button>
+
+            <!-- Theme Toggle Action -->
+            <button type="button" class="overflow-action-row" id="overflowThemeBtn" onclick="toggleTheme()">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+                <span id="overflowThemeLabel">Toggle Theme</span>
+            </button>
+        </div>
     </header>
 
     <!-- 2. MAIN HUB CONTENT -->
-    <main class="main-content">
+    <main class="main-content" id="appRoot">
         <!-- Hero Banner -->
         <section class="hero-banner">
             <div class="hero-trust-bar">
                 <span class="trust-badge">Accredited Standard</span>
-                <span>3rd Year University Examination Syllabus • 63 Curated Monograph Essays</span>
+                <span>3rd-year university syllabus · 63 essays · Accredited</span>
             </div>
             <h1 class="hero-title editorial-heading">Dental Surgery &amp; Clinical Sciences</h1>
             <p class="hero-sub">Consolidated high-yield examination portals: 15-mark university essay blueprints, bedside emergency protocols, microscopic spotters, and continuous audio walk islands.</p>
@@ -1550,8 +2020,13 @@
         <section class="progress-strip-container" data-testid="progress-strip">
             <div class="progress-strip-inner">
                 <div class="progress-strip-left">
-                    <span class="progress-pulse-dot"></span>
-                    <span>Overall Progress</span>
+                    <div style="display:flex; align-items:center; gap:8px;">
+                        <span class="progress-pulse-dot"></span>
+                        <span>Overall Progress</span>
+                    </div>
+                    <div class="progress-strip-right">
+                        <span id="progressOverallStats">0 of 63 completed · 0%</span>
+                    </div>
                 </div>
                 <div class="progress-strip-track" id="progressStripTrack" title="Click for paper breakdown">
                     <div class="progress-strip-segment segment-surgery" data-testid="progress-strip-segment-surgery" style="width: calc(23 / 63 * 100%);">
@@ -1563,9 +2038,6 @@
                     <div class="progress-strip-segment segment-pathology" data-testid="progress-strip-segment-pathology" style="width: calc(20 / 63 * 100%);">
                         <div class="segment-fill" id="stripFillPathology" style="width: 0%;"></div>
                     </div>
-                </div>
-                <div class="progress-strip-right">
-                    <span id="progressOverallStats">0 of 63 completed · 0%</span>
                 </div>
             </div>
 
@@ -2376,17 +2848,102 @@
 
         function updateThemeIcon(theme) {
             const btn = document.getElementById('themeBtn');
-            if (!btn) return;
-            if (theme === 'light') {
-                btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>';
-            } else {
-                btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>';
+            const overBtn = document.getElementById('overflowThemeBtn');
+            const overLabel = document.getElementById('overflowThemeLabel');
+            if (btn) {
+                if (theme === 'light') {
+                    btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>';
+                } else {
+                    btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>';
+                }
+            }
+            if (overLabel) {
+                overLabel.textContent = theme === 'light' ? 'Switch to Dark Mode' : 'Switch to Light Mode';
             }
         }
 
         const savedTheme = localStorage.getItem('bds_vault_theme') || 'dark';
         document.documentElement.setAttribute('data-theme', savedTheme);
         updateThemeIcon(savedTheme);
+
+        // --- 5b. Mobile Header Search & Overflow Handlers ---
+        function openMobileSearch() {
+            const header = document.getElementById('hubHeader');
+            const input = document.getElementById('hubSearchInput');
+            if (header) header.classList.add('search-expanded');
+            if (input) {
+                setTimeout(() => {
+                    input.focus();
+                    onHubSearchFocus();
+                }, 50);
+            }
+        }
+
+        function closeMobileSearch() {
+            const header = document.getElementById('hubHeader');
+            if (header) header.classList.remove('search-expanded');
+            clearHubSearch();
+        }
+
+        function toggleHubOverflow(event) {
+            if (event) event.stopPropagation();
+            const scrim = document.getElementById('hubOverflowScrim');
+            const menu = document.getElementById('hubOverflowMenu');
+            const btn = document.getElementById('hubOverflowBtn');
+            const isOpen = menu && menu.classList.contains('open');
+            if (isOpen) {
+                closeHubOverflow();
+            } else {
+                if (scrim) scrim.classList.add('open');
+                if (menu) menu.classList.add('open');
+                if (btn) btn.setAttribute('aria-expanded', 'true');
+                if (window.innerWidth < 480) {
+                    document.body.style.overflow = 'hidden';
+                }
+                syncOverflowTimerDisplay();
+            }
+        }
+
+        function closeHubOverflow() {
+            const scrim = document.getElementById('hubOverflowScrim');
+            const menu = document.getElementById('hubOverflowMenu');
+            const btn = document.getElementById('hubOverflowBtn');
+            if (scrim) scrim.classList.remove('open');
+            if (menu) menu.classList.remove('open');
+            if (btn) btn.setAttribute('aria-expanded', 'false');
+            document.body.style.overflow = '';
+        }
+
+        function syncOverflowTimerDisplay() {
+            if (!window.BdsTimer) return;
+            const state = window.BdsTimer.getState ? window.BdsTimer.getState() : null;
+            if (!state) return;
+            const digitsEl = document.getElementById('overflowTimerDigits');
+            const stateEl = document.getElementById('overflowTimerState');
+            const startBtn = document.getElementById('overflowTimerStartBtn');
+            const overBtn = document.getElementById('hubOverflowBtn');
+
+            const m = Math.floor(state.remaining / 60);
+            const s = state.remaining % 60;
+            const str = `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
+            if (digitsEl) digitsEl.textContent = str;
+            if (stateEl) stateEl.textContent = state.isRunning ? 'Running' : (state.remaining === state.total ? `${Math.round(state.total/60)}m Preset` : 'Paused');
+            if (startBtn) {
+                startBtn.textContent = state.isRunning ? 'Pause Focus' : 'Start Focus';
+                if (state.isRunning) {
+                    startBtn.style.background = 'var(--accent-amber, #f59e0b)';
+                } else {
+                    startBtn.style.background = 'var(--accent-emerald, #10b981)';
+                }
+            }
+            if (overBtn) {
+                if (state.isRunning) overBtn.classList.add('running');
+                else overBtn.classList.remove('running');
+            }
+        }
+
+        window.addEventListener('bds:timer-tick', syncOverflowTimerDisplay);
+        window.addEventListener('bds:timer-state', syncOverflowTimerDisplay);
 
         // --- 6. Quick Reference Modal Tabs & Rubrics ---
         const RUBRIC_MODELS = {

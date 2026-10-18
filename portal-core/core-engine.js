@@ -293,27 +293,7 @@
           </button>
         </div>
 
-        <!-- 4. Tools Grid (Compact 2x2 grid of ghost buttons) -->
-        <div class="sidebar-tools-grid" data-testid="tools-grid">
-          <button class="tool-btn" data-testid="exam-simulator" onclick="CoreEngine.triggerTool('simulator')" title="University Exam Simulator">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
-            <span>Simulator</span>
-          </button>
-          <button class="tool-btn" data-testid="spotters" onclick="CoreEngine.triggerTool('spotters')" title="Clinical Spotters & Schematics">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
-            <span>Spotters</span>
-          </button>
-          <button class="tool-btn" data-testid="flashcards" onclick="CoreEngine.triggerTool('flashcards')" title="Interactive Flashcard Deck">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="8" x2="16" y1="10" y2="10"/><line x1="8" x2="12" y1="14" y2="14"/></svg>
-            <span>Flashcards</span>
-          </button>
-          <button class="tool-btn" data-testid="cheat-sheet" onclick="CoreEngine.triggerTool('cheat-sheet')" title="Rapid Revision Cheat Sheet">
-            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-            <span>Cheat Sheet</span>
-          </button>
-        </div>
-
-        <!-- 5. Search Box (Single plain search — NO Ctrl K keycaps) -->
+        <!-- 4. Search Box (Single plain search — NO Ctrl K keycaps) -->
         <div class="sidebar-search-box" data-testid="sidebar-search">
           <div class="search-input-wrapper">
             <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
@@ -1390,8 +1370,330 @@
     }
   };
 
+  /* =============================================================
+     IN-APP ACCESSIBLE TOAST & CONFIRM DIALOG
+     ============================================================= */
+  const BdsToast = {
+    ensureContainer() {
+      let el = document.getElementById('bdsToastContainer');
+      if (!el) {
+        el = document.createElement('div');
+        el.id = 'bdsToastContainer';
+        el.setAttribute('role', 'status');
+        el.setAttribute('aria-live', 'polite');
+        document.body.appendChild(el);
+      }
+      return el;
+    },
+
+    show(message, type = 'info', duration = 4000) {
+      const container = this.ensureContainer();
+      while (container.children.length >= 3) {
+        container.removeChild(container.firstChild);
+      }
+
+      const toast = document.createElement('div');
+      toast.className = 'bds-toast';
+      toast.innerHTML = `
+        <span class="bds-toast-msg">${message}</span>
+        <button class="bds-toast-close" aria-label="Dismiss notification" onclick="this.parentElement.remove()">✕</button>
+      `;
+      container.appendChild(toast);
+
+      if (duration > 0) {
+        setTimeout(() => {
+          if (toast.parentElement) toast.remove();
+        }, duration);
+      }
+    },
+
+    confirm(title, message, onConfirm) {
+      const existing = document.getElementById('bdsConfirmDialog');
+      if (existing) existing.remove();
+
+      const scrim = document.createElement('div');
+      scrim.id = 'bdsConfirmDialog';
+      scrim.className = 'bds-dialog-scrim';
+      scrim.innerHTML = `
+        <div class="bds-dialog-card" role="dialog" aria-modal="true" aria-labelledby="bdsDialogTitle">
+          <h3 id="bdsDialogTitle" class="bds-dialog-title">${title}</h3>
+          <p class="bds-dialog-msg">${message}</p>
+          <div class="bds-dialog-actions">
+            <button class="btn btn-secondary" id="bdsDialogCancel" style="min-height: 40px; padding: 0 16px; border-radius: 8px;">Cancel</button>
+            <button class="btn btn-primary" id="bdsDialogConfirm" style="min-height: 40px; padding: 0 16px; border-radius: 8px;">Confirm</button>
+          </div>
+        </div>
+      `;
+      document.body.appendChild(scrim);
+
+      const close = () => scrim.remove();
+      scrim.querySelector('#bdsDialogCancel').onclick = close;
+      scrim.querySelector('#bdsDialogConfirm').onclick = () => {
+        close();
+        if (typeof onConfirm === 'function') onConfirm();
+      };
+      scrim.onclick = (e) => {
+        if (e.target === scrim) close();
+      };
+      const confirmBtn = scrim.querySelector('#bdsDialogConfirm');
+      if (confirmBtn) confirmBtn.focus();
+    }
+  };
+
+  /* =============================================================
+     TOPIC TABS (Unified ARIA Tabs Component)
+     ============================================================= */
+  const TopicTabs = {
+    init(tabBarEl, onTabSwitch) {
+      if (!tabBarEl) return;
+      tabBarEl.setAttribute('role', 'tablist');
+
+      const tabs = Array.from(tabBarEl.querySelectorAll('.tab-btn'));
+      tabs.forEach((tab, idx) => {
+        tab.setAttribute('role', 'tab');
+        const tabId = tab.getAttribute('data-tab') || tab.innerText.toLowerCase().replace(/[^a-z0-9]/g, '');
+        tab.setAttribute('id', 'tab-' + tabId);
+        tab.setAttribute('aria-controls', 'panel-' + tabId);
+
+        const isActive = tab.classList.contains('active');
+        tab.setAttribute('aria-selected', isActive ? 'true' : 'false');
+        tab.setAttribute('tabindex', isActive ? '0' : '-1');
+
+        tab.addEventListener('click', (e) => {
+          e.preventDefault();
+          this.selectTab(tabs, tab, onTabSwitch);
+        });
+
+        tab.addEventListener('keydown', (e) => {
+          let targetTab = null;
+          if (e.key === 'ArrowRight') {
+            targetTab = tabs[(idx + 1) % tabs.length];
+          } else if (e.key === 'ArrowLeft') {
+            targetTab = tabs[(idx - 1 + tabs.length) % tabs.length];
+          } else if (e.key === 'Home') {
+            targetTab = tabs[0];
+          } else if (e.key === 'End') {
+            targetTab = tabs[tabs.length - 1];
+          }
+          if (targetTab) {
+            e.preventDefault();
+            targetTab.focus();
+            this.selectTab(tabs, targetTab, onTabSwitch);
+          }
+        });
+      });
+
+      // Restore active tab from URL query (?tab=...)
+      try {
+        const hashQuery = window.location.hash.includes('?') ? window.location.hash.split('?')[1] : '';
+        const urlParams = new URLSearchParams(window.location.search || hashQuery);
+        const requestedTab = urlParams.get('tab');
+        if (requestedTab) {
+          const matchingTab = tabs.find(t => {
+            const tid = t.getAttribute('data-tab') || '';
+            return tid.toLowerCase() === requestedTab.toLowerCase() || t.innerText.toLowerCase().includes(requestedTab.toLowerCase());
+          });
+          if (matchingTab) {
+            this.selectTab(tabs, matchingTab, onTabSwitch, false);
+          }
+        }
+      } catch (e) {}
+    },
+
+    selectTab(allTabs, selectedTab, onTabSwitch, updateUrl = true) {
+      allTabs.forEach(t => {
+        const isCurrent = t === selectedTab;
+        t.classList.toggle('active', isCurrent);
+        t.setAttribute('aria-selected', isCurrent ? 'true' : 'false');
+        t.setAttribute('tabindex', isCurrent ? '0' : '-1');
+      });
+
+      const tabId = selectedTab.getAttribute('data-tab') || selectedTab.innerText.toLowerCase().replace(/[^a-z0-9]/g, '');
+
+      // Reflect in URL without full refresh
+      if (updateUrl && history.replaceState) {
+        try {
+          const url = new URL(window.location.href);
+          if (url.hash.includes('?')) {
+            const hashParts = url.hash.split('?');
+            const hParams = new URLSearchParams(hashParts[1]);
+            hParams.set('tab', tabId);
+            url.hash = hashParts[0] + '?' + hParams.toString();
+          } else {
+            url.hash = url.hash + '?tab=' + tabId;
+          }
+          history.replaceState(null, '', url.toString());
+        } catch (e) {}
+      }
+
+      // Scroll active tab into view
+      selectedTab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+
+      // Reset panel scroll position
+      const panel = document.getElementById('tabContentContainer') || document.querySelector('.topic-view-container');
+      if (panel) panel.scrollTop = 0;
+
+      if (typeof onTabSwitch === 'function') {
+        onTabSwitch(tabId, selectedTab);
+      }
+    }
+  };
+
+  /* =============================================================
+     RUBRIC SIMULATOR PERSISTENCE ENGINE
+     ============================================================= */
+  const BdsSimulator = {
+    getStorageKey(portalKey) {
+      return `bds.${portalKey || 'surgery'}.evaluations`;
+    },
+
+    getHistory(portalKey, topicId) {
+      try {
+        const raw = localStorage.getItem(this.getStorageKey(portalKey));
+        const all = raw ? JSON.parse(raw) : {};
+        return all[topicId] || [];
+      } catch (e) {
+        return [];
+      }
+    },
+
+    saveEvaluation(portalKey, topicId, evaluationData) {
+      try {
+        const key = this.getStorageKey(portalKey);
+        const raw = localStorage.getItem(key);
+        const all = raw ? JSON.parse(raw) : {};
+        if (!all[topicId]) all[topicId] = [];
+
+        const entry = {
+          id: Date.now().toString(),
+          timestamp: new Date().toISOString(),
+          dateStr: new Date().toLocaleDateString(undefined, { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }),
+          total: evaluationData.total,
+          outOf: evaluationData.outOf || 15,
+          gradeLabel: evaluationData.gradeLabel || '',
+          scores: evaluationData.scores || {}
+        };
+
+        all[topicId].unshift(entry);
+        if (all[topicId].length > 10) all[topicId] = all[topicId].slice(0, 10);
+
+        localStorage.setItem(key, JSON.stringify(all));
+
+        BdsToast.show(`Evaluation saved! Score: ${entry.total} / ${entry.outOf} (${entry.gradeLabel})`, 'success');
+        this.updateSaveUI(portalKey, topicId, entry);
+        return entry;
+      } catch (e) {
+        BdsToast.show("Couldn't save: browser storage is unavailable", "error");
+        return null;
+      }
+    },
+
+    deleteEvaluation(portalKey, topicId, entryId) {
+      try {
+        const key = this.getStorageKey(portalKey);
+        const raw = localStorage.getItem(key);
+        if (!raw) return;
+        const all = JSON.parse(raw);
+        if (all[topicId]) {
+          all[topicId] = all[topicId].filter(e => e.id !== entryId);
+          localStorage.setItem(key, JSON.stringify(all));
+          this.renderHistoryList(portalKey, topicId);
+          BdsToast.show('Evaluation deleted', 'info');
+        }
+      } catch (e) {}
+    },
+
+    clearAll(portalKey, topicId) {
+      BdsToast.confirm('Clear Evaluation History', 'Are you sure you want to delete all past evaluations for this topic?', () => {
+        try {
+          const key = this.getStorageKey(portalKey);
+          const raw = localStorage.getItem(key);
+          if (!raw) return;
+          const all = JSON.parse(raw);
+          delete all[topicId];
+          localStorage.setItem(key, JSON.stringify(all));
+          this.renderHistoryList(portalKey, topicId);
+          BdsToast.show('History cleared', 'info');
+        } catch (e) {}
+      });
+    },
+
+    updateSaveUI(portalKey, topicId, latestEntry) {
+      const saveBtn = document.getElementById('btnSaveEvaluation') || document.querySelector('.btn-save-evaluation');
+      if (saveBtn) {
+        const origText = saveBtn.getAttribute('data-orig-text') || saveBtn.textContent;
+        saveBtn.setAttribute('data-orig-text', origText);
+        saveBtn.textContent = 'Saved ✓';
+        saveBtn.classList.add('saved');
+        setTimeout(() => {
+          saveBtn.textContent = origText;
+          saveBtn.classList.remove('saved');
+        }, 2000);
+      }
+
+      const statusEl = document.getElementById('simSaveStatus');
+      if (statusEl) {
+        statusEl.textContent = `Last saved: ${latestEntry.dateStr} · ${latestEntry.total} / ${latestEntry.outOf}`;
+      }
+
+      this.renderHistoryList(portalKey, topicId);
+    },
+
+    renderHistoryList(portalKey, topicId) {
+      const container = document.getElementById('simHistoryList');
+      if (!container) return;
+      const history = this.getHistory(portalKey, topicId);
+      if (!history.length) {
+        container.innerHTML = '<div style="font-size:0.75rem; color:var(--text-muted); padding:8px 0;">No saved attempts yet.</div>';
+        return;
+      }
+      container.innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+          <span style="font-size:0.75rem; font-weight:700; color:var(--text-muted); text-transform:uppercase;">Past Attempts (${history.length}/10)</span>
+          <button style="background:none; border:none; color:var(--accent-crimson, #ef4444); font-size:0.72rem; cursor:pointer;" onclick="window.BdsSimulator.clearAll('${portalKey}', '${topicId}')">Clear all</button>
+        </div>
+        <div style="display:flex; flex-direction:column; gap:6px;">
+          ${history.map(item => `
+            <div style="display:flex; align-items:center; justify-content:space-between; padding:8px 10px; background:var(--bg-surface-2); border:1px solid var(--border-color); border-radius:6px; font-size:0.78rem;">
+              <div>
+                <span style="font-weight:700; color:var(--text-primary);">${item.total} / ${item.outOf}</span>
+                <span style="color:var(--text-muted); margin-left:6px;">${item.dateStr}</span>
+                ${item.gradeLabel ? `<span style="font-size:0.7rem; color:var(--accent-primary); margin-left:6px;">${item.gradeLabel}</span>` : ''}
+              </div>
+              <div style="display:flex; gap:6px;">
+                <button style="background:none; border:1px solid var(--border-color); color:var(--text-secondary); border-radius:4px; padding:2px 8px; font-size:0.72rem; cursor:pointer;" onclick="window.BdsSimulator.loadEvaluation('${portalKey}', '${topicId}', '${item.id}')">Load</button>
+                <button style="background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:0.85rem;" title="Delete" onclick="window.BdsSimulator.deleteEvaluation('${portalKey}', '${topicId}', '${item.id}')">✕</button>
+              </div>
+            </div>
+          `).join('')}
+        </div>
+      `;
+    },
+
+    loadEvaluation(portalKey, topicId, entryId) {
+      const history = this.getHistory(portalKey, topicId);
+      const entry = history.find(e => e.id === entryId);
+      if (!entry) return;
+
+      if (typeof window.applyLoadedEvaluationScores === 'function') {
+        window.applyLoadedEvaluationScores(entry.scores);
+        BdsToast.show(`Loaded attempt from ${entry.dateStr} (${entry.total}/${entry.outOf})`, 'info');
+      }
+    }
+  };
+
+  CoreEngine.showToast = (msg, type, dur) => BdsToast.show(msg, type, dur);
+  CoreEngine.confirm = (title, msg, fn) => BdsToast.confirm(title, msg, fn);
+  CoreEngine.TopicTabs = TopicTabs;
+  CoreEngine.Simulator = BdsSimulator;
+
   window.CoreEngine = CoreEngine;
   window.BdsTimer = BdsTimer;
+  window.BdsToast = BdsToast;
+  window.BdsSimulator = BdsSimulator;
+  window.TopicTabs = TopicTabs;
+  window.showToast = (msg, type, dur) => BdsToast.show(msg, type, dur);
+  window.alert = (msg) => BdsToast.show(String(msg), 'info', 4000);
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => BdsTimer.init());

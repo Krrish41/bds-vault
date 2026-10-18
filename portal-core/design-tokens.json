@@ -20,6 +20,21 @@
     "danger": "#ef4444",
     "info": "#38bdf8"
   },
+  "touch": {
+    "tapMin": "44px",
+    "tapPrimary": "48px"
+  },
+  "zIndex": {
+    "header": 30,
+    "scrim": 90,
+    "overlay": 100,
+    "toast": 110
+  },
+  "scrollbar": {
+    "width": "8px",
+    "thumbColor": "rgba(255, 255, 255, 0.2)",
+    "thumbHover": "rgba(255, 255, 255, 0.35)"
+  },
   "portals": {
     "surgery": {
       "name": "General Surgery Pro",
