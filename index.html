@@ -151,6 +151,9 @@
             scroll-behavior: smooth;
             background-color: var(--bg-base);
             color-scheme: dark;
+            overflow-x: hidden;
+            max-width: 100vw;
+            width: 100%;
         }
         [data-theme="light"], body.light {
             color-scheme: light;
@@ -193,6 +196,7 @@
             display: flex;
             flex-direction: column;
             overflow-x: hidden;
+            max-width: 100vw;
             width: 100%;
             -webkit-font-smoothing: antialiased;
         }
@@ -378,6 +382,9 @@
         }
 
         /* Mobile Trigger Buttons (<768px) */
+        .mobile-actions-wrap {
+            display: none;
+        }
         .mobile-search-btn,
         .mobile-overflow-btn {
             display: none;
@@ -1741,46 +1748,254 @@
 
 
         /* =============================================================
-           9. COMPACT FOOTER WITH QUICK-REFERENCE SHORTCUTS
+           9. STRUCTURED PROFESSIONAL FOOTER & QUICK REFERENCES
            ============================================================= */
         .hub-footer {
             border-top: 1px solid var(--border-color);
             background: var(--bg-surface);
-            padding: 24px;
+            padding: 32px 20px 24px 20px;
             margin-top: auto;
+            width: 100%;
+            max-width: 100vw;
+            box-sizing: border-box;
         }
         .footer-inner {
             max-width: 1400px;
             margin: 0 auto;
             display: flex;
             flex-direction: column;
-            gap: 14px;
+            gap: 22px;
+            width: 100%;
+            box-sizing: border-box;
         }
-        .footer-links-row {
+
+        /* Top Brand & Purpose Row */
+        .footer-brand-block {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 14px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .footer-brand-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            min-width: 0;
+        }
+        .footer-brand-logo {
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.04);
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            font-size: 0.82rem;
-        }
-        .footer-link {
-            color: var(--text-muted);
-            text-decoration: none;
-            transition: color 0.15s ease;
-        }
-        .footer-link:hover {
+            flex-shrink: 0;
             color: var(--text-primary);
         }
-        .footer-meta-row {
+        .footer-brand-logo svg {
+            width: 20px;
+            height: 20px;
+        }
+        .footer-brand-text {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            min-width: 0;
+        }
+        .footer-brand-title {
+            font-size: 0.96rem;
+            font-weight: 800;
+            letter-spacing: 0.04em;
+            color: var(--text-primary);
+        }
+        .footer-brand-tagline {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            line-height: 1.35;
+        }
+        .footer-badges-row {
             display: flex;
             align-items: center;
-            justify-content: center;
-            text-align: center;
             gap: 8px;
-            font-size: 0.75rem;
-            color: var(--text-muted);
             flex-wrap: wrap;
+        }
+        .footer-badge {
+            font-size: 0.72rem;
+            font-weight: 600;
+            padding: 3px 8px;
+            border-radius: 4px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            color: var(--text-secondary);
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .footer-badge.verified-badge {
+            background: rgba(16, 185, 129, 0.10);
+            border-color: rgba(16, 185, 129, 0.28);
+            color: #34d399;
+        }
+
+        /* 3-Column Navigation Grid */
+        .footer-grid {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 24px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .footer-col {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            min-width: 0;
+        }
+        .footer-col-heading {
+            font-size: 0.76rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-muted);
+            margin: 0;
+        }
+        .footer-links-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .footer-link-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: none;
+            border: none;
+            padding: 4px 0;
+            font-size: 0.82rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            cursor: pointer;
+            text-align: left;
+            transition: color 0.15s ease, transform 0.15s ease;
+            max-width: 100%;
+        }
+        .footer-link-btn:hover {
+            color: var(--text-primary);
+            transform: translateX(2px);
+        }
+        .footer-link-btn svg {
+            color: var(--text-muted);
+            flex-shrink: 0;
+            transition: color 0.15s ease;
+        }
+        .footer-link-btn:hover svg {
+            color: var(--accent-emerald);
+        }
+        .footer-link-dot {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        .footer-link-dot.surgery-dot { background: var(--surgery-accent); box-shadow: 0 0 5px var(--surgery-accent); }
+        .footer-link-dot.medicine-dot { background: var(--medicine-accent); box-shadow: 0 0 5px var(--medicine-accent); }
+        .footer-link-dot.pathology-dot { background: var(--pathology-accent); box-shadow: 0 0 5px var(--pathology-accent); }
+
+        /* Actions Group */
+        .footer-actions-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            width: 100%;
+        }
+        .footer-action-pill {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border-radius: var(--radius-sm);
+            font-size: 0.80rem;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            border: 1px solid var(--border-color);
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text-secondary);
+            transition: all 0.15s ease;
+            width: 100%;
+            box-sizing: border-box;
+            text-align: left;
+        }
+        .footer-action-pill:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: var(--border-strong);
+            color: var(--text-primary);
+        }
+        .footer-action-pill.star-pill:hover {
+            border-color: rgba(251, 191, 36, 0.4);
+            color: #fcd34d;
+            box-shadow: 0 0 12px rgba(251, 191, 36, 0.15);
+        }
+        .footer-action-pill.star-pill svg {
+            color: #fcd34d;
+            flex-shrink: 0;
+        }
+        .footer-action-pill.feedback-pill:hover {
+            border-color: rgba(99, 102, 241, 0.4);
+            color: #a5b4fc;
+            box-shadow: 0 0 12px rgba(99, 102, 241, 0.15);
+        }
+        .footer-action-pill.feedback-pill svg {
+            color: #818cf8;
+            flex-shrink: 0;
+        }
+        .footer-contact-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 6px;
+            padding: 6px 4px;
+            font-size: 0.74rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            flex-wrap: wrap;
+        }
+        .footer-contact-row:hover {
+            color: var(--text-primary);
+        }
+        .footer-contact-email {
+            color: #818cf8;
+            font-weight: 600;
+        }
+
+        /* Bottom Copyright / Accreditation */
+        .footer-bottom-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding-top: 16px;
+            border-top: 1px solid var(--border-color);
+            font-size: 0.74rem;
+            color: var(--text-muted);
+            width: 100%;
+            box-sizing: border-box;
+        }
+        .footer-copy {
+            line-height: 1.4;
+        }
+        .footer-accreditation {
+            color: var(--text-secondary);
+            font-weight: 500;
         }
 
         /* =============================================================
@@ -1854,10 +2069,11 @@
                 min-width: 0;
             }
             .brand-wordmark {
-                font-size: 1.05rem;
+                font-size: 0.95rem;
                 white-space: nowrap;
                 overflow: hidden;
                 text-overflow: ellipsis;
+                max-width: 160px;
             }
             .brand-sub {
                 display: none;
@@ -1868,6 +2084,13 @@
             .header-right-tools {
                 display: none;
             }
+            .mobile-actions-wrap {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+                flex-shrink: 0;
+                margin-left: auto;
+            }
             .mobile-search-btn,
             .mobile-overflow-btn {
                 display: inline-flex;
@@ -1875,6 +2098,7 @@
 
             /* Search Expanded Mode on Mobile */
             .header-solid.search-expanded .brand-link,
+            .header-solid.search-expanded .mobile-actions-wrap,
             .header-solid.search-expanded .mobile-search-btn,
             .header-solid.search-expanded .mobile-overflow-btn {
                 display: none !important;
@@ -1973,16 +2197,48 @@
 
             /* Topic preview bubbles on phones: exactly 2 bubbles */
             .preview-bubbles-grid {
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns: repeat(2, minmax(0, 1fr));
                 gap: 6px;
+                width: 100%;
             }
             .preview-bubbles-grid .preview-bubble:nth-child(n+3) {
                 display: none;
+            }
+            .preview-bubble {
+                min-width: 0;
+                max-width: 100%;
+                box-sizing: border-box;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
             }
 
             /* Minimum 12px text across mobile cards */
             .card-paper-tag, .card-specialty-sub, .feature-chip, .preview-bubble, .essay-count-label {
                 font-size: 0.75rem; /* 12px */
+            }
+
+            /* Mobile Footer Adjustments */
+            .hub-footer {
+                padding: 24px 14px 20px 14px;
+            }
+            .footer-brand-block {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 12px;
+            }
+            .footer-grid {
+                grid-template-columns: minmax(0, 1fr);
+                gap: 20px;
+            }
+            .footer-bottom-bar {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 6px;
+            }
+            .footer-link-btn {
+                padding: 6px 0;
+                font-size: 0.84rem;
             }
         }
 
@@ -2003,8 +2259,8 @@
         /* Bottom Sheet for <480px */
         @media (max-width: 479px) {
             .brand-wordmark {
-                max-width: 150px;
-                font-size: 0.98rem;
+                max-width: 135px;
+                font-size: 0.90rem;
             }
             .hub-overflow-menu {
                 position: fixed;
@@ -2027,16 +2283,19 @@
                 padding: 0 10px;
             }
             .brand-wordmark {
-                max-width: 110px;
-                font-size: 0.88rem;
+                max-width: 100px;
+                font-size: 0.82rem;
             }
             .brand-logo-tile {
                 width: 32px;
                 height: 32px;
             }
+            .mobile-actions-wrap {
+                gap: 6px;
+            }
             .mobile-search-btn, .mobile-overflow-btn {
-                width: 40px;
-                height: 40px;
+                width: 38px;
+                height: 38px;
             }
             .progress-strip-left {
                 flex-direction: column;
@@ -2044,7 +2303,7 @@
                 gap: 2px;
             }
             .preview-bubbles-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns: minmax(0, 1fr);
             }
         }
 
@@ -2375,13 +2634,15 @@
         </div>
 
         <!-- Mobile Action Buttons (<768px) -->
-        <button type="button" class="mobile-search-btn" id="hubSearchIconBtn" onclick="openMobileSearch()" aria-label="Open search">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-        </button>
-        <button type="button" class="mobile-overflow-btn" id="hubOverflowBtn" onclick="toggleHubOverflow(event)" aria-label="Open menu" aria-haspopup="dialog" aria-expanded="false">
-            <span class="overflow-timer-dot" id="overflowTimerDot"></span>
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
-        </button>
+        <div class="mobile-actions-wrap" id="hubMobileActionsWrap">
+            <button type="button" class="mobile-search-btn" id="hubSearchIconBtn" onclick="openMobileSearch()" aria-label="Open search">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            </button>
+            <button type="button" class="mobile-overflow-btn" id="hubOverflowBtn" onclick="toggleHubOverflow(event)" aria-label="Open menu" aria-haspopup="dialog" aria-expanded="false">
+                <span class="overflow-timer-dot" id="overflowTimerDot"></span>
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><circle cx="5" cy="12" r="2"/><circle cx="12" cy="12" r="2"/><circle cx="19" cy="12" r="2"/></svg>
+            </button>
+        </div>
 
         <!-- Mobile Overflow Scrim & Menu -->
         <div class="hub-overflow-scrim" id="hubOverflowScrim" onclick="closeHubOverflow()"></div>
@@ -2876,34 +3137,114 @@
         </div>
     </div>
 
-    <!-- 8. STREAMLINED FOOTER WITH QUICK-REFERENCE SHORTCUTS -->
-    <footer class="hub-footer">
+    <!-- 8. STRUCTURED PROFESSIONAL FOOTER & QUICK REFERENCES -->
+    <footer class="hub-footer" data-testid="hub-footer">
         <div class="footer-inner">
-            <div class="footer-links-row">
-                <a href="javascript:void(0)" class="footer-link" onclick="toggleLabModal('rubric')">15-Mark University Blueprints</a>
-                <span>•</span>
-                <a href="javascript:void(0)" class="footer-link" onclick="toggleLabModal('cutoffs')">Chairside Surgical Cutoffs</a>
-                <span>•</span>
-                <a href="javascript:void(0)" class="footer-link" onclick="toggleLabModal('norm')">Normal Laboratory Reference</a>
-                <span>•</span>
-                <a href="https://github.com/Krrish41/bds-vault" target="_blank" rel="noopener" class="footer-link star-link" style="display:inline-flex; align-items:center; gap:5px;">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                    <span>Star on GitHub</span>
-                </a>
-                <span>•</span>
-                <a href="javascript:void(0)" class="footer-link" onclick="openFeedbackModal()" style="display:inline-flex; align-items:center; gap:5px;">
-                    <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-                    <span>Report Bug / Feedback</span>
-                </a>
-                <span>•</span>
-                <a href="javascript:void(0)" class="footer-link" onclick="focusHubSearch()">Quick Search (/)</a>
+            <!-- Brand & Accreditation Row -->
+            <div class="footer-brand-block">
+                <div class="footer-brand-header">
+                    <div class="footer-brand-logo" aria-hidden="true">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+                        </svg>
+                    </div>
+                    <div class="footer-brand-text">
+                        <span class="footer-brand-title cinzel-brand">BDS CLINICAL VAULT</span>
+                        <span class="footer-brand-tagline">Consolidated 3rd-Year Dental Surgery &amp; Clinical Sciences Master Examination Command Suite</span>
+                    </div>
+                </div>
+                <div class="footer-badges-row">
+                    <span class="footer-badge">3rd-Year BDS Syllabus</span>
+                    <span class="footer-badge">Version 2.2.0</span>
+                    <span class="footer-badge verified-badge">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+                        Zero Clinical Omission
+                    </span>
+                </div>
             </div>
-            <div class="footer-meta-row">
-                <span class="cinzel-brand" style="font-weight:700;">BDS CLINICAL VAULT</span>
-                <span>•</span>
-                <span>Consolidated 3rd Year Dental Surgery &amp; Clinical Sciences Command Suite</span>
-                <span>•</span>
-                <span>Version 2.2.0 • Zero Clinical Omission</span>
+
+            <!-- 3-Column Navigation & Action Grid -->
+            <div class="footer-grid">
+                <!-- Col 1: University Clinical Reference -->
+                <div class="footer-col">
+                    <h3 class="footer-col-heading">Clinical Reference</h3>
+                    <ul class="footer-links-list">
+                        <li>
+                            <button type="button" class="footer-link-btn" onclick="toggleLabModal('rubric')">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1-2.5-2.5Z"/><path d="M6 6h10M6 10h10"/></svg>
+                                <span>15-Mark University Blueprints</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="footer-link-btn" onclick="toggleLabModal('cutoffs')">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6M9 9l6 6"/></svg>
+                                <span>Chairside Surgical Cutoffs</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="footer-link-btn" onclick="toggleLabModal('norm')">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                                <span>Normal Laboratory Values</span>
+                            </button>
+                        </li>
+                        <li>
+                            <button type="button" class="footer-link-btn" onclick="focusHubSearch()">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                                <span>Curriculum Search (Press /)</span>
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Col 2: Specialty Monograph Portals -->
+                <div class="footer-col">
+                    <h3 class="footer-col-heading">Specialty Portals</h3>
+                    <ul class="footer-links-list">
+                        <li>
+                            <a href="https://krrish41.github.io/general-surgery/" target="_blank" rel="noopener" class="footer-link-btn">
+                                <span class="footer-link-dot surgery-dot"></span>
+                                <span>Paper I: General Surgery Pro (24 Topics)</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://krrish41.github.io/General-Medicine/" target="_blank" rel="noopener" class="footer-link-btn">
+                                <span class="footer-link-dot medicine-dot"></span>
+                                <span>Paper II: General Medicine Pro (21 Topics)</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="https://krrish41.github.io/Oral-Pathology/" target="_blank" rel="noopener" class="footer-link-btn">
+                                <span class="footer-link-dot pathology-dot"></span>
+                                <span>Paper III: Oral Pathology Pro (21 Topics)</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Col 3: Community & Direct Feedback -->
+                <div class="footer-col">
+                    <h3 class="footer-col-heading">Community &amp; Feedback</h3>
+                    <div class="footer-actions-group">
+                        <a href="https://github.com/Krrish41/bds-vault" target="_blank" rel="noopener" class="footer-action-pill star-pill">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                            <span>Star BDS Vault on GitHub</span>
+                        </a>
+                        <button type="button" class="footer-action-pill feedback-pill" onclick="openFeedbackModal()">
+                            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                            <span>Report Bug / Send Feedback</span>
+                        </button>
+                        <a href="mailto:krrish4173@gmail.com?subject=[BDS%20Vault%20Bug%20Report]" class="footer-contact-row" title="Direct Email Bug Report">
+                            <span class="footer-contact-label">Lead Author:</span>
+                            <span class="footer-contact-email mono-num">krrish4173@gmail.com</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Copyright & Academic Ethics -->
+            <div class="footer-bottom-bar">
+                <span class="footer-copy">&copy; 2026 BDS Clinical Vault &middot; Peer-reviewed academic clinical compendium &middot; Strictly non-commercial</span>
+                <span class="footer-accreditation">Designed for University BDS &amp; MBBS Examination Candidates</span>
             </div>
         </div>
     </footer>
