@@ -166,6 +166,17 @@ body {
   justify-content: center;
 }
 
+
+.portal-sidebar.rail-collapsed .back-to-vault-link {
+  width: 44px;
+  height: 44px;
+  min-height: 44px;
+  padding: 0;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+}
+
+
 /* ==========================================================================
    SIDEBAR COMPONENTS
    ========================================================================== */
@@ -257,25 +268,33 @@ body {
   background: var(--bg-surface-2);
 }
 
-/* 2. Back to Vault (Quiet Text Link, no border) */
+/* 2. Back to Vault (Pill on seamless surface) */
 .sidebar-back-row {
-  padding: 6px 14px;
+  padding: 8px 14px;
+  background: var(--bg-surface);
   border-bottom: 1px solid var(--border-color);
   box-sizing: border-box;
+  display: flex;
+  align-items: center;
 }
 
 .back-to-vault-link {
-  display: inline-flex;
+  display: flex;
   align-items: center;
+  justify-content: flex-start;
   gap: 8px;
+  width: 100%;
+  min-height: 38px;
+  padding: 0 14px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--border-color);
+  background: var(--bg-surface);
   color: var(--text-secondary);
   font-size: 0.82rem;
   font-weight: 600;
   text-decoration: none;
   white-space: nowrap;
-  min-height: 40px;
-  padding: 0 8px;
-  border-radius: var(--radius-sm);
+  box-sizing: border-box;
   transition: all var(--transition-fast);
 }
 
@@ -286,12 +305,18 @@ body {
 }
 
 .back-to-vault-link:hover {
-  color: var(--text-primary);
   background: var(--bg-surface-2);
+  border-color: var(--accent-primary);
+  color: var(--accent-primary);
 }
 
 .back-to-vault-link svg {
   flex-shrink: 0;
+  transition: transform var(--transition-fast);
+}
+
+.back-to-vault-link:hover svg {
+  transform: translateX(-2px);
 }
 
 /* 3. Dashboard Nav Item */
