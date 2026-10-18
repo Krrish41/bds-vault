@@ -221,6 +221,16 @@
           rows[this.focusedRowIndex].focus();
         }
       });
+
+      // Close popovers when clicking outside
+      document.addEventListener('click', (e) => {
+        if (!e.target.closest('.focus-timer-container') && !e.target.closest('.topbar-timer-wrapper')) {
+          this.closeTimerPopover();
+        }
+        if (!e.target.closest('.topbar-overflow-wrapper')) {
+          this.closeTopbarOverflow();
+        }
+      });
     },
 
     /* -------------------------------------------------------------
@@ -787,22 +797,21 @@
             <span class="btn-text">Audio Walk</span>
           </button>
 
-          <!-- 2. Focus Timer with Popover -->
-          <div class="topbar-timer-wrapper">
-            <button class="topbar-tool-btn timer-btn" data-testid="focus-timer" id="topbarTimerBtn" onclick="CoreEngine.toggleTimerPopover()" title="Focus Study Timer">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-              <span class="btn-text" id="topbarTimerText">25:00</span>
+          <!-- 2. Focus Timer with Popover (Synced across all portals and hub) -->
+          <div class="topbar-timer-wrapper focus-timer-container">
+            <button class="topbar-tool-btn timer-btn timer-nav-pill" data-testid="focus-timer" id="topbarTimerBtn" onclick="CoreEngine.toggleTimerPopover(event)" title="Toggle Focus Study Timer" aria-haspopup="dialog" aria-expanded="false">
+              <span class="timer-chip-dot"></span>
+              <span class="btn-text mono-num" id="topbarTimerText">25:00</span>
+              <span class="timer-state-label" id="topbarTimerStateText">Focus</span>
             </button>
-            <div class="timer-popover" id="timerPopover">
-              <div class="timer-popover-header">Focus Timer</div>
-              <div class="timer-popover-display" id="timerPopoverTime">25:00</div>
+            <div class="timer-popover-card timer-popover" id="timerPopover" onclick="event.stopPropagation()">
+              <div class="timer-popover-header" id="timerModeLabel">High-Yield Focus Block</div>
+              <div class="timer-popover-digits mono-num" id="timerPopoverTime">25:00</div>
               <div class="timer-popover-controls">
-                <button class="timer-btn-primary" id="btnTimerStartPause" onclick="window.BdsTimer.toggle()">Start Focus</button>
-                <button class="timer-btn-secondary" id="btnTimerReset" onclick="window.BdsTimer.reset(25)">Reset</button>
-              </div>
-              <div class="timer-presets-row">
-                <button class="timer-preset-btn active" id="btnPreset25" onclick="CoreEngine.setTimerPreset(25)">25m</button>
-                <button class="timer-preset-btn" id="btnPreset50" onclick="CoreEngine.setTimerPreset(50)">50m</button>
+                <button class="timer-ctrl-btn primary" id="btnTimerStartPause" onclick="CoreEngine.toggleTimer()">Start Focus</button>
+                <button class="timer-ctrl-btn" id="btnPreset25" onclick="CoreEngine.resetTimer(25)">25m</button>
+                <button class="timer-ctrl-btn" id="btnPreset50" onclick="CoreEngine.resetTimer(50)">50m</button>
+                <button class="timer-ctrl-btn" id="btnTimerReset" onclick="CoreEngine.resetTimer(25)">Reset</button>
               </div>
             </div>
           </div>
@@ -957,24 +966,37 @@
       }
     },
 
-    toggleTimerPopover() {
+    toggleTimerPopover(event) {
+      if (event) event.stopPropagation();
       const pop = document.getElementById('timerPopover');
-      if (pop) pop.classList.toggle('open');
+      const btn = document.getElementById('topbarTimerBtn') || document.getElementById('navTimerPill');
+      if (!pop) return;
+      const isOpen = pop.classList.contains('open');
+      if (isOpen) {
+        pop.classList.remove('open');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+      } else {
+        pop.classList.add('open');
+        if (btn) btn.setAttribute('aria-expanded', 'true');
+      }
       this.closeTopbarOverflow();
     },
 
     closeTimerPopover() {
       const pop = document.getElementById('timerPopover');
+      const btn = document.getElementById('topbarTimerBtn') || document.getElementById('navTimerPill');
       if (pop) pop.classList.remove('open');
+      if (btn) btn.setAttribute('aria-expanded', 'false');
     },
 
-    setTimerPreset(mins) {
-      if (window.BdsTimer) window.BdsTimer.reset(mins);
-      const p25 = document.getElementById('btnPreset25');
-      const p50 = document.getElementById('btnPreset50');
-      if (p25 && p50) {
-        p25.classList.toggle('active', mins === 25);
-        p50.classList.toggle('active', mins === 50);
+    toggleTimer() {
+      if (window.BdsTimer) window.BdsTimer.toggle();
+    },
+
+    resetTimer(mins) {
+      if (window.BdsTimer) {
+        window.BdsTimer.reset(mins);
+        window.BdsTimer.start(mins);
       }
     },
 
@@ -1103,29 +1125,51 @@
 
     updateDisplays(seconds, isRunning, isPaused) {
       const timeStr = this.formatTime(seconds);
+      const stateLabel = isRunning ? 'Running' : (isPaused ? 'Paused' : 'Focus');
 
-      // Topbar button display
+      // Topbar button display (Surgery, Medicine, Pathology)
       const topbarText = document.getElementById('topbarTimerText');
       if (topbarText) topbarText.textContent = timeStr;
-      const popoverTime = document.getElementById('timerPopoverTime');
-      if (popoverTime) popoverTime.textContent = timeStr;
+      const topbarState = document.getElementById('topbarTimerStateText');
+      if (topbarState) topbarState.textContent = stateLabel;
 
       const topbarBtn = document.getElementById('topbarTimerBtn');
       if (topbarBtn) {
-        if (isRunning) topbarBtn.classList.add('active');
-        else topbarBtn.classList.remove('active');
+        if (isRunning) topbarBtn.classList.add('running', 'active');
+        else topbarBtn.classList.remove('running', 'active');
       }
 
-      const btnStartPause = document.getElementById('btnTimerStartPause');
-      if (btnStartPause) {
-        btnStartPause.textContent = isRunning ? 'Pause Focus' : (isPaused ? 'Resume Focus' : 'Start Focus');
-      }
-
-      // Hub Displays
-      const navTimerDisp = document.getElementById('navTimerDisplay');
-      if (navTimerDisp) navTimerDisp.textContent = timeStr;
+      // Popover countdown digits
+      const popoverTime = document.getElementById('timerPopoverTime');
+      if (popoverTime) popoverTime.textContent = timeStr;
       const timerMainDigits = document.getElementById('timerMainDigits');
       if (timerMainDigits) timerMainDigits.textContent = timeStr;
+
+      // Start / Pause buttons
+      const actionText = isRunning ? 'Pause Focus' : (isPaused ? 'Resume Focus' : 'Start Focus');
+      const btnStartPause = document.getElementById('btnTimerStartPause');
+      if (btnStartPause) btnStartPause.textContent = actionText;
+      const timerStartBtn = document.getElementById('timerStartBtn');
+      if (timerStartBtn) timerStartBtn.textContent = actionText;
+
+      // Hub Displays (bds-vault)
+      const navTimerDisp = document.getElementById('navTimerDisplay');
+      if (navTimerDisp) navTimerDisp.textContent = timeStr;
+      const navTimerState = document.getElementById('navTimerStateText');
+      if (navTimerState) navTimerState.textContent = stateLabel;
+
+      const navTimerPill = document.getElementById('navTimerPill');
+      if (navTimerPill) {
+        if (isRunning) navTimerPill.classList.add('running', 'active');
+        else navTimerPill.classList.remove('running', 'active');
+      }
+
+      // Preset buttons active indicators
+      const state = this.getState();
+      const p25 = document.getElementById('btnPreset25');
+      const p50 = document.getElementById('btnPreset50');
+      if (p25) p25.classList.toggle('active', state.durationMinutes === 25);
+      if (p50) p50.classList.toggle('active', state.durationMinutes === 50);
     },
 
     render() {

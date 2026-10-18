@@ -1086,83 +1086,138 @@ mark.search-match {
   color: var(--text-primary);
 }
 
-/* Focus timer popover */
+/* Focus timer button & popover */
 .topbar-timer-wrapper {
   position: relative;
 }
 
+.timer-nav-pill,
+.topbar-tool-btn.timer-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0 12px;
+  min-height: 38px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface-2);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.timer-nav-pill:hover,
+.topbar-tool-btn.timer-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--border-strong);
+}
+
+.timer-chip-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--text-muted);
+  flex-shrink: 0;
+  transition: background var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.timer-btn.running .timer-chip-dot,
+.timer-nav-pill.running .timer-chip-dot,
+.timer-btn.active .timer-chip-dot {
+  background: var(--accent-emerald, #10b981);
+  box-shadow: 0 0 8px var(--accent-emerald, #10b981);
+}
+
+.timer-state-label {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-family: var(--font-sans);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.timer-popover-card,
 .timer-popover {
   display: none;
   position: absolute;
-  top: calc(100% + 6px);
+  top: calc(100% + 8px);
   right: 0;
-  background: var(--bg-surface);
+  background: var(--bg-surface-elevated, var(--bg-surface));
   border: 1px solid var(--border-strong);
   border-radius: var(--radius-md);
   padding: 16px;
   box-shadow: var(--shadow-lg);
   z-index: 1060;
-  width: 220px;
+  width: 250px;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
+  box-sizing: border-box;
 }
 
+.timer-popover-card.open,
 .timer-popover.open {
-  display: flex;
+  display: flex !important;
 }
 
 .timer-popover-header {
   font-size: 0.72rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.06em;
   color: var(--text-muted);
+  margin-bottom: 2px;
+  text-align: center;
 }
 
+.timer-popover-digits,
 .timer-popover-display {
   font-family: var(--font-mono);
-  font-size: 2rem;
+  font-size: 2.2rem;
   font-weight: 800;
   color: var(--text-primary);
-  line-height: 1.1;
+  line-height: 1;
+  text-align: center;
 }
 
 .timer-popover-controls {
   display: flex;
-  gap: 8px;
+  gap: 6px;
   width: 100%;
 }
 
-.timer-btn-primary, .timer-btn-secondary {
-  flex: 1;
-  min-height: 34px;
-  border-radius: 6px;
-  font-size: 0.82rem;
+.timer-ctrl-btn {
+  padding: 7px 10px;
+  border-radius: var(--radius-sm);
+  font-size: 0.8rem;
   font-weight: 700;
   cursor: pointer;
   border: 1px solid var(--border-color);
-  transition: all var(--transition-fast);
-}
-
-.timer-btn-primary {
-  background: var(--accent-primary);
-  color: #090a12;
-  border-color: var(--accent-primary);
-}
-
-.timer-btn-primary:hover {
-  background: var(--accent-primary-dark);
-}
-
-.timer-btn-secondary {
   background: var(--bg-surface-2);
   color: var(--text-secondary);
+  transition: all var(--transition-fast);
+  white-space: nowrap;
 }
 
-.timer-btn-secondary:hover {
+.timer-ctrl-btn:hover {
   background: rgba(255, 255, 255, 0.08);
   color: var(--text-primary);
+  border-color: var(--border-strong);
+}
+
+.timer-ctrl-btn.primary {
+  background: var(--accent-primary, #10b981);
+  color: #090a12;
+  border: 1px solid var(--accent-primary, #10b981);
+  flex: 1;
+}
+
+.timer-ctrl-btn.primary:hover {
+  filter: brightness(1.1);
 }
 
 .timer-presets-row {
@@ -1173,21 +1228,23 @@ mark.search-match {
 
 .timer-preset-btn {
   flex: 1;
-  padding: 4px 8px;
-  border-radius: 4px;
-  background: transparent;
+  padding: 6px 8px;
+  border-radius: var(--radius-sm);
+  background: var(--bg-surface-2);
   border: 1px solid var(--border-color);
   color: var(--text-muted);
-  font-size: 0.75rem;
-  font-weight: 600;
+  font-size: 0.76rem;
+  font-weight: 700;
   cursor: pointer;
   transition: all var(--transition-fast);
+  text-align: center;
 }
 
-.timer-preset-btn:hover, .timer-preset-btn.active {
-  background: var(--bg-surface-2);
-  border-color: var(--accent-primary);
-  color: var(--accent-primary);
+.timer-preset-btn:hover,
+.timer-preset-btn.active {
+  background: var(--accent-light, rgba(20, 184, 166, 0.12));
+  border-color: var(--accent-primary, #10b981);
+  color: var(--accent-primary, #10b981);
 }
 
 /* Theme Toggle Icons */
