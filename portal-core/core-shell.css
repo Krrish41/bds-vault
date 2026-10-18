@@ -491,6 +491,14 @@ body.light .tab-btn[aria-selected="true"] {
   font-weight: 700;
 }
 
+/* On mobile/tablet screens where the sticky bottom navigation bar is visible,
+   hide redundant Spotters tab from the horizontal top tab bar */
+@media (max-width: 1024px) {
+  .tab-btn[data-tab="diagrams"] {
+    display: none !important;
+  }
+}
+
 /* 5. Search Box (Single plain search — NO Ctrl K / cmdk keycaps) */
 .sidebar-search-box {
   padding: 6px 16px 10px 16px;
