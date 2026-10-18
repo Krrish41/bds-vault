@@ -588,6 +588,42 @@ body {
   padding: 0;
 }
 
+/* Canonical Dashboard & Category Filter Chips */
+.filter-chip {
+  white-space: nowrap;
+  background: var(--bg-base, #090a12);
+  border: 1px solid var(--border-color, rgba(255, 255, 255, 0.08));
+  color: var(--text-secondary, #cbd5e1);
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: var(--radius-full, 999px);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+}
+
+.filter-chip:hover:not(.active) {
+  background: var(--accent-light, rgba(20, 184, 166, 0.12));
+  color: var(--text-primary, #f8fafc);
+  border-color: var(--border-accent, var(--border-strong, rgba(255, 255, 255, 0.15)));
+}
+
+.filter-chip.active {
+  background: var(--accent-btn-bg, var(--accent-primary-dark, #0f766e)) !important;
+  color: #ffffff !important;
+  border-color: var(--accent-btn-border, var(--border-accent, rgba(20, 184, 166, 0.55))) !important;
+  box-shadow: 0 0 10px var(--accent-glow, rgba(20, 184, 166, 0.25));
+  font-weight: 700;
+}
+
+.filter-chip.active:hover {
+  background: var(--accent-btn-hover, #115e59) !important;
+  border-color: var(--accent-primary, #14b8a6) !important;
+  color: #ffffff !important;
+}
+
 /* 6. Progress Card & 7. Continue Shortcut */
 .sidebar-progress-card {
   padding: 10px 16px;
