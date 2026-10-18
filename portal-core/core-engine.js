@@ -340,6 +340,16 @@
 
         <!-- 14. Sidebar Footer -->
         <div class="sidebar-footer">
+          <div class="sidebar-action-links">
+            <a href="https://github.com/Krrish41/bds-vault" target="_blank" rel="noopener" class="sidebar-action-btn star-highlight" data-testid="sidebar-star-vault" title="Star BDS Clinical Vault on GitHub">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <span>Star on GitHub</span>
+            </a>
+            <button type="button" class="sidebar-action-btn" onclick="CoreEngine.openFeedbackModal()" data-testid="sidebar-feedback-btn" title="Send Feedback or Report a Bug">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              <span>Report Bug / Feedback</span>
+            </button>
+          </div>
           <span class="footer-version">BDS Clinical Vault · v2.2.0</span>
         </div>
       `;
@@ -845,19 +855,27 @@
             <span class="btn-text">Master PDF</span>
           </a>
 
-          <!-- 4. Theme Toggle -->
+          <!-- 5. Star BDS Vault -->
+          <a href="https://github.com/Krrish41/bds-vault" class="topbar-tool-btn star-btn" data-testid="star-vault" target="_blank" rel="noopener" title="Star BDS Vault on GitHub">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+            <span class="btn-text">Star</span>
+          </a>
+
+          <!-- 6. Theme Toggle -->
           <button class="topbar-tool-btn theme-toggle-btn" data-testid="theme-toggle" onclick="CoreEngine.toggleTheme()" title="Toggle Theme (Dark/Light)">
             <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
             <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
           </button>
 
-          <!-- 5. Overflow Menu (Small screens) -->
+          <!-- 7. Overflow Menu (Small screens) -->
           <div class="topbar-overflow-wrapper" id="topbarOverflowWrapper">
             <button class="topbar-tool-btn overflow-btn" data-testid="topbar-overflow" onclick="CoreEngine.toggleTopbarOverflow()" aria-label="More tools">⋯</button>
             <div class="topbar-overflow-menu" id="topbarOverflowMenu">
               <a href="${cfg.hubUrl || 'https://krrish41.github.io/bds-vault/'}" class="overflow-item">‹ Back to Vault</a>
               <a href="${cfg.pdfUrl || '#'}" class="overflow-item" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block; vertical-align:middle; margin-right:6px;" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>Master PDF</a>
               <button class="overflow-item" onclick="CoreEngine.toggleTheme()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block; vertical-align:middle; margin-right:6px;" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 0 0 20z" fill="currentColor"/></svg>Toggle Theme</button>
+              <a href="https://github.com/Krrish41/bds-vault" class="overflow-item" target="_blank" rel="noopener"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block; vertical-align:middle; margin-right:6px;" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Star on GitHub</a>
+              <button class="overflow-item" onclick="CoreEngine.openFeedbackModal()"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:inline-block; vertical-align:middle; margin-right:6px;" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>Report Bug / Feedback</button>
             </div>
           </div>
         </div>
@@ -1043,6 +1061,229 @@
     closeTopbarOverflow() {
       const menu = document.getElementById('topbarOverflowMenu');
       if (menu) menu.classList.remove('open');
+    },
+
+    /* -------------------------------------------------------------
+       FEEDBACK & BUG REPORT MODAL SUBSYSTEM
+    ------------------------------------------------------------- */
+    getClientDiagnostics() {
+      const ua = navigator.userAgent || '';
+      let os = 'Unknown OS';
+      if (/Windows NT 10.0/i.test(ua)) os = 'Windows 10/11';
+      else if (/Windows NT/i.test(ua)) os = 'Windows PC';
+      else if (/iPhone/i.test(ua)) os = 'iOS (iPhone)';
+      else if (/iPad/i.test(ua)) os = 'iPadOS';
+      else if (/Android/i.test(ua)) os = 'Android';
+      else if (/Macintosh|Mac OS X/i.test(ua)) os = 'macOS';
+      else if (/Linux/i.test(ua)) os = 'Linux';
+
+      let browser = 'Unknown Browser';
+      if (/Edg\//i.test(ua)) browser = 'Microsoft Edge';
+      else if (/Chrome\//i.test(ua) && !/Edg\//i.test(ua)) browser = 'Google Chrome';
+      else if (/Safari\//i.test(ua) && !/Chrome\//i.test(ua)) browser = 'Apple Safari';
+      else if (/Firefox\//i.test(ua)) browser = 'Mozilla Firefox';
+
+      const portalNames = {
+        surgery: 'General Surgery Pro (Paper I)',
+        medicine: 'General Medicine Pro (Paper II)',
+        pathology: 'Oral Pathology Pro (Paper III)',
+        vault: 'BDS Clinical Vault (Hub)'
+      };
+      const portalName = portalNames[this.portalKey] || 'BDS Clinical Vault';
+
+      let locationStr = 'Dashboard / Overview';
+      if (this.currentTopicIndex >= 0 && this.topics && this.topics[this.currentTopicIndex]) {
+        locationStr = `Chapter ${this.currentTopicIndex + 1}: ${this.topics[this.currentTopicIndex].title}`;
+      } else if (window.location.hash) {
+        locationStr = `Route: ${window.location.hash}`;
+      }
+
+      const screenRes = `${window.screen ? window.screen.width + 'x' + window.screen.height : 'Unknown'} (Viewport: ${window.innerWidth}x${window.innerHeight})`;
+      const theme = document.documentElement.getAttribute('data-theme') || 'dark';
+      const timestamp = new Date().toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
+
+      return {
+        portalName,
+        locationStr,
+        url: window.location.href,
+        os,
+        browser,
+        screenRes,
+        theme,
+        timestamp
+      };
+    },
+
+    generateFeedbackTemplate() {
+      const diag = this.getClientDiagnostics();
+      return `[BDS Clinical Vault — Bug Report / Clinical Feedback]
+
+1. ENVIRONMENT & CONTEXT:
+• Portal / Specialty: ${diag.portalName}
+• Current Location: ${diag.locationStr}
+• Page URL: ${diag.url}
+• Device & OS: ${diag.os}
+• Web Browser: ${diag.browser}
+• Screen & Viewport: ${diag.screenRes}
+• Theme Mode: ${diag.theme}
+• Timestamp: ${diag.timestamp}
+
+2. ISSUE CATEGORY:
+[ ] Broken Link / Button / Navigation
+[ ] Audio Walk / TTS Island Glitch
+[ ] Exam Simulator / Flashcard Rubric Issue
+[ ] Clinical Inaccuracy / Drug Dosage / Typo
+[ ] Layout / Display / Mobile Responsiveness
+[ ] Other / General Feedback
+
+3. DESCRIPTION OF ISSUE:
+What happened:
+[Describe the bug or issue here]
+
+Expected behavior:
+[What should have happened instead]
+
+4. STEPS TO REPRODUCE:
+1. 
+2. 
+3. 
+
+5. CLINICAL CORRECTION (if reporting textbook/monograph discrepancies):
+• Standard Reference: [e.g. Shafer 9th ed, Chugh, Love & Bailey, WHO Criteria]
+• Chapter / Page: 
+• Correction Details: 
+
+6. ATTACHMENTS:
+(Please attach relevant screenshots or screen recordings if applicable)`;
+    },
+
+    ensureFeedbackModal() {
+      let overlay = document.getElementById('bdsFeedbackModalOverlay');
+      if (overlay) return overlay;
+
+      overlay = document.createElement('div');
+      overlay.id = 'bdsFeedbackModalOverlay';
+      overlay.className = 'bds-feedback-modal-overlay';
+      overlay.setAttribute('role', 'dialog');
+      overlay.setAttribute('aria-modal', 'true');
+      overlay.setAttribute('aria-labelledby', 'bdsFeedbackTitle');
+      overlay.onclick = (e) => {
+        if (e.target === overlay) CoreEngine.closeFeedbackModal();
+      };
+
+      overlay.innerHTML = `
+        <div class="bds-feedback-modal-card" onclick="event.stopPropagation()">
+          <div class="bds-feedback-header">
+            <div class="bds-feedback-title-wrap">
+              <div class="bds-feedback-title" id="bdsFeedbackTitle">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+                <span>Feedback &amp; Bug Report</span>
+              </div>
+              <div class="bds-feedback-sub">Help refine the BDS Clinical Vault ecosystem. Every issue report or clinical correction directly improves exam readiness for dental students.</div>
+            </div>
+            <button type="button" class="bds-feedback-close" onclick="CoreEngine.closeFeedbackModal()" aria-label="Close dialog">&times;</button>
+          </div>
+
+          <div class="bds-feedback-body">
+            <!-- Direct Contact Card -->
+            <div class="bds-contact-card">
+              <div class="bds-contact-meta">
+                <div class="bds-contact-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="16" x="2" y="4" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                </div>
+                <div class="bds-contact-details">
+                  <span class="bds-contact-label">Direct Clinical Lead Contact</span>
+                  <a href="mailto:krrish4173@gmail.com" class="bds-contact-email">krrish4173@gmail.com</a>
+                </div>
+              </div>
+              <div class="bds-contact-actions">
+                <button type="button" class="bds-btn-pill" id="bdsCopyEmailBtn" onclick="CoreEngine.copyFeedbackEmail()">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                  <span id="bdsCopyEmailText">Copy Email</span>
+                </button>
+                <a href="#" id="bdsFeedbackMailtoBtn" class="bds-btn-pill primary" target="_blank" rel="noopener">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+                  <span>Open in Mail Client</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Standardized Bug Report Template -->
+            <div class="bds-template-section">
+              <div class="bds-template-header">
+                <span class="bds-template-label">Standard Bug Report &amp; Correction Template</span>
+                <button type="button" class="bds-btn-pill" id="bdsCopyTemplateBtn" onclick="CoreEngine.copyFeedbackTemplate()">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                  <span id="bdsCopyTemplateText">Copy Template</span>
+                </button>
+              </div>
+              <pre class="bds-template-box" id="bdsFeedbackTemplateText"></pre>
+            </div>
+          </div>
+
+          <div class="bds-feedback-footer">
+            <div class="bds-github-star-hint">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#f59e0b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+              <span>Enjoying the study suite? Support us by giving a <a href="https://github.com/Krrish41/bds-vault" target="_blank" rel="noopener">Star to BDS Clinical Vault on GitHub</a>.</span>
+            </div>
+            <button type="button" class="bds-btn-pill" onclick="CoreEngine.closeFeedbackModal()">Close</button>
+          </div>
+        </div>
+      `;
+
+      document.body.appendChild(overlay);
+      return overlay;
+    },
+
+    openFeedbackModal() {
+      this.closeTopbarOverflow();
+      const overlay = this.ensureFeedbackModal();
+      const template = this.generateFeedbackTemplate();
+      const templateBox = document.getElementById('bdsFeedbackTemplateText');
+      if (templateBox) templateBox.textContent = template;
+
+      const mailtoBtn = document.getElementById('bdsFeedbackMailtoBtn');
+      if (mailtoBtn) {
+        const diag = this.getClientDiagnostics();
+        const subject = encodeURIComponent(`[BDS Vault Bug Report] Issue in ${diag.portalName}`);
+        const body = encodeURIComponent(template);
+        mailtoBtn.href = `mailto:krrish4173@gmail.com?subject=${subject}&body=${body}`;
+      }
+
+      overlay.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    },
+
+    closeFeedbackModal() {
+      const overlay = document.getElementById('bdsFeedbackModalOverlay');
+      if (overlay) overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    },
+
+    copyFeedbackTemplate() {
+      const template = this.generateFeedbackTemplate();
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(template).then(() => {
+          const btnText = document.getElementById('bdsCopyTemplateText');
+          if (btnText) {
+            btnText.textContent = 'Copied!';
+            setTimeout(() => { btnText.textContent = 'Copy Template'; }, 2000);
+          }
+        }).catch(() => {});
+      }
+    },
+
+    copyFeedbackEmail() {
+      const email = 'krrish4173@gmail.com';
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(email).then(() => {
+          const btnText = document.getElementById('bdsCopyEmailText');
+          if (btnText) {
+            btnText.textContent = 'Copied!';
+            setTimeout(() => { btnText.textContent = 'Copy Email'; }, 2000);
+          }
+        }).catch(() => {});
+      }
     }
   };
 
@@ -1746,6 +1987,8 @@
   window.BdsToast = BdsToast;
   window.BdsSimulator = BdsSimulator;
   window.TopicTabs = TopicTabs;
+  window.openFeedbackModal = () => CoreEngine.openFeedbackModal();
+  window.closeFeedbackModal = () => CoreEngine.closeFeedbackModal();
   window.showToast = (msg, type, dur) => BdsToast.show(msg, type, dur);
   window.alert = (msg) => BdsToast.show(String(msg), 'info', 4000);
 
