@@ -1,29 +1,46 @@
 /**
- * BDS Clinical Vault — Canonical Core Engine
- * Standardized router, audio engine, focus timer, command palette & storage
+ * BDS Clinical Vault — Canonical Core Engine (v2.2)
+ * Shared PortalSidebar, PortalTopBar, Synchronized Focus Timer, Audio Walk & Navigation
  */
 
 (function (window) {
   'use strict';
 
   const CoreEngine = {
+    config: null,
     portalKey: 'vault',
     topics: [],
-    currentTopicIndex: 0,
-    audioElement: null,
-    audioSpeed: 1.0,
-    timerInterval: null,
-    timerSeconds: 1500,
+    currentTopicIndex: -1,
+    statusFilter: 'all', // 'all' | 'pending' | 'completed' | 'notes'
+    collapsedGroups: {},
+    railCollapsed: false,
+    focusedRowIndex: -1,
 
-    init(options) {
-      this.portalKey = options.portalKey || 'vault';
-      this.topics = options.topics || [];
+    init(config) {
+      this.config = config || {};
+      this.portalKey = config.portalKey || 'vault';
+      this.topics = config.topics || [];
+      this.currentTopicIndex = typeof config.currentTopicIndex === 'number' ? config.currentTopicIndex : -1;
+
+      // Load persisted states
+      this.loadCollapsedGroups();
+      this.loadRailState();
+
+      // Initialize Core Subsystems
       this.initTheme();
       this.initRouter();
-      this.initAudio();
-      this.initTimer();
-      this.initCommandPalette();
-      this.initProgressSync();
+      this.initKeyboard();
+
+      // Render Components if in clinical portal mode
+      if (this.portalKey !== 'vault') {
+        this.renderSidebar();
+        this.renderTopBar();
+        this.updateProgressDisplays();
+      }
+
+      // Initialize Timer & Audio
+      if (window.BdsTimer) window.BdsTimer.init();
+      if (this.initAudio) this.initAudio();
     },
 
     /* -------------------------------------------------------------
@@ -32,15 +49,6 @@
     initTheme() {
       const savedTheme = localStorage.getItem('bds.theme') || 'dark';
       this.setTheme(savedTheme);
-
-      const toggleBtn = document.querySelector('[data-testid="theme-toggle"]');
-      if (toggleBtn) {
-        toggleBtn.addEventListener('click', () => {
-          const current = document.body.classList.contains('light') ? 'light' : 'dark';
-          const next = current === 'dark' ? 'light' : 'dark';
-          this.setTheme(next);
-        });
-      }
     },
 
     setTheme(theme) {
@@ -54,362 +62,950 @@
         document.documentElement.setAttribute('data-theme', 'dark');
       }
       localStorage.setItem('bds.theme', theme);
-    },
-
-    /* -------------------------------------------------------------
-       UNIFIED HASH ROUTER
-    ------------------------------------------------------------- */
-    initRouter() {
-      window.addEventListener('hashchange', () => this.handleRoute());
-      // Handle initial route on cold load
-      window.addEventListener('DOMContentLoaded', () => this.handleRoute());
-      if (document.readyState === 'complete' || document.readyState === 'interactive') {
-        this.handleRoute();
+      if (this.config && this.config.onThemeChange) {
+        this.config.onThemeChange(theme);
       }
     },
 
-    handleRoute() {
+    toggleTheme() {
+      const current = document.body.classList.contains('light') ? 'light' : 'dark';
+      const next = current === 'dark' ? 'light' : 'dark';
+      this.setTheme(next);
+      this.closeTopbarOverflow();
+    },
+
+    /* -------------------------------------------------------------
+       STATE PERSISTENCE (Groups & Rail)
+    ------------------------------------------------------------- */
+    loadCollapsedGroups() {
+      try {
+        const raw = localStorage.getItem(`bds.${this.portalKey}.collapsedGroups`);
+        this.collapsedGroups = raw ? JSON.parse(raw) : {};
+      } catch (e) {
+        this.collapsedGroups = {};
+      }
+    },
+
+    saveCollapsedGroups() {
+      try {
+        localStorage.setItem(`bds.${this.portalKey}.collapsedGroups`, JSON.stringify(this.collapsedGroups));
+      } catch (e) {}
+    },
+
+    loadRailState() {
+      try {
+        this.railCollapsed = localStorage.getItem(`bds.${this.portalKey}.railCollapsed`) === 'true';
+      } catch (e) {
+        this.railCollapsed = false;
+      }
+    },
+
+    toggleSidebarRail() {
+      this.railCollapsed = !this.railCollapsed;
+      try {
+        localStorage.setItem(`bds.${this.portalKey}.railCollapsed`, String(this.railCollapsed));
+      } catch (e) {}
+      const sidebar = document.getElementById('sidebar');
+      if (sidebar) {
+        if (this.railCollapsed) sidebar.classList.add('rail-collapsed');
+        else sidebar.classList.remove('rail-collapsed');
+      }
+    },
+
+    /* -------------------------------------------------------------
+       ROUTER & HASH NAVIGATION
+    ------------------------------------------------------------- */
+    initRouter() {
+      window.addEventListener('hashchange', () => this.handleHashRoute());
+      window.addEventListener('DOMContentLoaded', () => this.handleHashRoute());
+      if (document.readyState === 'complete' || document.readyState === 'interactive') {
+        this.handleHashRoute();
+      }
+    },
+
+    handleHashRoute() {
       const hash = window.location.hash || '';
       if (!hash || hash === '#' || hash === '#/') {
-        this.showDashboard();
+        if (typeof this.config.onOpenDashboard === 'function') {
+          this.config.onOpenDashboard();
+        }
+        this.updateViewHeading('Dashboard');
         return;
       }
 
       if (hash.startsWith('#/topic/')) {
-        const slug = hash.replace('#/topic/', '').trim();
-        this.openTopicBySlug(slug);
-        return;
-      }
-
-      if (hash === '#/spotters') {
-        if (typeof window.openDiagramSpotterFromDashboard === 'function') {
-          window.openDiagramSpotterFromDashboard();
-        }
-        return;
-      }
-
-      if (hash === '#/simulator') {
-        if (typeof window.launchExamSimFromDashboard === 'function') {
-          window.launchExamSimFromDashboard();
-        }
-        return;
-      }
-
-      if (hash === '#/flashcards') {
-        if (typeof window.launchFlashcardSession === 'function') {
-          window.launchFlashcardSession();
-        }
-        return;
-      }
-
-      if (hash === '#/cheatsheet') {
-        // Open the cheat sheet chapter
-        const csIdx = this.topics.findIndex(t => (t.type === 'cheat-sheet' || (t.title && t.title.toLowerCase().includes('cheat sheet'))));
-        if (csIdx !== -1) {
-          this.selectChapter(csIdx);
-        }
-      }
-    },
-
-    showDashboard() {
-      const dashView = document.getElementById('dashboardView');
-      const topicView = document.getElementById('topicView');
-      if (dashView && topicView) {
-        dashView.style.display = 'block';
-        topicView.style.display = 'none';
-        window.scrollTo({ top: 0, behavior: 'instant' });
-      }
-      document.querySelectorAll('.topic-item').forEach(el => el.classList.remove('active'));
-    },
-
-    openTopicBySlug(slug) {
-      const cleanSlug = slug.toLowerCase();
-      let index = this.topics.findIndex(t => (t.id && t.id.toLowerCase() === cleanSlug));
-      
-      // Fallback search by title slug or number
-      if (index === -1) {
-        index = this.topics.findIndex(t => {
-          const tSlug = (t.title || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-          return tSlug === cleanSlug || tSlug.includes(cleanSlug);
+        const slug = hash.replace('#/topic/', '').trim().toLowerCase();
+        const foundIdx = this.topics.findIndex(t => {
+          return (t.id && t.id.toLowerCase() === slug) ||
+                 (t.slug && t.slug.toLowerCase() === slug);
         });
-      }
-
-      if (index !== -1) {
-        this.selectChapter(index);
-      } else {
-        console.warn('Topic slug not found:', slug);
-        this.showTopicNotFound(slug);
-      }
-    },
-
-    selectChapter(index) {
-      this.currentTopicIndex = index;
-      if (typeof window.selectChapter === 'function') {
-        window.selectChapter(index);
-      }
-
-      const topic = this.topics[index];
-      if (topic) {
-        const slug = topic.id || (topic.title || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
-        if (window.location.hash !== `#/topic/${slug}`) {
-          history.pushState(null, '', `#/topic/${slug}`);
+        if (foundIdx !== -1) {
+          if (typeof this.config.onSelectTopic === 'function') {
+            this.config.onSelectTopic(foundIdx);
+          }
         }
-        document.title = `${topic.title} — ${document.title.split('—')[0].trim()}`;
-      }
-    },
-
-    showTopicNotFound(slug) {
-      const topicView = document.getElementById('topicView');
-      const dashView = document.getElementById('dashboardView');
-      if (dashView && topicView) {
-        dashView.style.display = 'none';
-        topicView.style.display = 'block';
-        topicView.innerHTML = `
-          <div class="not-found-card p-8 text-center max-w-xl mx-auto my-12 bg-[#101322] border border-white/10 rounded-2xl">
-            <h2 class="text-2xl font-bold text-white mb-2">Topic Not Found</h2>
-            <p class="text-slate-400 text-sm mb-6">The requested topic slug "<code>${slug}</code>" could not be located in this curriculum.</p>
-            <a href="#/" class="nav-pill-btn primary-accent inline-flex">Return to Dashboard</a>
-          </div>
-        `;
-      }
-    },
-
-    /* -------------------------------------------------------------
-       AUDIO WALKTHROUGH ENGINE
-    ------------------------------------------------------------- */
-    initAudio() {
-      let dock = document.getElementById('audioWalkDock');
-      if (!dock) {
-        dock = document.createElement('div');
-        dock.id = 'audioWalkDock';
-        dock.className = 'audio-dock-overlay';
-        dock.innerHTML = `
-          <div style="display: flex; justify-content: space-between; align-items: center;">
-            <div style="display: flex; align-items: center; gap: 8px;">
-              <span style="width: 8px; height: 8px; border-radius: 50%; background: var(--accent-primary);"></span>
-              <strong style="font-size: 0.85rem; color: #ffffff;">Audio Walkthrough</strong>
-            </div>
-            <button onclick="CoreEngine.toggleAudioDock()" style="background: transparent; border: none; color: var(--text-muted); cursor: pointer; font-size: 1.1rem;">✕</button>
-          </div>
-          <div id="audioTrackTitle" style="font-size: 0.82rem; color: var(--text-secondary); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">
-            Ready to Play
-          </div>
-          <div style="display: flex; align-items: center; justify-content: space-between; gap: 8px;">
-            <button id="btnAudioPlayPause" onclick="CoreEngine.toggleAudioPlay()" class="nav-pill-btn primary-accent" style="padding: 6px 14px; font-size: 0.8rem;">
-              ▶ Play
-            </button>
-            <div style="display: flex; gap: 4px;">
-              <button class="audio-speed-btn active" onclick="CoreEngine.setAudioSpeed(1.0, this)">1x</button>
-              <button class="audio-speed-btn" onclick="CoreEngine.setAudioSpeed(1.25, this)">1.25x</button>
-              <button class="audio-speed-btn" onclick="CoreEngine.setAudioSpeed(1.5, this)">1.5x</button>
-              <button class="audio-speed-btn" onclick="CoreEngine.setAudioSpeed(2.0, this)">2x</button>
-            </div>
-          </div>
-        `;
-        document.body.appendChild(dock);
+        return;
       }
 
-      const audioBtn = document.querySelector('[data-testid="audio-walkthrough"]');
-      if (audioBtn) {
-        audioBtn.addEventListener('click', () => this.toggleAudioDock());
+      if (hash === '#/simulator' && typeof this.config.onOpenSimulator === 'function') {
+        this.config.onOpenSimulator();
+        return;
       }
-    },
-
-    toggleAudioDock() {
-      const dock = document.getElementById('audioWalkDock');
-      if (dock) dock.classList.toggle('active');
-    },
-
-    toggleAudioPlay() {
-      const btn = document.getElementById('btnAudioPlayPause');
-      if (!this.audioElement) {
-        this.audioElement = new Audio();
+      if (hash === '#/spotters' && typeof this.config.onOpenSpotters === 'function') {
+        this.config.onOpenSpotters();
+        return;
       }
-
-      if (this.audioElement.paused) {
-        // Find track for current topic if available
-        const currentTopic = this.topics[this.currentTopicIndex];
-        const trackTitle = document.getElementById('audioTrackTitle');
-        if (currentTopic && trackTitle) {
-          trackTitle.innerText = currentTopic.title || 'Curriculum Overview';
-        }
-        this.audioElement.playbackRate = this.audioSpeed;
-        btn.innerHTML = '⏸ Pause';
-      } else {
-        this.audioElement.pause();
-        btn.innerHTML = '▶ Play';
+      if (hash === '#/flashcards' && typeof this.config.onOpenFlashcards === 'function') {
+        this.config.onOpenFlashcards();
+        return;
       }
-    },
-
-    setAudioSpeed(speed, btn) {
-      this.audioSpeed = speed;
-      if (this.audioElement) {
-        this.audioElement.playbackRate = speed;
-      }
-      document.querySelectorAll('.audio-speed-btn').forEach(b => b.classList.remove('active'));
-      if (btn) btn.classList.add('active');
-    },
-
-    /* -------------------------------------------------------------
-       FOCUS TIMER (25m / 50m — Synchronized Cross-Tab Engine)
-    ------------------------------------------------------------- */
-    initTimer() {
-      if (window.BdsTimer) {
-        window.BdsTimer.init();
+      if (hash === '#/cheatsheet' && typeof this.config.onOpenCheatSheet === 'function') {
+        this.config.onOpenCheatSheet();
+        return;
       }
     },
 
     /* -------------------------------------------------------------
-       COMMAND PALETTE (Ctrl+K)
+       KEYBOARD SHORTCUTS (/ focuses search, [ / ] navigate topics)
+       NOTE: NO Ctrl+K listener. Browser native Ctrl+K is untouched!
     ------------------------------------------------------------- */
-    initCommandPalette() {
+    initKeyboard() {
       window.addEventListener('keydown', (e) => {
-        if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        const tag = (e.target && e.target.tagName) || '';
+        const isEditing = tag === 'INPUT' || tag === 'TEXTAREA' || e.target.isContentEditable;
+
+        // "/" focuses sidebar search when not typing in an input
+        if (e.key === '/' && !isEditing) {
           e.preventDefault();
-          this.togglePalette();
+          this.toggleSidebar(true);
+          const searchInput = document.getElementById('sidebarSearchInput');
+          if (searchInput) {
+            searchInput.focus();
+            searchInput.select();
+          }
+          return;
         }
+
+        // "[" and "]" navigate to previous/next topic
+        if (!isEditing && (e.key === '[' || e.key === ']')) {
+          e.preventDefault();
+          this.navigateTopic(e.key === '[' ? -1 : 1);
+          return;
+        }
+
+        // Escape clears search or closes drawer
         if (e.key === 'Escape') {
-          this.closePalette();
+          const searchInput = document.getElementById('sidebarSearchInput');
+          if (searchInput && document.activeElement === searchInput && searchInput.value) {
+            searchInput.value = '';
+            this.onSidebarSearch('');
+            searchInput.blur();
+          } else {
+            this.toggleSidebar(false);
+            this.closeTimerPopover();
+            this.closeTopbarOverflow();
+          }
+          return;
+        }
+
+        // Arrow navigation inside topic list (roving tabindex)
+        if (!isEditing && (e.key === 'ArrowDown' || e.key === 'ArrowUp')) {
+          const rows = Array.from(document.querySelectorAll('.topic-row:not([style*="display: none"])'));
+          if (rows.length === 0) return;
+          e.preventDefault();
+          if (e.key === 'ArrowDown') {
+            this.focusedRowIndex = (this.focusedRowIndex + 1) % rows.length;
+          } else {
+            this.focusedRowIndex = (this.focusedRowIndex - 1 + rows.length) % rows.length;
+          }
+          rows[this.focusedRowIndex].focus();
         }
       });
-
-      const paletteTrigger = document.querySelector('[data-testid="palette"]');
-      if (paletteTrigger) {
-        paletteTrigger.addEventListener('click', () => this.togglePalette());
-      }
-    },
-
-    togglePalette() {
-      let modal = document.getElementById('cmdkModal');
-      if (!modal) {
-        modal = document.createElement('div');
-        modal.id = 'cmdkModal';
-        modal.className = 'cmdk-backdrop active';
-        modal.innerHTML = `
-          <div class="cmdk-box">
-            <input type="text" id="cmdkInput" class="cmdk-search-input" placeholder="Search essays, spotters, cheat sheets (Ctrl+K)..." autofocus />
-            <div id="cmdkResults" style="max-height: 360px; overflow-y: auto; padding: 8px;"></div>
-          </div>
-        `;
-        document.body.appendChild(modal);
-        modal.addEventListener('click', (e) => {
-          if (e.target === modal) this.closePalette();
-        });
-
-        const input = document.getElementById('cmdkInput');
-        input.addEventListener('input', (e) => this.renderPaletteResults(e.target.value));
-      } else {
-        modal.classList.toggle('active');
-      }
-
-      if (modal.classList.contains('active')) {
-        const input = document.getElementById('cmdkInput');
-        if (input) {
-          input.value = '';
-          input.focus();
-          this.renderPaletteResults('');
-        }
-      }
-    },
-
-    closePalette() {
-      const modal = document.getElementById('cmdkModal');
-      if (modal) modal.classList.remove('active');
-    },
-
-    renderPaletteResults(query) {
-      const container = document.getElementById('cmdkResults');
-      if (!container) return;
-
-      const q = (query || '').toLowerCase().trim();
-      const matches = this.topics.filter(t => !q || (t.title && t.title.toLowerCase().includes(q))).slice(0, 8);
-
-      if (matches.length === 0) {
-        container.innerHTML = '<div style="padding: 16px; color: var(--text-muted); font-size: 0.85rem; text-align: center;">No matching topics found.</div>';
-        return;
-      }
-
-      container.innerHTML = matches.map((t, i) => `
-        <div onclick="CoreEngine.selectChapter(${this.topics.indexOf(t)}); CoreEngine.closePalette();"
-             style="padding: 10px 14px; border-radius: 8px; cursor: pointer; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--border-color); font-size: 0.86rem; color: var(--text-primary);"
-             onmouseover="this.style.background='rgba(255,255,255,0.06)'"
-             onmouseout="this.style.background='transparent'">
-          <div>
-            <strong>${t.title}</strong>
-            <div style="font-size: 0.72rem; color: var(--text-muted);">${t.section || 'Exam Monograph'}</div>
-          </div>
-          <span style="font-size: 0.75rem; color: var(--accent-primary);">Open →</span>
-        </div>
-      `).join('');
     },
 
     /* -------------------------------------------------------------
-       NAMESPACED PROGRESS STORAGE
+       PORTAL SIDEBAR COMPONENT
     ------------------------------------------------------------- */
-    initProgressSync() {
-      // Listen to cross-tab storage changes
-      window.addEventListener('storage', (e) => {
-        if (e.key && e.key.startsWith('bds.')) {
-          this.updateProgressDisplays();
-        }
-      });
-    },
+    renderSidebar() {
+      const cfg = this.config;
+      const sidebarEl = document.getElementById('sidebar');
+      if (!sidebarEl) return;
 
-    markTopicComplete(topicIndex) {
-      const key = `bds.${this.portalKey}.progress`;
-      let completed = [];
-      try {
-        completed = JSON.parse(localStorage.getItem(key)) || [];
-      } catch (e) {
-        completed = [];
+      sidebarEl.className = 'portal-sidebar' + (this.railCollapsed ? ' rail-collapsed' : '');
+      sidebarEl.setAttribute('data-testid', 'sidebar');
+      sidebarEl.setAttribute('role', 'navigation');
+      sidebarEl.setAttribute('aria-label', `${cfg.name || 'Portal'} Sidebar`);
+
+      // Ensure drawer scrim exists
+      let scrim = document.getElementById('drawerScrim');
+      if (!scrim) {
+        scrim = document.createElement('div');
+        scrim.id = 'drawerScrim';
+        scrim.className = 'drawer-scrim';
+        scrim.setAttribute('data-testid', 'drawer-scrim');
+        scrim.onclick = () => this.toggleSidebar(false);
+        document.body.appendChild(scrim);
       }
 
-      if (!completed.includes(topicIndex)) {
-        completed.push(topicIndex);
-        localStorage.setItem(key, JSON.stringify(completed));
-      }
+      // Group topics by category
+      const categories = this.getGroupedTopics();
+
+      sidebarEl.innerHTML = `
+        <!-- 1. Brand Block (Height 64px, exact match to topbar) -->
+        <div class="sidebar-brand-block" data-testid="sidebar-brand" onclick="CoreEngine.onBrandClick()">
+          <div class="sidebar-brand-inner">
+            <div class="sidebar-logo-tile">
+              ${cfg.logoSvg || ''}
+            </div>
+            <div class="sidebar-brand-text">
+              <div class="sidebar-wordmark">${cfg.name || 'PORTAL PRO'}</div>
+              <div class="sidebar-subtitle">${cfg.subtitle || 'Clinical monograph'}</div>
+            </div>
+          </div>
+          <button class="sidebar-drawer-close" data-testid="drawer-close" aria-label="Close menu" onclick="event.stopPropagation(); CoreEngine.toggleSidebar(false)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+          </button>
+        </div>
+
+        <!-- 2. Back to Vault (Quiet Text Link) -->
+        <div class="sidebar-back-row">
+          <a href="${cfg.hubUrl || 'https://krrish41.github.io/bds-vault/'}" class="back-to-vault-link" data-testid="back-to-vault" aria-label="Back to BDS Clinical Vault">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+            <span>BDS Clinical Vault</span>
+          </a>
+        </div>
+
+        <!-- 3. Dashboard Nav Item -->
+        <div class="sidebar-nav-section">
+          <button class="sidebar-nav-item active" id="sidebarNavDashboard" data-testid="nav-dashboard" onclick="CoreEngine.onDashboardClick()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/></svg>
+            <span>Dashboard</span>
+          </button>
+        </div>
+
+        <!-- 4. Tools Grid (Compact 2x2 grid of ghost buttons) -->
+        <div class="sidebar-tools-grid" data-testid="tools-grid">
+          <button class="tool-btn" data-testid="exam-simulator" onclick="CoreEngine.triggerTool('simulator')" title="University Exam Simulator">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+            <span>Simulator</span>
+          </button>
+          <button class="tool-btn" data-testid="spotters" onclick="CoreEngine.triggerTool('spotters')" title="Clinical Spotters & Schematics">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+            <span>Spotters</span>
+          </button>
+          <button class="tool-btn" data-testid="flashcards" onclick="CoreEngine.triggerTool('flashcards')" title="Interactive Flashcard Deck">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="16" height="20" x="4" y="2" rx="2"/><line x1="8" x2="16" y1="6" y2="6"/><line x1="8" x2="16" y1="10" y2="10"/><line x1="8" x2="12" y1="14" y2="14"/></svg>
+            <span>Flashcards</span>
+          </button>
+          <button class="tool-btn" data-testid="cheat-sheet" onclick="CoreEngine.triggerTool('cheat-sheet')" title="Rapid Revision Cheat Sheet">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            <span>Cheat Sheet</span>
+          </button>
+        </div>
+
+        <!-- 5. Search Box (Single plain search — NO Ctrl K keycaps) -->
+        <div class="sidebar-search-box" data-testid="sidebar-search">
+          <div class="search-input-wrapper">
+            <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+            <input type="search" id="sidebarSearchInput" class="sidebar-search-input" data-testid="search" placeholder="${cfg.searchPlaceholder || 'Search topics, signs, procedures...'}" aria-label="Search curriculum" autocomplete="off" oninput="CoreEngine.onSidebarSearch(this.value)" />
+            <button class="search-clear-btn" id="sidebarSearchClear" style="display:none;" aria-label="Clear search" onclick="CoreEngine.clearSearch()">×</button>
+          </div>
+          <div class="search-feedback-row" id="searchFeedbackRow" style="display:none;">
+            <span class="search-result-count" id="searchResultCount"></span>
+            <span class="search-cross-links" id="searchCrossLinks"></span>
+          </div>
+          <div class="active-filter-container" id="activeFilterContainer" style="display:none;">
+            <span class="active-filter-chip" data-testid="active-filter-chip">
+              <span id="activeFilterLabel">Pending</span>
+              <button class="filter-chip-remove" onclick="CoreEngine.resetDashboardFilter()" aria-label="Remove filter">×</button>
+            </span>
+          </div>
+        </div>
+
+        <!-- 6. Progress Card & 7. Continue Shortcut -->
+        <div class="sidebar-progress-card">
+          <div class="progress-info-row">
+            <span class="progress-label">Syllabus</span>
+            <span class="progress-count" data-testid="progress" id="sidebarProgressText">0 / ${this.topics.length}</span>
+          </div>
+          <div class="progress-bar-track">
+            <div class="progress-bar-fill" id="sidebarProgressBar" style="width: 0%;"></div>
+          </div>
+          <div class="continue-shortcut" data-testid="continue-shortcut" id="sidebarContinueShortcut" onclick="CoreEngine.onContinueClick()">
+            <span class="continue-arrow">▶</span>
+            <span class="continue-text" id="sidebarContinueText">Start: 1. ${this.topics[0] ? this.topics[0].title : ''}</span>
+          </div>
+        </div>
+
+        <!-- 8. Grouped Topic List with Collapsible Categories -->
+        <div class="sidebar-topics-wrapper" id="sidebarTopicsContainer" data-testid="sidebar-topics">
+          <div class="group-control-bar">
+            <span class="curriculum-heading">CURRICULUM TOPICS</span>
+            <button class="accordion-toggle-all" id="btnToggleAllGroups" onclick="CoreEngine.toggleAllGroups()">Collapse all</button>
+          </div>
+          <div class="sidebar-groups-list" id="sidebarGroupsList" role="tree" aria-label="Topics grouped by category">
+            ${this.renderCategoryGroupsHtml(categories)}
+          </div>
+        </div>
+
+        <!-- 14. Sidebar Footer -->
+        <div class="sidebar-footer">
+          <span class="footer-version">BDS Clinical Vault · v2.2.0</span>
+        </div>
+      `;
+
       this.updateProgressDisplays();
     },
 
-    updateProgressDisplays() {
+    getGroupedTopics() {
+      const groups = {};
+      this.topics.forEach((ch, idx) => {
+        const cat = ch.category || 'General';
+        if (!groups[cat]) groups[cat] = [];
+        groups[cat].push({ topic: ch, index: idx });
+      });
+      return groups;
+    },
+
+    renderCategoryGroupsHtml(groups) {
+      const groupNames = Object.keys(groups);
+      if (groupNames.length === 0) {
+        return '<div style="padding:16px; color:var(--text-muted); text-align:center;">No topics found.</div>';
+      }
+
+      return groupNames.map(cat => {
+        const items = groups[cat];
+        const isCollapsed = !!this.collapsedGroups[cat];
+        const completedCount = items.filter(it => this.isTopicCompleted(it.topic.id)).length;
+
+        const rowsHtml = items.map(it => {
+          const ch = it.topic;
+          const idx = it.index;
+          const isDone = this.isTopicCompleted(ch.id);
+          const hasNotes = this.topicHasNotes(ch.id);
+          const isActive = idx === this.currentTopicIndex;
+          const readTime = ch.readMinutes ? `${ch.readMinutes}m` : (ch.readingTime ? ch.readingTime.replace(' min read', 'm') : '15m');
+
+          return `
+            <div class="topic-row${isActive ? ' active' : ''}"
+                 data-testid="topic-row"
+                 data-topic-id="${ch.id}"
+                 data-topic-idx="${idx}"
+                 role="treeitem"
+                 tabindex="0"
+                 aria-selected="${isActive ? 'true' : 'false'}"
+                 onclick="CoreEngine.selectTopic(${idx})">
+              <div class="topic-checkbox${isDone ? ' checked' : ''}"
+                   data-testid="topic-checkbox"
+                   role="checkbox"
+                   aria-checked="${isDone ? 'true' : 'false'}"
+                   title="${isDone ? 'Mark as incomplete' : 'Mark as done'}"
+                   onclick="event.stopPropagation(); CoreEngine.toggleTopicComplete('${ch.id}', ${idx})">
+                ${isDone ? '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>' : ''}
+              </div>
+              <div class="topic-row-content">
+                <div class="topic-row-header">
+                  <span class="topic-row-num">${idx + 1}.</span>
+                  <div class="topic-row-title">${ch.title}</div>
+                  <span class="topic-row-meta">${readTime}</span>
+                  ${hasNotes ? '<span class="topic-row-notes-icon" title="Has Notes">📝</span>' : ''}
+                </div>
+              </div>
+            </div>
+          `;
+        }).join('');
+
+        return `
+          <div class="category-group${isCollapsed ? ' collapsed' : ''}" data-testid="category-group" data-category="${cat}">
+            <button class="category-toggle" data-testid="category-toggle" onclick="CoreEngine.toggleGroup('${cat}')">
+              <div class="category-toggle-left">
+                <span class="category-chevron">▼</span>
+                <span class="category-title">${cat}</span>
+              </div>
+              <span class="category-count" id="catCount_${cat.replace(/[^a-zA-Z0-9]/g, '_')}">${completedCount}/${items.length}</span>
+            </button>
+            <div class="category-topics" role="group">
+              ${rowsHtml}
+            </div>
+          </div>
+        `;
+      }).join('');
+    },
+
+    /* -------------------------------------------------------------
+       CATEGORY ACCORDION CONTROLS
+    ------------------------------------------------------------- */
+    toggleGroup(catName) {
+      this.collapsedGroups[catName] = !this.collapsedGroups[catName];
+      this.saveCollapsedGroups();
+      const groupEl = document.querySelector(`.category-group[data-category="${catName}"]`);
+      if (groupEl) {
+        if (this.collapsedGroups[catName]) groupEl.classList.add('collapsed');
+        else groupEl.classList.remove('collapsed');
+      }
+    },
+
+    toggleAllGroups() {
+      const groupEls = document.querySelectorAll('.category-group');
+      const allCollapsed = Array.from(groupEls).every(el => el.classList.contains('collapsed'));
+      const btn = document.getElementById('btnToggleAllGroups');
+
+      groupEls.forEach(el => {
+        const cat = el.getAttribute('data-category');
+        if (allCollapsed) {
+          el.classList.remove('collapsed');
+          if (cat) this.collapsedGroups[cat] = false;
+        } else {
+          el.classList.add('collapsed');
+          if (cat) this.collapsedGroups[cat] = true;
+        }
+      });
+
+      this.saveCollapsedGroups();
+      if (btn) btn.textContent = allCollapsed ? 'Collapse all' : 'Expand all';
+    },
+
+    /* -------------------------------------------------------------
+       COMPLETION & PROGRESS TRACKING
+    ------------------------------------------------------------- */
+    getCompletedTopicsMap() {
       const key = `bds.${this.portalKey}.progress`;
-      let completed = [];
       try {
-        completed = JSON.parse(localStorage.getItem(key)) || [];
+        const raw = localStorage.getItem(key);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (Array.isArray(parsed)) {
+            const map = {};
+            parsed.forEach(id => { map[id] = true; });
+            return map;
+          }
+          if (typeof parsed === 'object') return parsed;
+        }
+      } catch (e) {}
+      return {};
+    },
+
+    isTopicCompleted(topicId) {
+      const map = this.getCompletedTopicsMap();
+      return !!map[topicId];
+    },
+
+    topicHasNotes(topicId) {
+      try {
+        const note = localStorage.getItem(`bds.${this.portalKey}.notes.${topicId}`) ||
+                     localStorage.getItem(`notes_${topicId}`);
+        return !!(note && note.trim());
       } catch (e) {
-        completed = [];
+        return false;
+      }
+    },
+
+    toggleTopicComplete(topicId, topicIdx) {
+      const key = `bds.${this.portalKey}.progress`;
+      const map = this.getCompletedTopicsMap();
+      const willBeCompleted = !map[topicId];
+      if (willBeCompleted) map[topicId] = true;
+      else delete map[topicId];
+
+      try {
+        localStorage.setItem(key, JSON.stringify(map));
+      } catch (e) {}
+
+      // Update row checkbox
+      const row = document.querySelector(`.topic-row[data-topic-id="${topicId}"]`);
+      if (row) {
+        const cb = row.querySelector('.topic-checkbox');
+        if (cb) {
+          if (willBeCompleted) {
+            cb.classList.add('checked');
+            cb.setAttribute('aria-checked', 'true');
+            cb.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+          } else {
+            cb.classList.remove('checked');
+            cb.setAttribute('aria-checked', 'false');
+            cb.innerHTML = '';
+          }
+        }
       }
 
-      const countEl = document.getElementById('completedCountDisplay');
-      if (countEl) countEl.innerText = completed.length;
+      this.updateProgressDisplays();
 
-      const pctEl = document.getElementById('completedPercentDisplay');
-      if (pctEl && this.topics.length > 0) {
-        const pct = Math.round((completed.length / this.topics.length) * 100);
-        pctEl.innerText = `${pct}%`;
+      // Notify host portal app
+      if (typeof this.config.onToggleComplete === 'function') {
+        this.config.onToggleComplete(topicId, willBeCompleted);
       }
+    },
+
+    updateProgressDisplays() {
+      const map = this.getCompletedTopicsMap();
+      const completedCount = Object.keys(map).length;
+      const total = this.topics.length;
+      const pct = total > 0 ? Math.round((completedCount / total) * 100) : 0;
+
+      // Update sidebar progress
+      const txtEl = document.getElementById('sidebarProgressText');
+      if (txtEl) txtEl.textContent = `${completedCount} / ${total}`;
+
+      const barEl = document.getElementById('sidebarProgressBar');
+      if (barEl) barEl.style.width = `${pct}%`;
+
+      // Update Continue shortcut
+      this.updateContinueShortcut();
+
+      // Update category header counts
+      const groups = this.getGroupedTopics();
+      Object.keys(groups).forEach(cat => {
+        const items = groups[cat];
+        const done = items.filter(it => !!map[it.topic.id]).length;
+        const cntEl = document.getElementById(`catCount_${cat.replace(/[^a-zA-Z0-9]/g, '_')}`);
+        if (cntEl) cntEl.textContent = `${done}/${items.length}`;
+      });
+
+      // Update portal dashboard stats if present
+      const statCompleted = document.getElementById('statCompleted');
+      if (statCompleted) statCompleted.textContent = completedCount;
+      const statRemaining = document.getElementById('statRemaining');
+      if (statRemaining) statRemaining.textContent = Math.max(0, total - completedCount);
+      const dashProgressBar = document.getElementById('dashProgressBar');
+      if (dashProgressBar) dashProgressBar.style.width = `${pct}%`;
+      const dashProgressPercent = document.getElementById('dashProgressPercent');
+      if (dashProgressPercent) dashProgressPercent.textContent = `${pct}%`;
+    },
+
+    updateContinueShortcut() {
+      const textEl = document.getElementById('sidebarContinueText');
+      if (!textEl || this.topics.length === 0) return;
+
+      const map = this.getCompletedTopicsMap();
+      const lastVisited = localStorage.getItem(`bds.${this.portalKey}.lastTopic`);
+      let targetIdx = 0;
+
+      if (lastVisited) {
+        const found = this.topics.findIndex(t => t.id === lastVisited);
+        if (found !== -1) targetIdx = found;
+      } else {
+        // First incomplete topic
+        const firstIncomplete = this.topics.findIndex(t => !map[t.id]);
+        if (firstIncomplete !== -1) targetIdx = firstIncomplete;
+      }
+
+      const targetTopic = this.topics[targetIdx];
+      const hasProgress = Object.keys(map).length > 0;
+      textEl.textContent = `${hasProgress ? 'Continue' : 'Start'}: ${targetIdx + 1}. ${targetTopic.title}`;
+    },
+
+    onContinueClick() {
+      const map = this.getCompletedTopicsMap();
+      const lastVisited = localStorage.getItem(`bds.${this.portalKey}.lastTopic`);
+      let targetIdx = 0;
+
+      if (lastVisited) {
+        const found = this.topics.findIndex(t => t.id === lastVisited);
+        if (found !== -1) targetIdx = found;
+      } else {
+        const firstIncomplete = this.topics.findIndex(t => !map[t.id]);
+        if (firstIncomplete !== -1) targetIdx = firstIncomplete;
+      }
+
+      this.selectTopic(targetIdx);
+    },
+
+    /* -------------------------------------------------------------
+       SEARCH & FILTER PIPELINE
+    ------------------------------------------------------------- */
+    onSidebarSearch(rawQuery) {
+      const q = (rawQuery || '').trim().toLowerCase();
+      const clearBtn = document.getElementById('sidebarSearchClear');
+      const feedbackRow = document.getElementById('searchFeedbackRow');
+      const countEl = document.getElementById('searchResultCount');
+      const crossEl = document.getElementById('searchCrossLinks');
+
+      if (clearBtn) clearBtn.style.display = q ? 'flex' : 'none';
+
+      let matchingCount = 0;
+      const groups = this.getGroupedTopics();
+
+      Object.keys(groups).forEach(cat => {
+        const items = groups[cat];
+        let catHasMatch = false;
+
+        items.forEach(it => {
+          const ch = it.topic;
+          const row = document.querySelector(`.topic-row[data-topic-id="${ch.id}"]`);
+          if (!row) return;
+
+          // Search criteria: title, category, tags, and sections
+          const tagsStr = (ch.tags || []).join(' ').toLowerCase();
+          const matchesQuery = !q ||
+            ch.title.toLowerCase().includes(q) ||
+            (ch.category && ch.category.toLowerCase().includes(q)) ||
+            tagsStr.includes(q) ||
+            (ch.sections && JSON.stringify(ch.sections).toLowerCase().includes(q));
+
+          // Check dashboard status filter
+          const isDone = this.isTopicCompleted(ch.id);
+          const hasNotes = this.topicHasNotes(ch.id);
+          let matchesFilter = true;
+          if (this.statusFilter === 'pending') matchesFilter = !isDone;
+          else if (this.statusFilter === 'completed') matchesFilter = isDone;
+          else if (this.statusFilter === 'notes') matchesFilter = hasNotes;
+
+          const visible = matchesQuery && matchesFilter;
+          row.style.display = visible ? 'flex' : 'none';
+
+          if (visible) {
+            matchingCount++;
+            catHasMatch = true;
+            // Highlight matching text in title
+            const titleEl = row.querySelector('.topic-row-title');
+            if (titleEl) {
+              if (q) {
+                const regex = new RegExp(`(${this.escapeRegex(q)})`, 'gi');
+                titleEl.innerHTML = ch.title.replace(regex, '<mark class="search-match">$1</mark>');
+              } else {
+                titleEl.textContent = ch.title;
+              }
+            }
+          }
+        });
+
+        // Auto-expand group if it has matches when searching
+        const groupEl = document.querySelector(`.category-group[data-category="${cat}"]`);
+        if (groupEl) {
+          if (q) {
+            if (catHasMatch) {
+              groupEl.style.display = 'block';
+              groupEl.classList.remove('collapsed');
+            } else {
+              groupEl.style.display = 'none';
+            }
+          } else {
+            groupEl.style.display = 'block';
+            if (this.collapsedGroups[cat]) groupEl.classList.add('collapsed');
+            else groupEl.classList.remove('collapsed');
+          }
+        }
+      });
+
+      // Update feedback row
+      if (feedbackRow && countEl) {
+        if (q || this.statusFilter !== 'all') {
+          feedbackRow.style.display = 'flex';
+          countEl.textContent = `${matchingCount} of ${this.topics.length} topics`;
+          if (crossEl) {
+            crossEl.innerHTML = `Also in: <a href="javascript:void(0)" onclick="CoreEngine.triggerTool('spotters')">Spotters</a> · <a href="javascript:void(0)" onclick="CoreEngine.triggerTool('flashcards')">Flashcards</a>`;
+          }
+        } else {
+          feedbackRow.style.display = 'none';
+        }
+      }
+    },
+
+    clearSearch() {
+      const searchInput = document.getElementById('sidebarSearchInput');
+      if (searchInput) {
+        searchInput.value = '';
+        this.onSidebarSearch('');
+        searchInput.focus();
+      }
+    },
+
+    escapeRegex(str) {
+      return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+    },
+
+    /* -------------------------------------------------------------
+       DASHBOARD SHARED FILTER STATE
+    ------------------------------------------------------------- */
+    setDashboardStatusFilter(status) {
+      this.statusFilter = status || 'all';
+      const container = document.getElementById('activeFilterContainer');
+      const label = document.getElementById('activeFilterLabel');
+
+      if (container && label) {
+        if (this.statusFilter !== 'all') {
+          container.style.display = 'block';
+          label.textContent = this.statusFilter.charAt(0).toUpperCase() + this.statusFilter.slice(1);
+        } else {
+          container.style.display = 'none';
+        }
+      }
+
+      // Re-run search pipeline with new filter
+      const searchInput = document.getElementById('sidebarSearchInput');
+      this.onSidebarSearch(searchInput ? searchInput.value : '');
+    },
+
+    resetDashboardFilter() {
+      this.setDashboardStatusFilter('all');
+      if (typeof this.config.onResetStatusFilter === 'function') {
+        this.config.onResetStatusFilter();
+      }
+    },
+
+    /* -------------------------------------------------------------
+       PORTAL TOPBAR COMPONENT
+    ------------------------------------------------------------- */
+    renderTopBar() {
+      const cfg = this.config;
+      const topbarEl = document.getElementById('portalTopBar');
+      if (!topbarEl) return;
+
+      topbarEl.className = 'portal-topbar';
+      topbarEl.setAttribute('data-testid', 'topbar');
+
+      topbarEl.innerHTML = `
+        <div class="topbar-left">
+          <!-- Drawer toggle (<1024px) / Rail toggle (≥1024px) -->
+          <button class="topbar-btn drawer-toggle-btn" id="btnDrawerOpen" aria-label="Open navigation drawer" onclick="CoreEngine.toggleSidebar(true)">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="18" y2="18"/></svg>
+          </button>
+          <button class="topbar-btn rail-toggle-btn" id="btnRailToggle" data-testid="rail-toggle" aria-label="Toggle sidebar width" onclick="CoreEngine.toggleSidebarRail()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/></svg>
+          </button>
+
+          <!-- Topbar Title / Breadcrumb -->
+          <div class="topbar-title-block" data-testid="topbar-title" id="topbarTitle">
+            Exam Preparation Dashboard
+          </div>
+
+          <!-- Prev / Next Topic Navigation -->
+          <div class="topbar-topic-nav" id="topbarTopicNav" style="display: none;">
+            <button class="topbar-nav-arrow" data-testid="topic-prev" id="btnPrevTopic" aria-label="Previous Topic" title="Previous Topic ([)" onclick="CoreEngine.navigateTopic(-1)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+            </button>
+            <button class="topbar-nav-arrow" data-testid="topic-next" id="btnNextTopic" aria-label="Next Topic" title="Next Topic (])" onclick="CoreEngine.navigateTopic(1)">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <div class="topbar-right">
+          <!-- 1. Audio Walk -->
+          <button class="topbar-tool-btn audio-walk-btn" data-testid="audio-walkthrough" onclick="CoreEngine.toggleAudioWalk()" title="Continuous Audio Walk">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+            <span class="btn-text">Audio Walk</span>
+          </button>
+
+          <!-- 2. Focus Timer with Popover -->
+          <div class="topbar-timer-wrapper">
+            <button class="topbar-tool-btn timer-btn" data-testid="focus-timer" id="topbarTimerBtn" onclick="CoreEngine.toggleTimerPopover()" title="Focus Study Timer">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              <span class="btn-text" id="topbarTimerText">25:00</span>
+            </button>
+            <div class="timer-popover" id="timerPopover">
+              <div class="timer-popover-header">Focus Timer</div>
+              <div class="timer-popover-display" id="timerPopoverTime">25:00</div>
+              <div class="timer-popover-controls">
+                <button class="timer-btn-primary" id="btnTimerStartPause" onclick="window.BdsTimer.toggle()">Start Focus</button>
+                <button class="timer-btn-secondary" id="btnTimerReset" onclick="window.BdsTimer.reset(25)">Reset</button>
+              </div>
+              <div class="timer-presets-row">
+                <button class="timer-preset-btn active" id="btnPreset25" onclick="CoreEngine.setTimerPreset(25)">25m</button>
+                <button class="timer-preset-btn" id="btnPreset50" onclick="CoreEngine.setTimerPreset(50)">50m</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Master PDF -->
+          <a href="${cfg.pdfUrl || '#'}" class="topbar-tool-btn pdf-btn" data-testid="open-pdf" title="Typeset Master PDF Monograph" target="_blank" rel="noopener">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            <span class="btn-text">Master PDF</span>
+          </a>
+
+          <!-- 4. Theme Toggle -->
+          <button class="topbar-tool-btn theme-toggle-btn" data-testid="theme-toggle" onclick="CoreEngine.toggleTheme()" title="Toggle Theme (Dark/Light)">
+            <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+            <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg>
+          </button>
+
+          <!-- 5. Overflow Menu (Small screens) -->
+          <div class="topbar-overflow-wrapper" id="topbarOverflowWrapper">
+            <button class="topbar-tool-btn overflow-btn" data-testid="topbar-overflow" onclick="CoreEngine.toggleTopbarOverflow()" aria-label="More tools">⋯</button>
+            <div class="topbar-overflow-menu" id="topbarOverflowMenu">
+              <a href="${cfg.hubUrl || 'https://krrish41.github.io/bds-vault/'}" class="overflow-item">‹ Back to Vault</a>
+              <a href="${cfg.pdfUrl || '#'}" class="overflow-item" target="_blank" rel="noopener">📄 Master PDF</a>
+              <button class="overflow-item" onclick="CoreEngine.toggleTheme()">🌓 Toggle Theme</button>
+            </div>
+          </div>
+        </div>
+      `;
+    },
+
+    updateViewHeading(title, category, chapterNum) {
+      const headingEl = document.getElementById('topbarTitle');
+      const topicNav = document.getElementById('topbarTopicNav');
+      const dashBtn = document.getElementById('sidebarNavDashboard');
+
+      if (!headingEl) return;
+
+      if (title === 'Dashboard') {
+        headingEl.textContent = 'Exam Preparation Dashboard';
+        if (topicNav) topicNav.style.display = 'none';
+        if (dashBtn) dashBtn.classList.add('active');
+        document.querySelectorAll('.topic-row').forEach(r => r.classList.remove('active'));
+      } else {
+        const catStr = category ? `${category} › ` : '';
+        const numStr = chapterNum ? `${chapterNum}. ` : '';
+        headingEl.textContent = `${catStr}${numStr}${title}`;
+        if (topicNav) topicNav.style.display = 'flex';
+        if (dashBtn) dashBtn.classList.remove('active');
+      }
+    },
+
+    /* -------------------------------------------------------------
+       TOPIC SELECTION & NAVIGATION
+    ------------------------------------------------------------- */
+    selectTopic(index) {
+      if (index < 0 || index >= this.topics.length) return;
+      this.currentTopicIndex = index;
+      const topic = this.topics[index];
+
+      // Save last visited topic
+      try {
+        localStorage.setItem(`bds.${this.portalKey}.lastTopic`, topic.id);
+      } catch (e) {}
+
+      // Update active state in sidebar
+      document.querySelectorAll('.topic-row').forEach(r => r.classList.remove('active'));
+      const activeRow = document.querySelector(`.topic-row[data-topic-id="${topic.id}"]`);
+      if (activeRow) {
+        activeRow.classList.add('active');
+        activeRow.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+
+        // Ensure category group is open
+        const parentGroup = activeRow.closest('.category-group');
+        if (parentGroup) {
+          parentGroup.classList.remove('collapsed');
+          const cat = parentGroup.getAttribute('data-category');
+          if (cat) this.collapsedGroups[cat] = false;
+        }
+      }
+
+      // Update topbar breadcrumb
+      this.updateViewHeading(topic.title, topic.category, index + 1);
+
+      // Close mobile drawer after selection
+      this.toggleSidebar(false);
+
+      // Invoke portal view callback
+      if (typeof this.config.onSelectTopic === 'function') {
+        this.config.onSelectTopic(index);
+      }
+    },
+
+    navigateTopic(delta) {
+      if (this.topics.length === 0) return;
+      let nextIdx = this.currentTopicIndex + delta;
+      if (this.currentTopicIndex === -1) nextIdx = 0;
+      if (nextIdx < 0) nextIdx = 0;
+      if (nextIdx >= this.topics.length) nextIdx = this.topics.length - 1;
+      this.selectTopic(nextIdx);
+    },
+
+    /* -------------------------------------------------------------
+       SIDEBAR & DRAWER CONTROLS
+    ------------------------------------------------------------- */
+    toggleSidebar(open) {
+      const sidebar = document.getElementById('sidebar');
+      const scrim = document.getElementById('drawerScrim');
+      if (!sidebar) return;
+
+      if (open) {
+        sidebar.classList.add('open');
+        if (scrim) scrim.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      } else {
+        sidebar.classList.remove('open');
+        if (scrim) scrim.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    },
+
+    onBrandClick() {
+      this.toggleSidebar(false);
+      if (typeof this.config.onOpenDashboard === 'function') {
+        this.config.onOpenDashboard();
+      }
+    },
+
+    onDashboardClick() {
+      this.toggleSidebar(false);
+      this.currentTopicIndex = -1;
+      this.updateViewHeading('Dashboard');
+      if (typeof this.config.onOpenDashboard === 'function') {
+        this.config.onOpenDashboard();
+      }
+    },
+
+    triggerTool(toolId) {
+      this.toggleSidebar(false);
+      if (toolId === 'simulator' && typeof this.config.onOpenSimulator === 'function') {
+        this.config.onOpenSimulator();
+      } else if (toolId === 'spotters' && typeof this.config.onOpenSpotters === 'function') {
+        this.config.onOpenSpotters();
+      } else if (toolId === 'flashcards' && typeof this.config.onOpenFlashcards === 'function') {
+        this.config.onOpenFlashcards();
+      } else if (toolId === 'cheatsheet' && typeof this.config.onOpenCheatSheet === 'function') {
+        this.config.onOpenCheatSheet();
+      }
+    },
+
+    toggleAudioWalk() {
+      if (typeof this.config.onToggleAudioWalk === 'function') {
+        this.config.onToggleAudioWalk();
+      }
+    },
+
+    toggleTimerPopover() {
+      const pop = document.getElementById('timerPopover');
+      if (pop) pop.classList.toggle('open');
+      this.closeTopbarOverflow();
+    },
+
+    closeTimerPopover() {
+      const pop = document.getElementById('timerPopover');
+      if (pop) pop.classList.remove('open');
+    },
+
+    setTimerPreset(mins) {
+      if (window.BdsTimer) window.BdsTimer.reset(mins);
+      const p25 = document.getElementById('btnPreset25');
+      const p50 = document.getElementById('btnPreset50');
+      if (p25 && p50) {
+        p25.classList.toggle('active', mins === 25);
+        p50.classList.toggle('active', mins === 50);
+      }
+    },
+
+    toggleTopbarOverflow() {
+      const menu = document.getElementById('topbarOverflowMenu');
+      if (menu) menu.classList.toggle('open');
+      this.closeTimerPopover();
+    },
+
+    closeTopbarOverflow() {
+      const menu = document.getElementById('topbarOverflowMenu');
+      if (menu) menu.classList.remove('open');
     }
   };
 
   /* =============================================================
-     BDS CLINICAL VAULT — UNIVERSAL SYNCHRONIZED FOCUS TIMER
-     Persists across BDS Vault Hub, Surgery, Medicine & Pathology
+     UNIVERSAL SYNCHRONIZED FOCUS TIMER
+     (Zero Ctrl+K dependencies; Hydration & 3m walk break chime)
      ============================================================= */
   const BdsTimer = {
     STORAGE_KEY: 'bds.focus.timer',
     localInterval: null,
     walkInterval: null,
-    audioCtx: null,
 
     getState() {
       try {
         const raw = localStorage.getItem(this.STORAGE_KEY);
-        if (raw) {
-          return JSON.parse(raw);
-        }
+        if (raw) return JSON.parse(raw);
       } catch (e) {}
       return {
-        status: 'idle', // 'running' | 'paused' | 'idle'
+        status: 'idle',
         durationMinutes: 25,
         remainingSeconds: 25 * 60,
         targetEndTime: null,
@@ -430,25 +1026,11 @@
       this.render();
 
       window.addEventListener('storage', (e) => {
-        if (e.key === this.STORAGE_KEY) {
-          this.render();
-        }
+        if (e.key === this.STORAGE_KEY) this.render();
       });
 
       if (this.localInterval) clearInterval(this.localInterval);
       this.localInterval = setInterval(() => this.tick(), 500);
-
-      // Wire up any focus-timer trigger button with data-testid="focus-timer"
-      const timerBtn = document.querySelector('[data-testid="focus-timer"]');
-      if (timerBtn && !timerBtn.hasAttribute('data-bds-bound')) {
-        timerBtn.setAttribute('data-bds-bound', 'true');
-        timerBtn.addEventListener('click', (e) => {
-          // If on hub, popover is handled by index.html; if in portal, toggle directly
-          if (typeof window.toggleTimerPopover !== 'function') {
-            this.toggle();
-          }
-        });
-      }
     },
 
     tick() {
@@ -456,7 +1038,7 @@
       if (state.status === 'running') {
         const now = Date.now();
         const remaining = Math.max(0, Math.round((state.targetEndTime - now) / 1000));
-        this.updateAllDisplays(remaining, true, false);
+        this.updateDisplays(remaining, true, false);
 
         if (remaining <= 0) {
           state.status = 'idle';
@@ -466,7 +1048,7 @@
           this.triggerReward();
         }
       } else {
-        this.updateAllDisplays(state.remainingSeconds, false, state.status === 'paused');
+        this.updateDisplays(state.remainingSeconds, false, state.status === 'paused');
       }
     },
 
@@ -497,11 +1079,8 @@
 
     toggle() {
       const state = this.getState();
-      if (state.status === 'running') {
-        this.pause();
-      } else {
-        this.start();
-      }
+      if (state.status === 'running') this.pause();
+      else this.start();
     },
 
     reset(minutes) {
@@ -522,50 +1101,40 @@
       return `${String(m).padStart(2, '0')}:${String(s).padStart(2, '0')}`;
     },
 
-    updateAllDisplays(seconds, isRunning, isPaused) {
+    updateDisplays(seconds, isRunning, isPaused) {
       const timeStr = this.formatTime(seconds);
+
+      // Topbar button display
+      const topbarText = document.getElementById('topbarTimerText');
+      if (topbarText) topbarText.textContent = timeStr;
+      const popoverTime = document.getElementById('timerPopoverTime');
+      if (popoverTime) popoverTime.textContent = timeStr;
+
+      const topbarBtn = document.getElementById('topbarTimerBtn');
+      if (topbarBtn) {
+        if (isRunning) topbarBtn.classList.add('active');
+        else topbarBtn.classList.remove('active');
+      }
+
+      const btnStartPause = document.getElementById('btnTimerStartPause');
+      if (btnStartPause) {
+        btnStartPause.textContent = isRunning ? 'Pause Focus' : (isPaused ? 'Resume Focus' : 'Start Focus');
+      }
 
       // Hub Displays
       const navTimerDisp = document.getElementById('navTimerDisplay');
       if (navTimerDisp) navTimerDisp.textContent = timeStr;
-      
       const timerMainDigits = document.getElementById('timerMainDigits');
       if (timerMainDigits) timerMainDigits.textContent = timeStr;
-
-      const navPill = document.getElementById('navTimerPill');
-      if (navPill) {
-        if (isRunning) navPill.classList.add('running');
-        else navPill.classList.remove('running');
-      }
-
-      const navStateText = document.getElementById('navTimerStateText');
-      if (navStateText) {
-        navStateText.textContent = isRunning ? 'Active' : (isPaused ? 'Paused' : 'Focus');
-      }
-
-      const timerStartBtn = document.getElementById('timerStartBtn');
-      if (timerStartBtn) {
-        timerStartBtn.textContent = isRunning ? 'Pause Focus' : (isPaused ? 'Resume Focus' : 'Start Focus');
-      }
-
-      // Portal Displays (General Surgery, General Medicine, Oral Pathology)
-      const portalDisp = document.getElementById('focusTimerDisplay');
-      if (portalDisp) portalDisp.textContent = timeStr;
-
-      const portalBtn = document.getElementById('btnFocusTimer');
-      if (portalBtn) {
-        if (isRunning) portalBtn.classList.add('running');
-        else portalBtn.classList.remove('running');
-      }
     },
 
     render() {
       const state = this.getState();
       if (state.status === 'running') {
         const remaining = Math.max(0, Math.round((state.targetEndTime - Date.now()) / 1000));
-        this.updateAllDisplays(remaining, true, false);
+        this.updateDisplays(remaining, true, false);
       } else {
-        this.updateAllDisplays(state.remainingSeconds, false, state.status === 'paused');
+        this.updateDisplays(state.remainingSeconds, false, state.status === 'paused');
       }
     },
 
@@ -574,7 +1143,7 @@
         const AudioContext = window.AudioContext || window.webkitAudioContext;
         if (!AudioContext) return;
         const ctx = new AudioContext();
-        const notes = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6 chord
+        const notes = [523.25, 659.25, 783.99, 1046.50];
         notes.forEach((freq, i) => {
           const osc = ctx.createOscillator();
           const gain = ctx.createGain();
@@ -588,9 +1157,7 @@
           osc.start(ctx.currentTime + i * 0.15);
           osc.stop(ctx.currentTime + i * 0.15 + 0.85);
         });
-      } catch (e) {
-        console.warn('Audio chime unable to play:', e);
-      }
+      } catch (e) {}
     },
 
     triggerReward() {
@@ -669,7 +1236,6 @@
             font-weight: 800;
             margin: 0 0 10px 0;
             color: #f8fafc;
-            letter-spacing: -0.01em;
           }
           .bds-reward-msg {
             font-size: 0.95rem;
@@ -783,11 +1349,9 @@
   window.CoreEngine = CoreEngine;
   window.BdsTimer = BdsTimer;
 
-  // Auto-initialize BdsTimer on DOM ready
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => BdsTimer.init());
   } else {
     BdsTimer.init();
   }
 })(window);
-

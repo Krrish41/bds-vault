@@ -53,32 +53,131 @@ surgery_previews = surgery_topics[:4]
 medicine_previews = medicine_topics[:4]
 pathology_previews = pathology_topics[:4]
 
-# Comprehensive search array (all 63 topics + quick reference items)
+# Comprehensive search array (63 essays + Spotters, Flashcards, Schematics)
 all_search_topics = []
 for t in surgery_topics:
     all_search_topics.append({
         "title": t["title"],
-        "sub": "General Surgery",
+        "sub": "General Surgery Pro",
         "tag": "Paper I",
+        "category": t.get("category", "General Surgery"),
+        "type": "essay",
         "url": t["url"],
         "paper": "surgery"
     })
 for t in medicine_topics:
     all_search_topics.append({
         "title": t["title"],
-        "sub": "General Medicine",
+        "sub": "General Medicine Pro",
         "tag": "Paper II",
+        "category": t.get("category", "General Medicine"),
+        "type": "essay",
         "url": t["url"],
         "paper": "medicine"
     })
 for t in pathology_topics:
     all_search_topics.append({
         "title": t["title"],
-        "sub": "Oral Pathology",
+        "sub": "Oral Pathology Pro",
         "tag": "Paper III",
+        "category": t.get("category", "Oral Pathology"),
+        "type": "essay",
         "url": t["url"],
         "paper": "pathology"
     })
+
+# Spotters
+all_search_topics.extend([
+    {
+        "title": "Surgical Instruments, Specimen & Clinical Spotters",
+        "sub": "General Surgery Pro",
+        "tag": "Spotters",
+        "category": "Clinical Spotters",
+        "type": "spotters",
+        "url": "https://krrish41.github.io/general-surgery/#/spotters",
+        "paper": "surgery"
+    },
+    {
+        "title": "Hemodynamic, ECG & Bedside Spotters",
+        "sub": "General Medicine Pro",
+        "tag": "Spotters",
+        "category": "Clinical Spotters",
+        "type": "spotters",
+        "url": "https://krrish41.github.io/General-Medicine/#/spotters",
+        "paper": "medicine"
+    },
+    {
+        "title": "Microscopic Spotters & Histopathology Carousel (40 Cards)",
+        "sub": "Oral Pathology Pro",
+        "tag": "Spotters",
+        "category": "Clinical Spotters",
+        "type": "spotters",
+        "url": "https://krrish41.github.io/Oral-Pathology/#/spotters",
+        "paper": "pathology"
+    }
+])
+
+# Flashcards
+all_search_topics.extend([
+    {
+        "title": "General Surgery Rapid Recall Viva Flashcards",
+        "sub": "General Surgery Pro",
+        "tag": "Flashcards",
+        "category": "Active Recall",
+        "type": "flashcards",
+        "url": "https://krrish41.github.io/general-surgery/#/simulator",
+        "paper": "surgery"
+    },
+    {
+        "title": "General Medicine Active Recall Flashcards",
+        "sub": "General Medicine Pro",
+        "tag": "Flashcards",
+        "category": "Active Recall",
+        "type": "flashcards",
+        "url": "https://krrish41.github.io/General-Medicine/#/simulator",
+        "paper": "medicine"
+    },
+    {
+        "title": "Oral Pathology Active Recall Flashcards",
+        "sub": "Oral Pathology Pro",
+        "tag": "Flashcards",
+        "category": "Active Recall",
+        "type": "flashcards",
+        "url": "https://krrish41.github.io/Oral-Pathology/#/simulator",
+        "paper": "pathology"
+    }
+])
+
+# Schematics
+all_search_topics.extend([
+    {
+        "title": "Neck Triangles & Fascial Planes Surgical Schematics",
+        "sub": "General Surgery Pro",
+        "tag": "Schematics",
+        "category": "Must-Draw Schematics",
+        "type": "schematics",
+        "url": "https://krrish41.github.io/general-surgery/#/spotters",
+        "paper": "surgery"
+    },
+    {
+        "title": "Cardiovascular Flow, Shock & Resuscitation Algorithms",
+        "sub": "General Medicine Pro",
+        "tag": "Schematics",
+        "category": "Must-Draw Schematics",
+        "type": "schematics",
+        "url": "https://krrish41.github.io/General-Medicine/#/spotters",
+        "paper": "medicine"
+    },
+    {
+        "title": "Odontogenic Lesion & Salivary Microscopic Schematics",
+        "sub": "Oral Pathology Pro",
+        "tag": "Schematics",
+        "category": "Must-Draw Schematics",
+        "type": "schematics",
+        "url": "https://krrish41.github.io/Oral-Pathology/#/spotters",
+        "paper": "pathology"
+    }
+])
 
 # Serialized dataset for inline JS
 all_topics_json = json.dumps(all_search_topics)
@@ -324,49 +423,155 @@ html_content = f"""<!DOCTYPE html>
             font-weight: 600;
         }}
 
-        /* Center Search Trigger */
+        /* Center Search with Inline Dropdown */
         .header-search-wrap {{
             flex: 1;
             max-width: 440px;
             margin: 0 20px;
+            position: relative;
         }}
-        .hub-search-btn {{
+        .hub-search-box {{
             width: 100%;
             height: 38px;
-            padding: 0 14px;
+            padding: 0 12px;
             background: var(--bg-surface);
             border: 1px solid var(--border-color);
             border-radius: var(--radius-pill);
-            color: var(--text-muted);
-            font-size: 0.84rem;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }}
-        .hub-search-btn:hover {{
-            border-color: var(--border-strong);
-            color: var(--text-secondary);
-        }}
-        .search-inner-left {{
             display: flex;
             align-items: center;
             gap: 8px;
+            color: var(--text-muted);
+            transition: all 0.2s ease;
+        }}
+        .hub-search-box:focus-within {{
+            border-color: var(--accent-primary, #6366f1);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+        }}
+        .hub-search-input {{
+            flex: 1;
+            background: transparent;
+            border: none;
+            outline: none;
+            font-family: inherit;
+            font-size: 0.84rem;
+            color: var(--text-primary);
+        }}
+        .hub-search-input::placeholder {{
+            color: var(--text-muted);
+        }}
+        .hub-search-clear {{
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 2px 6px;
+            font-size: 0.8rem;
+            border-radius: 50%;
+        }}
+        .hub-search-clear:hover {{
+            color: var(--text-primary);
+        }}
+        .hub-search-results {{
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 0;
+            right: 0;
+            max-height: 440px;
+            overflow-y: auto;
+            background: var(--bg-surface-elevated, #101322);
+            border: 1px solid var(--border-strong, rgba(255, 255, 255, 0.18));
+            border-radius: var(--radius-md, 12px);
+            padding: 8px;
+            box-shadow: var(--shadow-lg);
+            z-index: 1050;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }}
+        .hub-search-group {{
+            margin-bottom: 6px;
+        }}
+        .hub-search-group-title {{
+            font-size: 0.70rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-muted);
+            padding: 6px 10px 4px 10px;
+        }}
+        .hub-search-item {{
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 12px;
+            border-radius: var(--radius-sm, 8px);
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-size: 0.84rem;
+            transition: all 0.15s ease;
+            gap: 10px;
+        }}
+        .hub-search-item:hover, .hub-search-item.selected {{
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text-primary);
+        }}
+        .hub-search-item-title {{
             overflow: hidden;
             text-overflow: ellipsis;
             white-space: nowrap;
         }}
-        .kbd-pill {{
-            font-size: 0.70rem;
+        .hub-search-item-tag {{
+            font-size: 0.68rem;
             font-family: 'JetBrains Mono', monospace;
-            padding: 2px 7px;
+            padding: 2px 6px;
             border-radius: 4px;
-            background: rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.05);
+            color: var(--text-muted);
+            white-space: nowrap;
+            flex-shrink: 0;
+        }}
+
+        /* Collapsible Category Accordions for Topic Panel */
+        .panel-category-group {{
+            margin-bottom: 8px;
+        }}
+        .panel-category-header {{
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
             color: var(--text-secondary);
-            font-weight: 600;
+            font-size: 0.76rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.04em;
+            cursor: pointer;
+            transition: all 0.15s ease;
+        }}
+        .panel-category-header:hover {{
+            background: rgba(255, 255, 255, 0.06);
+            color: var(--text-primary);
+        }}
+        .panel-category-chevron {{
+            transition: transform 0.2s ease;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }}
+        .panel-category-group.collapsed .panel-category-chevron {{
+            transform: rotate(-90deg);
+        }}
+        .panel-category-group.collapsed .panel-category-items {{
+            display: none;
+        }}
+        .panel-category-items {{
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+            margin-top: 4px;
         }}
 
         /* Right Nav Tools */
@@ -1332,85 +1537,7 @@ html_content = f"""<!DOCTYPE html>
 
         /* =============================================================
            8. CMDK COMMAND PALETTE OVERLAY
-           ============================================================= */
-        .cmdk-overlay {{
-            display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.75);
-            backdrop-filter: blur(8px);
-            z-index: 2500;
-            align-items: flex-start;
-            justify-content: center;
-            padding-top: 12vh;
-        }}
-        .cmdk-overlay.open {{
-            display: flex;
-        }}
-        .cmdk-modal {{
-            background: var(--bg-surface-elevated);
-            border: 1px solid var(--border-strong);
-            border-radius: var(--radius-md);
-            width: min(620px, calc(100vw - 32px));
-            max-height: 75vh;
-            display: flex;
-            flex-direction: column;
-            box-shadow: var(--shadow-lg);
-            overflow: hidden;
-        }}
-        .cmdk-search-row {{
-            padding: 14px 18px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            border-bottom: 1px solid var(--border-color);
-        }}
-        .cmdk-search-input {{
-            flex: 1;
-            background: transparent;
-            border: none;
-            color: var(--text-primary);
-            font-size: 1rem;
-            font-family: inherit;
-            outline: none;
-        }}
-        .cmdk-results-list {{
-            overflow-y: auto;
-            max-height: 420px;
-            padding: 8px;
-            list-style: none;
-        }}
-        .cmdk-item {{
-            padding: 10px 14px;
-            border-radius: var(--radius-sm);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.88rem;
-            cursor: pointer;
-        }}
-        .cmdk-item:hover, .cmdk-item.selected {{
-            background: rgba(255, 255, 255, 0.06);
-            color: var(--text-primary);
-        }}
-        .cmdk-item-tag {{
-            font-size: 0.72rem;
-            padding: 2px 7px;
-            border-radius: 4px;
-            background: rgba(255, 255, 255, 0.05);
-            color: var(--text-muted);
-            font-family: 'JetBrains Mono', monospace;
-        }}
-        .cmdk-footer {{
-            padding: 10px 18px;
-            border-top: 1px solid var(--border-color);
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.74rem;
-            color: var(--text-muted);
-        }}
+
 
         /* =============================================================
            9. COMPACT FOOTER WITH QUICK-REFERENCE SHORTCUTS
@@ -1551,15 +1678,14 @@ html_content = f"""<!DOCTYPE html>
             </div>
         </a>
 
-        <!-- Search Bar Trigger with platform-aware Ctrl K badge -->
-        <div class="header-search-wrap">
-            <button class="hub-search-btn" data-testid="hub-search" onclick="openCmdk()" aria-label="Search all 63 essays, spotters, and cutoffs">
-                <span class="search-inner-left">
-                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-                    <span>Search {total_essays} essays, spotters, cutoffs…</span>
-                </span>
-                <kbd class="kbd-pill" id="cmdkKbdBadge">Ctrl K</kbd>
-            </button>
+        <!-- Ordinary Search with Inline Dropdown -->
+        <div class="header-search-wrap" id="hubSearchContainer">
+            <div class="hub-search-box">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                <input type="search" id="hubSearchInput" class="hub-search-input" data-testid="search" placeholder="Search essays, spotters, cutoffs... (/)" autocomplete="off" oninput="onHubSearchInput(this.value)" onfocus="onHubSearchFocus()">
+                <button type="button" class="hub-search-clear" id="hubSearchClear" style="display:none;" onclick="clearHubSearch()" aria-label="Clear search">✕</button>
+            </div>
+            <div class="hub-search-results" id="hubSearchResults" style="display:none;"></div>
         </div>
 
         <!-- Right Nav Tools -->
@@ -1651,7 +1777,7 @@ html_content = f"""<!DOCTYPE html>
         <div class="portal-cards-grid">
             
             <!-- CARD 1: GENERAL SURGERY PRO -->
-            <div class="portal-card card-surgery" data-testid="hub-card-surgery">
+            <div class="portal-card card-surgery" id="surgery" data-testid="hub-card-surgery">
                 <svg class="corner-watermark" viewBox="0 0 100 100" fill="none" stroke="currentColor">
                     <circle cx="50" cy="50" r="40" stroke-width="1.5" stroke-dasharray="4 4"/>
                     <line x1="50" y1="10" x2="50" y2="90" stroke-width="1.5"/>
@@ -1736,7 +1862,7 @@ html_content = f"""<!DOCTYPE html>
             </div>
 
             <!-- CARD 2: GENERAL MEDICINE PRO -->
-            <div class="portal-card card-medicine" data-testid="hub-card-medicine">
+            <div class="portal-card card-medicine" id="medicine" data-testid="hub-card-medicine">
                 <svg class="corner-watermark" viewBox="0 0 100 100" fill="none" stroke="currentColor">
                     <path d="M0 50h25l5-15 10 35 10-40 10 30 5-10h35" stroke-width="2" stroke-linecap="round"/>
                 </svg>
@@ -1818,7 +1944,7 @@ html_content = f"""<!DOCTYPE html>
             </div>
 
             <!-- CARD 3: ORAL PATHOLOGY PRO -->
-            <div class="portal-card card-pathology" data-testid="hub-card-pathology">
+            <div class="portal-card card-pathology" id="pathology" data-testid="hub-card-pathology">
                 <svg class="corner-watermark" viewBox="0 0 100 100" fill="none" stroke="currentColor">
                     <polygon points="50,15 80,32 80,68 50,85 20,68 20,32" stroke-width="1.5"/>
                     <circle cx="50" cy="50" r="14" stroke-width="1.5" stroke-dasharray="3 3"/>
@@ -2019,24 +2145,6 @@ html_content = f"""<!DOCTYPE html>
         </div>
     </div>
 
-    <!-- 7. CMDK COMMAND PALETTE -->
-    <div class="cmdk-overlay" id="cmdkOverlay" onclick="handleCmdkOverlayClick(event)">
-        <div class="cmdk-modal" onclick="event.stopPropagation()">
-            <div class="cmdk-search-row">
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
-                <input type="text" id="cmdkInput" class="cmdk-search-input" placeholder="Search essays, spotters, syndromes, cutoffs…" oninput="onCmdkSearch(this.value)">
-                <span class="kbd-pill">Esc</span>
-            </div>
-            <ul class="cmdk-results-list" id="cmdkResultsList">
-                <!-- Dynamically Populated -->
-            </ul>
-            <div class="cmdk-footer">
-                <span>Navigation: <kbd class="kbd-pill">↑</kbd> <kbd class="kbd-pill">↓</kbd> to select</span>
-                <span>Action: <kbd class="kbd-pill">Enter</kbd> to launch</span>
-            </div>
-        </div>
-    </div>
-
     <!-- 8. STREAMLINED FOOTER WITH QUICK-REFERENCE SHORTCUTS -->
     <footer class="hub-footer">
         <div class="footer-inner">
@@ -2047,7 +2155,7 @@ html_content = f"""<!DOCTYPE html>
                 <span>•</span>
                 <a href="javascript:void(0)" class="footer-link" onclick="toggleLabModal('norm')">Laboratory Reference Norms</a>
                 <span>•</span>
-                <a href="javascript:void(0)" class="footer-link" onclick="openCmdk()">Command Palette (Ctrl K)</a>
+                <a href="javascript:void(0)" class="footer-link" onclick="focusHubSearch()">Quick Search (/)</a>
             </div>
             <div class="footer-meta-row">
                 <span class="cinzel-brand" style="font-weight:700;">BDS CLINICAL VAULT</span>
@@ -2225,17 +2333,54 @@ html_content = f"""<!DOCTYPE html>
                 completedObj = JSON.parse(raw);
             }} catch(e) {{}}
 
-            listEl.innerHTML = topicList.map((t, idx) => {{
-                const isDone = !!completedObj[t.id];
-                const numStr = String(idx + 1).padStart(2, '0');
-                return `
-                    <a href="${{t.url}}" target="_blank" class="panel-topic-row" data-title="${{t.title.toLowerCase()}}" onclick="closeTopicPanel(false)">
-                        <span class="panel-topic-num">${{numStr}}</span>
-                        <span class="panel-topic-title">${{t.title}}</span>
-                        <span class="panel-topic-tick ${{isDone ? 'completed' : ''}}" title="${{isDone ? 'Completed' : 'Not completed'}}">${{isDone ? '✓' : '○'}}</span>
-                    </a>
-                `;
-            }}).join('');
+            // Group by category
+            const categories = {{}};
+            topicList.forEach((t, idx) => {{
+                const cat = t.category || 'Curriculum Topics';
+                if (!categories[cat]) categories[cat] = [];
+                categories[cat].push({{ ...t, globalIdx: idx }});
+            }});
+
+            const catKeys = Object.keys(categories);
+            if (catKeys.length <= 1) {{
+                listEl.innerHTML = topicList.map((t, idx) => {{
+                    const isDone = !!completedObj[t.id];
+                    const numStr = String(idx + 1).padStart(2, '0');
+                    return `
+                        <a href="${{t.url}}" target="_blank" class="panel-topic-row" data-title="${{t.title.toLowerCase()}}" onclick="closeTopicPanel(false)">
+                            <span class="panel-topic-num">${{numStr}}</span>
+                            <span class="panel-topic-title">${{t.title}}</span>
+                            <span class="panel-topic-tick ${{isDone ? 'completed' : ''}}" title="${{isDone ? 'Completed' : 'Not completed'}}">${{isDone ? '✓' : '○'}}</span>
+                        </a>
+                    `;
+                }}).join('');
+            }} else {{
+                listEl.innerHTML = catKeys.map(cat => {{
+                    const items = categories[cat];
+                    const catDoneCount = items.filter(t => !!completedObj[t.id]).length;
+                    return `
+                        <div class="panel-category-group">
+                            <button type="button" class="panel-category-header" onclick="this.parentElement.classList.toggle('collapsed')">
+                                <span>${{cat}} (${{catDoneCount}}/${{items.length}})</span>
+                                <span class="panel-category-chevron">▾</span>
+                            </button>
+                            <div class="panel-category-items">
+                                ${{items.map(t => {{
+                                    const isDone = !!completedObj[t.id];
+                                    const numStr = String(t.globalIdx + 1).padStart(2, '0');
+                                    return `
+                                        <a href="${{t.url}}" target="_blank" class="panel-topic-row" data-title="${{t.title.toLowerCase()}}" onclick="closeTopicPanel(false)">
+                                            <span class="panel-topic-num">${{numStr}}</span>
+                                            <span class="panel-topic-title">${{t.title}}</span>
+                                            <span class="panel-topic-tick ${{isDone ? 'completed' : ''}}" title="${{isDone ? 'Completed' : 'Not completed'}}">${{isDone ? '✓' : '○'}}</span>
+                                        </a>
+                                    `;
+                                }}).join('')}}
+                            </div>
+                        </div>
+                    `;
+                }}).join('');
+            }}
 
             const liveReg = document.getElementById('topicPanelLiveRegion');
             if (liveReg) liveReg.textContent = `${{topicList.length}} topics shown`;
@@ -2317,6 +2462,16 @@ html_content = f"""<!DOCTYPE html>
                 const match = !q || title.includes(q);
                 item.style.display = match ? 'flex' : 'none';
                 if (match) visibleCount++;
+            }});
+
+            // Adjust category groups
+            list.querySelectorAll('.panel-category-group').forEach(grp => {{
+                const grpItems = grp.querySelectorAll('.panel-topic-row');
+                const hasVisible = Array.from(grpItems).some(i => i.style.display !== 'none');
+                grp.style.display = hasVisible ? 'block' : 'none';
+                if (q && hasVisible) {{
+                    grp.classList.remove('collapsed');
+                }}
             }});
 
             if (empty) empty.style.display = visibleCount === 0 ? 'block' : 'none';
@@ -2521,76 +2676,125 @@ html_content = f"""<!DOCTYPE html>
             }}
         }}
 
-        // --- 7. CmdK Command Palette Logic ---
-        function openCmdk() {{
-            const overlay = document.getElementById('cmdkOverlay');
-            const input = document.getElementById('cmdkInput');
-            if (!overlay || !input) return;
-            overlay.classList.add('open');
-            input.value = '';
-            setTimeout(() => input.focus(), 50);
-            renderCmdkResults(ALL_TOPICS.slice(0, 8));
+        // --- 7. Inline Header Search Logic ---
+        function focusHubSearch() {{
+            const input = document.getElementById('hubSearchInput');
+            if (input) {{
+                input.focus();
+                onHubSearchFocus();
+            }}
         }}
 
-        function closeCmdk() {{
-            const overlay = document.getElementById('cmdkOverlay');
-            if (overlay) overlay.classList.remove('open');
+        function onHubSearchFocus() {{
+            const input = document.getElementById('hubSearchInput');
+            if (input && input.value.trim().length > 0) {{
+                onHubSearchInput(input.value);
+            }} else {{
+                renderHubSearchResults(ALL_TOPICS.slice(0, 8), '');
+            }}
         }}
 
-        function handleCmdkOverlayClick(e) {{
-            if (e.target.id === 'cmdkOverlay') closeCmdk();
-        }}
-
-        function onCmdkSearch(query) {{
+        function onHubSearchInput(query) {{
             const q = query.toLowerCase().trim();
+            const clearBtn = document.getElementById('hubSearchClear');
+            const resultsBox = document.getElementById('hubSearchResults');
+            if (clearBtn) clearBtn.style.display = q ? 'inline-block' : 'none';
+
             if (!q) {{
-                renderCmdkResults(ALL_TOPICS.slice(0, 8));
+                renderHubSearchResults(ALL_TOPICS.slice(0, 8), '');
                 return;
             }}
-            const filtered = ALL_TOPICS.filter(t => 
-                t.title.toLowerCase().includes(q) || 
-                t.sub.toLowerCase().includes(q) || 
-                t.tag.toLowerCase().includes(q)
-            ).slice(0, 10);
-            renderCmdkResults(filtered);
+
+            const filtered = ALL_TOPICS.filter(t =>
+                t.title.toLowerCase().includes(q) ||
+                (t.category && t.category.toLowerCase().includes(q)) ||
+                (t.sub && t.sub.toLowerCase().includes(q)) ||
+                (t.tag && t.tag.toLowerCase().includes(q))
+            );
+            renderHubSearchResults(filtered, q);
         }}
 
-        function renderCmdkResults(list) {{
-            const ul = document.getElementById('cmdkResultsList');
-            if (!ul) return;
+        function clearHubSearch() {{
+            const input = document.getElementById('hubSearchInput');
+            const resultsBox = document.getElementById('hubSearchResults');
+            const clearBtn = document.getElementById('hubSearchClear');
+            if (input) {{
+                input.value = '';
+                input.focus();
+            }}
+            if (clearBtn) clearBtn.style.display = 'none';
+            if (resultsBox) resultsBox.style.display = 'none';
+        }}
+
+        function renderHubSearchResults(list, query) {{
+            const box = document.getElementById('hubSearchResults');
+            if (!box) return;
+
             if (list.length === 0) {{
-                ul.innerHTML = '<li style="padding:14px; text-align:center; color:var(--text-muted); font-size:0.85rem;">No matching curriculum essays found.</li>';
+                box.innerHTML = '<div style="padding:14px; text-align:center; color:var(--text-muted); font-size:0.84rem;">No matching curriculum essays or tools found.</div>';
+                box.style.display = 'flex';
                 return;
             }}
-            ul.innerHTML = list.map(item => `
-                <li>
-                    <a href="${{item.url}}" target="_blank" class="cmdk-item" onclick="closeCmdk()">
-                        <span>${{item.title}}</span>
-                        <span class="cmdk-item-tag">${{item.tag}}</span>
-                    </a>
-                </li>
-            `).join('');
-        }}
 
-        // Platform-aware Ctrl K badge
-        const isMac = navigator.platform.toUpperCase().indexOf('MAC') >= 0;
-        const kbdBadge = document.getElementById('cmdkKbdBadge');
-        if (kbdBadge && isMac) {{
-            kbdBadge.textContent = '⌘K';
-        }}
+            // Group by category / type
+            const groups = {{
+                'surgery': {{ label: '📖 General Surgery Essays', items: [] }},
+                'medicine': {{ label: '🩺 General Medicine Essays', items: [] }},
+                'pathology': {{ label: '🔬 Oral Pathology Essays', items: [] }},
+                'spotters': {{ label: '🎯 Microscopic & Surgical Spotters', items: [] }},
+                'flashcards': {{ label: '🎴 Active Recall Flashcards', items: [] }},
+                'schematics': {{ label: '📐 Schematics & Algorithms', items: [] }}
+            }};
 
-        // Global Keyboard Shortcut Handler
-        window.addEventListener('keydown', (e) => {{
-            if ((e.key === 'k' && (e.ctrlKey || e.metaKey)) || e.key === '/') {{
-                if (document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {{
-                    e.preventDefault();
-                    openCmdk();
+            list.forEach(item => {{
+                if (item.type === 'spotters') groups['spotters'].items.push(item);
+                else if (item.type === 'flashcards') groups['flashcards'].items.push(item);
+                else if (item.type === 'schematics') groups['schematics'].items.push(item);
+                else if (item.paper === 'surgery') groups['surgery'].items.push(item);
+                else if (item.paper === 'medicine') groups['medicine'].items.push(item);
+                else if (item.paper === 'pathology') groups['pathology'].items.push(item);
+            }});
+
+            let html = '';
+            for (const key of ['surgery', 'medicine', 'pathology', 'spotters', 'flashcards', 'schematics']) {{
+                const g = groups[key];
+                if (g.items.length > 0) {{
+                    html += `
+                        <div class="hub-search-group">
+                            <div class="hub-search-group-title">${{g.label}}</div>
+                            ${{g.items.slice(0, 6).map(it => `
+                                <a href="${{it.url}}" target="_blank" class="hub-search-item" onclick="document.getElementById('hubSearchResults').style.display='none'">
+                                    <span class="hub-search-item-title">${{it.title}}</span>
+                                    <span class="hub-search-item-tag">${{it.tag}}</span>
+                                </a>
+                            `).join('')}}
+                        </div>
+                    `;
                 }}
+            }}
+
+            box.innerHTML = html;
+            box.style.display = 'flex';
+        }}
+
+        // Close search results when clicking outside
+        document.addEventListener('click', (e) => {{
+            if (!e.target.closest('#hubSearchContainer')) {{
+                const box = document.getElementById('hubSearchResults');
+                if (box) box.style.display = 'none';
+            }}
+        }});
+
+        // Global Keyboard Shortcut Handler (/ to search, Esc to close)
+        window.addEventListener('keydown', (e) => {{
+            if (e.key === '/' && document.activeElement.tagName !== 'INPUT' && document.activeElement.tagName !== 'TEXTAREA') {{
+                e.preventDefault();
+                focusHubSearch();
             }} else if (e.key === 'Escape') {{
                 if (isTopicPanelOpen()) closeTopicPanel();
                 const labModal = document.getElementById('labModal');
                 if (labModal && labModal.classList.contains('open')) toggleLabModal();
-                closeCmdk();
+                clearHubSearch();
                 closeTimerPopover();
             }}
         }});

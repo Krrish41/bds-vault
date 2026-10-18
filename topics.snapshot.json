@@ -6,477 +6,821 @@
       {
         "id": "shock-fluid-resuscitation-acid-base-balance",
         "title": "Shock, Fluid Resuscitation & Acid-Base Balance",
+        "category": "General Surgery & Critical Care",
+        "readMinutes": 9,
+        "readingTime": "9 min read",
         "portal": "surgery",
         "portalName": "General Surgery Pro",
         "paper": "Paper I \u00b7 Surgery",
         "chapter": 1,
         "type": "essay",
         "url": "https://krrish41.github.io/general-surgery/#/topic/shock-fluid-resuscitation-acid-base-balance",
-        "order": 1
+        "order": 1,
+        "tags": [
+          "General Surgery & Critical Care",
+          "surgery",
+          "shock-fluid-resuscitation-acid-base-balance"
+        ]
       },
       {
         "id": "hemorrhage-blood-transfusion-bleeding-disorders",
         "title": "Hemorrhage, Blood Transfusion & Bleeding Disorders",
+        "category": "General Surgery & Critical Care",
+        "readMinutes": 9,
+        "readingTime": "9 min read",
         "portal": "surgery",
         "portalName": "General Surgery Pro",
         "paper": "Paper I \u00b7 Surgery",
         "chapter": 2,
         "type": "essay",
         "url": "https://krrish41.github.io/general-surgery/#/topic/hemorrhage-blood-transfusion-bleeding-disorders",
-        "order": 2
+        "order": 2,
+        "tags": [
+          "General Surgery & Critical Care",
+          "surgery",
+          "hemorrhage-blood-transfusion-bleeding-disorders"
+        ]
       },
       {
         "id": "surgical-infections-boils-carbuncle-cellulitis-erysipelas-ludwig-s-angina-cancrum-oris",
         "title": "Surgical Infections: Boils, Carbuncle, Cellulitis, Erysipelas, Ludwig's Angina & Cancrum Oris",
+        "category": "General Surgery & Critical Care",
+        "readMinutes": 9,
+        "readingTime": "9 min read",
         "portal": "surgery",
         "portalName": "General Surgery Pro",
         "paper": "Paper I \u00b7 Surgery",
         "chapter": 3,
         "type": "essay",
         "url": "https://krrish41.github.io/general-surgery/#/topic/surgical-infections-boils-carbuncle-cellulitis-erysipelas-ludwig-s-angina-cancrum-oris",
-        "order": 3
+        "order": 3,
+        "tags": [
+          "General Surgery & Critical Care",
+          "surgery",
+          "surgical-infections-boils-carbuncle-cellulitis-erysipelas-ludwig-s-angina-cancrum-oris"
+        ]
       },
       {
         "id": "abscess-hilton-s-method-of-incision-and-drainage",
         "title": "Abscess & Hilton's Method of Incision and Drainage",
+        "category": "General Surgery & Critical Care",
+        "readMinutes": 5,
+        "readingTime": "5 min read",
         "portal": "surgery",
         "portalName": "General Surgery Pro",
         "paper": "Paper I \u00b7 Surgery",
         "chapter": 4,
         "type": "essay",
         "url": "https://krrish41.github.io/general-surgery/#/topic/abscess-hilton-s-method-of-incision-and-drainage",
-        "order": 4
+        "order": 4,
+        "tags": [
+          "General Surgery & Critical Care",
+          "surgery",
+          "abscess-hilton-s-method-of-incision-and-drainage"
+        ]
       },
       {
         "id": "surgical-site-infections-ssi-surgical-wound-classification",
         "title": "Surgical Site Infections (SSI) & Surgical Wound Classification",
+        "category": "General Surgery & Critical Care",
+        "readMinutes": 5,
+        "readingTime": "5 min read",
         "portal": "surgery",
         "portalName": "General Surgery Pro",
         "paper": "Paper I \u00b7 Surgery",
         "chapter": 5,
         "type": "essay",
         "url": "https://krrish41.github.io/general-surgery/#/topic/surgical-site-infections-ssi-surgical-wound-classification",
-        "order": 5
+        "order": 5,
+        "tags": [
+          "General Surgery & Critical Care",
+          "surgery",
+          "surgical-site-infections-ssi-surgical-wound-classification"
+        ]
       },
       {
         "id": "gas-gangrene-tetanus",
         "title": "Gas Gangrene & Tetanus",
+        "category": "General Surgery & Critical Care",
+        "readMinutes": 6,
+        "readingTime": "6 min read",
         "portal": "surgery",
         "portalName": "General Surgery Pro",
         "paper": "Paper I \u00b7 Surgery",
         "chapter": 6,
         "type": "essay",
         "url": "https://krrish41.github.io/general-surgery/#/topic/gas-gangrene-tetanus",
-        "order": 6
+        "order": 6,
+        "tags": [
+          "General Surgery & Critical Care",
+          "surgery",
+          "gas-gangrene-tetanus"
+        ]
       },
       {
         "id": "swellings-of-the-neck-comprehensive-master-chapter",
         "title": "Swellings of the Neck: Comprehensive Master Chapter",
+        "category": "Neck & Faciomaxillary Surgery",
+        "readMinutes": 15,
+        "readingTime": "15 min read",
         "portal": "surgery",
         "portalName": "General Surgery Pro",
         "paper": "Paper I \u00b7 Surgery",
         "chapter": 7,
         "type": "essay",
         "url": "https://krrish41.github.io/general-surgery/#/topic/swellings-of-the-neck-comprehensive-master-chapter",
-        "order": 7
+        "order": 7,
+        "tags": [
+          "Neck & Faciomaxillary Surgery",
+          "surgery",
+          "swellings-of-the-neck-comprehensive-master-chapter"
+        ]
       },
       {
         "id": "cervical-lymphadenopathy-scrofula-tb-lymphadenitis",
         "title": "Cervical Lymphadenopathy & Scrofula / TB Lymphadenitis",
+        "category": "Neck & Faciomaxillary Surgery",
+        "readMinutes": 5,
+        "readingTime": "5 min read",
         "portal": "surgery",
         "portalName": "General Surgery Pro",
         "paper": "Paper I \u00b7 Surgery",
         "chapter": 8,
         "type": "essay",
         "url": "https://krrish41.github.io/general-surgery/#/topic/cervical-lymphadenopathy-scrofula-tb-lymphadenitis",
-        "order": 8
+        "order": 8,
+        "tags": [
+          "Neck & Faciomaxillary Surgery",
+          "surgery",
+          "cervical-lymphadenopathy-scrofula-tb-lymphadenitis"
+        ]
       },
       {
         "id": "wound-healing-scars-keloid-vs-hypertrophic-scar",
         "title": "Wound Healing, Scars, Keloid vs. Hypertrophic Scar",
+        "category": "Neck & Faciomaxillary Surgery",
+        "readMinutes": 26,
+        "readingTime": "26 min read",
         "portal": "surgery",
         "portalName": "General Surgery Pro",
         "paper": "Paper I \u00b7 Surgery",
         "chapter": 9,
         "type": "essay",
         "url": "https://krrish41.github.io/general-surgery/#/topic/wound-healing-scars-keloid-vs-hypertrophic-scar",
-        "order": 9
+        "order": 9,
+        "tags": [
+          "Neck & Faciomaxillary Surgery",
+          "surgery",
+          "wound-healing-scars-keloid-vs-hypertrophic-scar"
+        ]
       },
       {
         "id": "electrosurgery-diathermy",
         "title": "Electrosurgery & Diathermy",
+        "category": "Neck & Faciomaxillary Surgery",
+        "readMinutes": 5,
+        "readingTime": "5 min read",
         "portal": "surgery",
         "portalName": "General Surgery Pro",
         "paper": "Paper I \u00b7 Surgery",
         "chapter": 10,
         "type": "essay",
         "url": "https://krrish41.github.io/general-surgery/#/topic/electrosurgery-diathermy",
-        "order": 10
+        "order": 10,
+        "tags": [
+          "Neck & Faciomaxillary Surgery",
+          "surgery",
+          "electrosurgery-diathermy"
+        ]
       },
       {
         "id": "faciomaxillary-trauma-fractures",
         "title": "Faciomaxillary Trauma & Fractures",
+        "category": "Neck & Faciomaxillary Surgery",
+        "readMinutes": 6,
+        "readingTime": "6 min read",
         "portal": "surgery",
         "portalName": "General Surgery Pro",
         "paper": "Paper I \u00b7 Surgery",
         "chapter": 11,
         "type": "essay",
         "url": "https://krrish41.github.io/general-surgery/#/topic/faciomaxillary-trauma-fractures",
-        "order": 11
+        "order": 11,
+        "tags": [
+          "Neck & Faciomaxillary Surgery",
+          "surgery",
+          "faciomaxillary-trauma-fractures"
+        ]
       },
       {
         "id": "tuberculosis-in-general-surgery-abdominal-tb-pott-s-spine-cold-abscess",
         "title": "Tuberculosis in General Surgery (Abdominal TB, Pott's Spine & Cold Abscess)",
+        "category": "Specialized Infections, Neuro & Operative",
+        "readMinutes": 5,
+        "readingTime": "5 min read",
         "portal": "surgery",
         "portalName": "General Surgery Pro",
         "paper": "Paper I \u00b7 Surgery",
         "chapter": 12,
         "type": "essay",
         "url": "https://krrish41.github.io/general-surgery/#/topic/tuberculosis-in-general-surgery-abdominal-tb-pott-s-spine-cold-abscess",
-        "order": 12
+        "order": 12,
+        "tags": [
+          "Specialized Infections, Neuro & Operative",
+          "surgery",
+          "tuberculosis-in-general-surgery-abdominal-tb-pott-s-spine-cold-abscess"
+        ]
       },
       {
         "id": "actinomycosis-vincent-s-angina-cancrum-oris-noma",
         "title": "Actinomycosis, Vincent's Angina & Cancrum Oris (Noma)",
+        "category": "Specialized Infections, Neuro & Operative",
+        "readMinutes": 5,
+        "readingTime": "5 min read",
         "portal": "surgery",
         "portalName": "General Surgery Pro",
         "paper": "Paper I \u00b7 Surgery",
         "chapter": 13,
         "type": "essay",
         "url": "https://krrish41.github.io/general-surgery/#/topic/actinomycosis-vincent-s-angina-cancrum-oris-noma",
-        "order": 13
+        "order": 13,
+        "tags": [
+          "Specialized Infections, Neuro & Operative",
+          "surgery",
+          "actinomycosis-vincent-s-angina-cancrum-oris-noma"
+        ]
       },
       {
         "id": "trigeminal-neuralgia-tic-douloureux",
         "title": "Trigeminal Neuralgia (Tic Douloureux)",
+        "category": "Specialized Infections, Neuro & Operative",
+        "readMinutes": 5,
+        "readingTime": "5 min read",
         "portal": "surgery",
         "portalName": "General Surgery Pro",
         "paper": "Paper I \u00b7 Surgery",
         "chapter": 14,
         "type": "essay",
         "url": "https://krrish41.github.io/general-surgery/#/topic/trigeminal-neuralgia-tic-douloureux",
-        "order": 14
+        "order": 14,
+        "tags": [
+          "Specialized Infections, Neuro & Operative",
+          "surgery",
+          "trigeminal-neuralgia-tic-douloureux"
+        ]
       },
       {
         "id": "head-injury-traumatic-brain-injury-tbi",
         "title": "Head Injury & Traumatic Brain Injury (TBI)",
+        "category": "Specialized Infections, Neuro & Operative",
+        "readMinutes": 5,
+        "readingTime": "5 min read",
         "portal": "surgery",
         "portalName": "General Surgery Pro",
         "paper": "Paper I \u00b7 Surgery",
         "chapter": 15,
         "type": "essay",
         "url": "https://krrish41.github.io/general-surgery/#/topic/head-injury-traumatic-brain-injury-tbi",
-        "order": 15
+        "order": 15,
+        "tags": [
+          "Specialized Infections, Neuro & Operative",
+          "surgery",
+          "head-injury-traumatic-brain-injury-tbi"
+        ]
       },
       {
         "id": "sterilization-disinfection-asepsis-in-surgery",
         "title": "Sterilization, Disinfection & Asepsis in Surgery",
+        "category": "Specialized Infections, Neuro & Operative",
+        "readMinutes": 5,
+        "readingTime": "5 min read",
         "portal": "surgery",
         "portalName": "General Surgery Pro",
         "paper": "Paper I \u00b7 Surgery",
         "chapter": 16,
         "type": "essay",
         "url": "https://krrish41.github.io/general-surgery/#/topic/sterilization-disinfection-asepsis-in-surgery",
-        "order": 16
+        "order": 16,
+        "tags": [
+          "Specialized Infections, Neuro & Operative",
+          "surgery",
+          "sterilization-disinfection-asepsis-in-surgery"
+        ]
       },
       {
         "id": "sutures-surgical-needles",
         "title": "Sutures & Surgical Needles",
+        "category": "Specialized Infections, Neuro & Operative",
+        "readMinutes": 5,
+        "readingTime": "5 min read",
         "portal": "surgery",
         "portalName": "General Surgery Pro",
         "paper": "Paper I \u00b7 Surgery",
         "chapter": 17,
         "type": "essay",
         "url": "https://krrish41.github.io/general-surgery/#/topic/sutures-surgical-needles",
-        "order": 17
+        "order": 17,
+        "tags": [
+          "Specialized Infections, Neuro & Operative",
+          "surgery",
+          "sutures-surgical-needles"
+        ]
       },
       {
         "id": "surgical-drains",
         "title": "Surgical Drains",
+        "category": "Specialized Infections, Neuro & Operative",
+        "readMinutes": 5,
+        "readingTime": "5 min read",
         "portal": "surgery",
         "portalName": "General Surgery Pro",
         "paper": "Paper I \u00b7 Surgery",
         "chapter": 18,
         "type": "essay",
         "url": "https://krrish41.github.io/general-surgery/#/topic/surgical-drains",
-        "order": 18
+        "order": 18,
+        "tags": [
+          "Specialized Infections, Neuro & Operative",
+          "surgery",
+          "surgical-drains"
+        ]
       },
       {
         "id": "lasers-in-surgery",
         "title": "Lasers in Surgery",
+        "category": "Advanced Technologies & Endocrine",
+        "readMinutes": 5,
+        "readingTime": "5 min read",
         "portal": "surgery",
         "portalName": "General Surgery Pro",
         "paper": "Paper I \u00b7 Surgery",
         "chapter": 19,
         "type": "essay",
         "url": "https://krrish41.github.io/general-surgery/#/topic/lasers-in-surgery",
-        "order": 19
+        "order": 19,
+        "tags": [
+          "Advanced Technologies & Endocrine",
+          "surgery",
+          "lasers-in-surgery"
+        ]
       },
       {
         "id": "cryosurgery",
         "title": "Cryosurgery",
+        "category": "Advanced Technologies & Endocrine",
+        "readMinutes": 5,
+        "readingTime": "5 min read",
         "portal": "surgery",
         "portalName": "General Surgery Pro",
         "paper": "Paper I \u00b7 Surgery",
         "chapter": 20,
         "type": "essay",
         "url": "https://krrish41.github.io/general-surgery/#/topic/cryosurgery",
-        "order": 20
+        "order": 20,
+        "tags": [
+          "Advanced Technologies & Endocrine",
+          "surgery",
+          "cryosurgery"
+        ]
       },
       {
         "id": "basics-of-anesthesia-airway-management",
         "title": "Basics of Anesthesia & Airway Management",
+        "category": "Advanced Technologies & Endocrine",
+        "readMinutes": 5,
+        "readingTime": "5 min read",
         "portal": "surgery",
         "portalName": "General Surgery Pro",
         "paper": "Paper I \u00b7 Surgery",
         "chapter": 21,
         "type": "essay",
         "url": "https://krrish41.github.io/general-surgery/#/topic/basics-of-anesthesia-airway-management",
-        "order": 21
+        "order": 21,
+        "tags": [
+          "Advanced Technologies & Endocrine",
+          "surgery",
+          "basics-of-anesthesia-airway-management"
+        ]
       },
       {
         "id": "tissue-replacement-grafts-flaps",
         "title": "Tissue Replacement, Grafts & Flaps",
+        "category": "Advanced Technologies & Endocrine",
+        "readMinutes": 5,
+        "readingTime": "5 min read",
         "portal": "surgery",
         "portalName": "General Surgery Pro",
         "paper": "Paper I \u00b7 Surgery",
         "chapter": 22,
         "type": "essay",
         "url": "https://krrish41.github.io/general-surgery/#/topic/tissue-replacement-grafts-flaps",
-        "order": 22
+        "order": 22,
+        "tags": [
+          "Advanced Technologies & Endocrine",
+          "surgery",
+          "tissue-replacement-grafts-flaps"
+        ]
       },
       {
         "id": "thyroid-gland-comprehensive-master-chapter",
         "title": "Thyroid Gland: Comprehensive Master Chapter",
+        "category": "Advanced Technologies & Endocrine",
+        "readMinutes": 20,
+        "readingTime": "20 min read",
         "portal": "surgery",
         "portalName": "General Surgery Pro",
         "paper": "Paper I \u00b7 Surgery",
         "chapter": 23,
         "type": "essay",
         "url": "https://krrish41.github.io/general-surgery/#/topic/thyroid-gland-comprehensive-master-chapter",
-        "order": 23
+        "order": 23,
+        "tags": [
+          "Advanced Technologies & Endocrine",
+          "surgery",
+          "thyroid-gland-comprehensive-master-chapter"
+        ]
       }
     ],
     "medicine": [
       {
         "id": "acute-viral-hepatitis-chronic-viral-hepatitis",
         "title": "Acute Viral Hepatitis & Chronic Viral Hepatitis",
+        "category": "Gastroenterology & Hepatology",
+        "readMinutes": 7,
+        "readingTime": "7 min read",
         "portal": "medicine",
         "portalName": "General Medicine Pro",
         "paper": "Paper II \u00b7 Medicine",
         "chapter": 1,
         "type": "essay",
         "url": "https://krrish41.github.io/General-Medicine/#/topic/acute-viral-hepatitis-chronic-viral-hepatitis",
-        "order": 1
+        "order": 1,
+        "tags": [
+          "Gastroenterology & Hepatology",
+          "medicine",
+          "acute-viral-hepatitis-chronic-viral-hepatitis"
+        ]
       },
       {
         "id": "acute-liver-failure-hepatic-encephalopathy",
         "title": "Acute Liver Failure & Hepatic Encephalopathy",
+        "category": "Gastroenterology & Hepatology",
+        "readMinutes": 6,
+        "readingTime": "6 min read",
         "portal": "medicine",
         "portalName": "General Medicine Pro",
         "paper": "Paper II \u00b7 Medicine",
         "chapter": 2,
         "type": "essay",
         "url": "https://krrish41.github.io/General-Medicine/#/topic/acute-liver-failure-hepatic-encephalopathy",
-        "order": 2
+        "order": 2,
+        "tags": [
+          "Gastroenterology & Hepatology",
+          "medicine",
+          "acute-liver-failure-hepatic-encephalopathy"
+        ]
       },
       {
         "id": "cirrhosis-of-the-liver-portal-hypertension",
         "title": "Cirrhosis of the Liver & Portal Hypertension",
+        "category": "Gastroenterology & Hepatology",
+        "readMinutes": 6,
+        "readingTime": "6 min read",
         "portal": "medicine",
         "portalName": "General Medicine Pro",
         "paper": "Paper II \u00b7 Medicine",
         "chapter": 3,
         "type": "essay",
         "url": "https://krrish41.github.io/General-Medicine/#/topic/cirrhosis-of-the-liver-portal-hypertension",
-        "order": 3
+        "order": 3,
+        "tags": [
+          "Gastroenterology & Hepatology",
+          "medicine",
+          "cirrhosis-of-the-liver-portal-hypertension"
+        ]
       },
       {
         "id": "protein-energy-malnutrition-kwashiorkor-vs-marasmus",
         "title": "Protein Energy Malnutrition: Kwashiorkor vs Marasmus",
+        "category": "Nutrition & Pediatrics",
+        "readMinutes": 6,
+        "readingTime": "6 min read",
         "portal": "medicine",
         "portalName": "General Medicine Pro",
         "paper": "Paper II \u00b7 Medicine",
         "chapter": 4,
         "type": "essay",
         "url": "https://krrish41.github.io/General-Medicine/#/topic/protein-energy-malnutrition-kwashiorkor-vs-marasmus",
-        "order": 4
+        "order": 4,
+        "tags": [
+          "Nutrition & Pediatrics",
+          "medicine",
+          "protein-energy-malnutrition-kwashiorkor-vs-marasmus"
+        ]
       },
       {
         "id": "dysphagia-peptic-ulcer-disease",
         "title": "Dysphagia & Peptic Ulcer Disease",
+        "category": "Gastroenterology",
+        "readMinutes": 5,
+        "readingTime": "5 min read",
         "portal": "medicine",
         "portalName": "General Medicine Pro",
         "paper": "Paper II \u00b7 Medicine",
         "chapter": 5,
         "type": "essay",
         "url": "https://krrish41.github.io/General-Medicine/#/topic/dysphagia-peptic-ulcer-disease",
-        "order": 5
+        "order": 5,
+        "tags": [
+          "Gastroenterology",
+          "medicine",
+          "dysphagia-peptic-ulcer-disease"
+        ]
       },
       {
         "id": "acute-rheumatic-fever-rheumatic-heart-disease",
         "title": "Acute Rheumatic Fever & Rheumatic Heart Disease",
+        "category": "Cardiovascular Medicine",
+        "readMinutes": 7,
+        "readingTime": "7 min read",
         "portal": "medicine",
         "portalName": "General Medicine Pro",
         "paper": "Paper II \u00b7 Medicine",
         "chapter": 6,
         "type": "essay",
         "url": "https://krrish41.github.io/General-Medicine/#/topic/acute-rheumatic-fever-rheumatic-heart-disease",
-        "order": 6
+        "order": 6,
+        "tags": [
+          "Cardiovascular Medicine",
+          "medicine",
+          "acute-rheumatic-fever-rheumatic-heart-disease"
+        ]
       },
       {
         "id": "infective-endocarditis-aha-dental-prophylaxis-guidelines",
         "title": "Infective Endocarditis & AHA Dental Prophylaxis Guidelines",
+        "category": "Cardiovascular Medicine",
+        "readMinutes": 8,
+        "readingTime": "8 min read",
         "portal": "medicine",
         "portalName": "General Medicine Pro",
         "paper": "Paper II \u00b7 Medicine",
         "chapter": 7,
         "type": "essay",
         "url": "https://krrish41.github.io/General-Medicine/#/topic/infective-endocarditis-aha-dental-prophylaxis-guidelines",
-        "order": 7
+        "order": 7,
+        "tags": [
+          "Cardiovascular Medicine",
+          "medicine",
+          "infective-endocarditis-aha-dental-prophylaxis-guidelines"
+        ]
       },
       {
         "id": "ischemic-heart-disease-acute-myocardial-infarction-stemi",
         "title": "Ischemic Heart Disease & Acute Myocardial Infarction (STEMI)",
+        "category": "Cardiovascular Medicine",
+        "readMinutes": 7,
+        "readingTime": "7 min read",
         "portal": "medicine",
         "portalName": "General Medicine Pro",
         "paper": "Paper II \u00b7 Medicine",
         "chapter": 8,
         "type": "essay",
         "url": "https://krrish41.github.io/General-Medicine/#/topic/ischemic-heart-disease-acute-myocardial-infarction-stemi",
-        "order": 8
+        "order": 8,
+        "tags": [
+          "Cardiovascular Medicine",
+          "medicine",
+          "ischemic-heart-disease-acute-myocardial-infarction-stemi"
+        ]
       },
       {
         "id": "heart-failure-systemic-hypertension",
         "title": "Heart Failure & Systemic Hypertension",
+        "category": "Cardiovascular Medicine",
+        "readMinutes": 7,
+        "readingTime": "7 min read",
         "portal": "medicine",
         "portalName": "General Medicine Pro",
         "paper": "Paper II \u00b7 Medicine",
         "chapter": 9,
         "type": "essay",
         "url": "https://krrish41.github.io/General-Medicine/#/topic/heart-failure-systemic-hypertension",
-        "order": 9
+        "order": 9,
+        "tags": [
+          "Cardiovascular Medicine",
+          "medicine",
+          "heart-failure-systemic-hypertension"
+        ]
       },
       {
         "id": "congenital-heart-diseases-asd-vsd-pda-tetralogy-of-fallot",
         "title": "Congenital Heart Diseases: ASD, VSD, PDA & Tetralogy of Fallot",
+        "category": "Cardiovascular Medicine",
+        "readMinutes": 5,
+        "readingTime": "5 min read",
         "portal": "medicine",
         "portalName": "General Medicine Pro",
         "paper": "Paper II \u00b7 Medicine",
         "chapter": 10,
         "type": "essay",
         "url": "https://krrish41.github.io/General-Medicine/#/topic/congenital-heart-diseases-asd-vsd-pda-tetralogy-of-fallot",
-        "order": 10
+        "order": 10,
+        "tags": [
+          "Cardiovascular Medicine",
+          "medicine",
+          "congenital-heart-diseases-asd-vsd-pda-tetralogy-of-fallot"
+        ]
       },
       {
         "id": "enteric-fever-typhoid-paratyphoid-fever",
         "title": "Enteric Fever: Typhoid & Paratyphoid Fever",
+        "category": "Infectious Diseases",
+        "readMinutes": 6,
+        "readingTime": "6 min read",
         "portal": "medicine",
         "portalName": "General Medicine Pro",
         "paper": "Paper II \u00b7 Medicine",
         "chapter": 11,
         "type": "essay",
         "url": "https://krrish41.github.io/General-Medicine/#/topic/enteric-fever-typhoid-paratyphoid-fever",
-        "order": 11
+        "order": 11,
+        "tags": [
+          "Infectious Diseases",
+          "medicine",
+          "enteric-fever-typhoid-paratyphoid-fever"
+        ]
       },
       {
         "id": "syphilis-sexually-transmitted-orofacial-infections",
         "title": "Syphilis & Sexually Transmitted Orofacial Infections",
+        "category": "Infectious Diseases",
+        "readMinutes": 8,
+        "readingTime": "8 min read",
         "portal": "medicine",
         "portalName": "General Medicine Pro",
         "paper": "Paper II \u00b7 Medicine",
         "chapter": 12,
         "type": "essay",
         "url": "https://krrish41.github.io/General-Medicine/#/topic/syphilis-sexually-transmitted-orofacial-infections",
-        "order": 12
+        "order": 12,
+        "tags": [
+          "Infectious Diseases",
+          "medicine",
+          "syphilis-sexually-transmitted-orofacial-infections"
+        ]
       },
       {
         "id": "systemic-bacterial-infections-diphtheria-tetanus",
         "title": "Systemic Bacterial Infections: Diphtheria & Tetanus",
+        "category": "Infectious Diseases",
+        "readMinutes": 6,
+        "readingTime": "6 min read",
         "portal": "medicine",
         "portalName": "General Medicine Pro",
         "paper": "Paper II \u00b7 Medicine",
         "chapter": 13,
         "type": "essay",
         "url": "https://krrish41.github.io/General-Medicine/#/topic/systemic-bacterial-infections-diphtheria-tetanus",
-        "order": 13
+        "order": 13,
+        "tags": [
+          "Infectious Diseases",
+          "medicine",
+          "systemic-bacterial-infections-diphtheria-tetanus"
+        ]
       },
       {
         "id": "systemic-viral-exanthems-hiv-aids",
         "title": "Systemic Viral Exanthems & HIV/AIDS",
+        "category": "Infectious Diseases",
+        "readMinutes": 6,
+        "readingTime": "6 min read",
         "portal": "medicine",
         "portalName": "General Medicine Pro",
         "paper": "Paper II \u00b7 Medicine",
         "chapter": 14,
         "type": "essay",
         "url": "https://krrish41.github.io/General-Medicine/#/topic/systemic-viral-exanthems-hiv-aids",
-        "order": 14
+        "order": 14,
+        "tags": [
+          "Infectious Diseases",
+          "medicine",
+          "systemic-viral-exanthems-hiv-aids"
+        ]
       },
       {
         "id": "diabetes-mellitus-diabetic-ketoacidosis-dka",
         "title": "Diabetes Mellitus & Diabetic Ketoacidosis (DKA)",
+        "category": "Endocrinology & Metabolism",
+        "readMinutes": 7,
+        "readingTime": "7 min read",
         "portal": "medicine",
         "portalName": "General Medicine Pro",
         "paper": "Paper II \u00b7 Medicine",
         "chapter": 15,
         "type": "essay",
         "url": "https://krrish41.github.io/General-Medicine/#/topic/diabetes-mellitus-diabetic-ketoacidosis-dka",
-        "order": 15
+        "order": 15,
+        "tags": [
+          "Endocrinology & Metabolism",
+          "medicine",
+          "diabetes-mellitus-diabetic-ketoacidosis-dka"
+        ]
       },
       {
         "id": "the-leukemias-aml-all-cml-cll-oral-manifestations",
         "title": "The Leukemias: AML, ALL, CML, CLL & Oral Manifestations",
+        "category": "Hematology & Oncology",
+        "readMinutes": 8,
+        "readingTime": "8 min read",
         "portal": "medicine",
         "portalName": "General Medicine Pro",
         "paper": "Paper II \u00b7 Medicine",
         "chapter": 16,
         "type": "essay",
         "url": "https://krrish41.github.io/General-Medicine/#/topic/the-leukemias-aml-all-cml-cll-oral-manifestations",
-        "order": 16
+        "order": 16,
+        "tags": [
+          "Hematology & Oncology",
+          "medicine",
+          "the-leukemias-aml-all-cml-cll-oral-manifestations"
+        ]
       },
       {
         "id": "nephrotic-vs-nephritic-syndrome-chronic-kidney-disease-ckd",
         "title": "Nephrotic vs Nephritic Syndrome & Chronic Kidney Disease (CKD)",
+        "category": "Nephrology & Renal Medicine",
+        "readMinutes": 6,
+        "readingTime": "6 min read",
         "portal": "medicine",
         "portalName": "General Medicine Pro",
         "paper": "Paper II \u00b7 Medicine",
         "chapter": 17,
         "type": "essay",
         "url": "https://krrish41.github.io/General-Medicine/#/topic/nephrotic-vs-nephritic-syndrome-chronic-kidney-disease-ckd",
-        "order": 17
+        "order": 17,
+        "tags": [
+          "Nephrology & Renal Medicine",
+          "medicine",
+          "nephrotic-vs-nephritic-syndrome-chronic-kidney-disease-ckd"
+        ]
       },
       {
         "id": "facial-nerve-paralysis-bell-s-palsy-headaches",
         "title": "Facial Nerve Paralysis (Bell's Palsy) & Headaches",
+        "category": "Neurology",
+        "readMinutes": 6,
+        "readingTime": "6 min read",
         "portal": "medicine",
         "portalName": "General Medicine Pro",
         "paper": "Paper II \u00b7 Medicine",
         "chapter": 18,
         "type": "essay",
         "url": "https://krrish41.github.io/General-Medicine/#/topic/facial-nerve-paralysis-bell-s-palsy-headaches",
-        "order": 18
+        "order": 18,
+        "tags": [
+          "Neurology",
+          "medicine",
+          "facial-nerve-paralysis-bell-s-palsy-headaches"
+        ]
       },
       {
         "id": "acute-meningitis-neurological-infections",
         "title": "Acute Meningitis & Neurological Infections",
+        "category": "Neurology & Infectious Diseases",
+        "readMinutes": 5,
+        "readingTime": "5 min read",
         "portal": "medicine",
         "portalName": "General Medicine Pro",
         "paper": "Paper II \u00b7 Medicine",
         "chapter": 19,
         "type": "essay",
         "url": "https://krrish41.github.io/General-Medicine/#/topic/acute-meningitis-neurological-infections",
-        "order": 19
+        "order": 19,
+        "tags": [
+          "Neurology & Infectious Diseases",
+          "medicine",
+          "acute-meningitis-neurological-infections"
+        ]
       },
       {
         "id": "shock-syndromes-cardiopulmonary-resuscitation-bls-acls",
         "title": "Shock Syndromes & Cardiopulmonary Resuscitation (BLS / ACLS)",
+        "category": "Critical Care & Emergency Medicine",
+        "readMinutes": 5,
+        "readingTime": "5 min read",
         "portal": "medicine",
         "portalName": "General Medicine Pro",
         "paper": "Paper II \u00b7 Medicine",
         "chapter": 20,
         "type": "essay",
         "url": "https://krrish41.github.io/General-Medicine/#/topic/shock-syndromes-cardiopulmonary-resuscitation-bls-acls",
-        "order": 20
+        "order": 20,
+        "tags": [
+          "Critical Care & Emergency Medicine",
+          "medicine",
+          "shock-syndromes-cardiopulmonary-resuscitation-bls-acls"
+        ]
       }
     ],
     "pathology": [
@@ -486,8 +830,14 @@
         "portal": "pathology",
         "portalName": "Oral Pathology Pro",
         "paper": "Paper III \u00b7 Pathology",
+        "category": "Odontogenic Tumors",
         "chapter": 1,
         "type": "essay",
+        "readMinutes": 8,
+        "readingTime": "8 min read",
+        "tags": [
+          "Odontogenic Tumors"
+        ],
         "url": "https://krrish41.github.io/Oral-Pathology/#/topic/ameloblastoma-histological-variants",
         "order": 1
       },
@@ -497,8 +847,14 @@
         "portal": "pathology",
         "portalName": "Oral Pathology Pro",
         "paper": "Paper III \u00b7 Pathology",
+        "category": "Odontogenic Tumors",
         "chapter": 2,
         "type": "essay",
+        "readMinutes": 6,
+        "readingTime": "6 min read",
+        "tags": [
+          "Odontogenic Tumors"
+        ],
         "url": "https://krrish41.github.io/Oral-Pathology/#/topic/benign-odontogenic-tumors-ceot-aot-odontoma-myxoma",
         "order": 2
       },
@@ -508,8 +864,14 @@
         "portal": "pathology",
         "portalName": "Oral Pathology Pro",
         "paper": "Paper III \u00b7 Pathology",
+        "category": "Odontogenic Cysts",
         "chapter": 3,
         "type": "essay",
+        "readMinutes": 8,
+        "readingTime": "8 min read",
+        "tags": [
+          "Odontogenic Cysts"
+        ],
         "url": "https://krrish41.github.io/Oral-Pathology/#/topic/odontogenic-keratocyst-okc-kcot-gorlin-goltz-syndrome",
         "order": 3
       },
@@ -519,8 +881,14 @@
         "portal": "pathology",
         "portalName": "Oral Pathology Pro",
         "paper": "Paper III \u00b7 Pathology",
+        "category": "Odontogenic Cysts",
         "chapter": 4,
         "type": "essay",
+        "readMinutes": 6,
+        "readingTime": "6 min read",
+        "tags": [
+          "Odontogenic Cysts"
+        ],
         "url": "https://krrish41.github.io/Oral-Pathology/#/topic/dentigerous-cyst-inflammatory-odontogenic-cysts",
         "order": 4
       },
@@ -530,8 +898,14 @@
         "portal": "pathology",
         "portalName": "Oral Pathology Pro",
         "paper": "Paper III \u00b7 Pathology",
+        "category": "Oral Pathology",
         "chapter": 5,
         "type": "essay",
+        "readMinutes": 5,
+        "readingTime": "5 min read",
+        "tags": [
+          "Oral Pathology"
+        ],
         "url": "https://krrish41.github.io/Oral-Pathology/#/topic/non-odontogenic-developmental-cysts-of-the-oral-region",
         "order": 5
       },
@@ -541,8 +915,14 @@
         "portal": "pathology",
         "portalName": "Oral Pathology Pro",
         "paper": "Paper III \u00b7 Pathology",
+        "category": "Salivary Gland Pathology",
         "chapter": 6,
         "type": "essay",
+        "readMinutes": 11,
+        "readingTime": "11 min read",
+        "tags": [
+          "Salivary Gland Pathology"
+        ],
         "url": "https://krrish41.github.io/Oral-Pathology/#/topic/salivary-gland-neoplasms-pleomorphic-adenoma-warthin-s-mec-adcc",
         "order": 6
       },
@@ -552,8 +932,14 @@
         "portal": "pathology",
         "portalName": "Oral Pathology Pro",
         "paper": "Paper III \u00b7 Pathology",
+        "category": "Salivary Gland Pathology",
         "chapter": 7,
         "type": "essay",
+        "readMinutes": 8,
+        "readingTime": "8 min read",
+        "tags": [
+          "Salivary Gland Pathology"
+        ],
         "url": "https://krrish41.github.io/Oral-Pathology/#/topic/non-neoplastic-salivary-pathologies-mucocele-ranula-sialolithiasis-sjogren-s",
         "order": 7
       },
@@ -563,8 +949,15 @@
         "portal": "pathology",
         "portalName": "Oral Pathology Pro",
         "paper": "Paper III \u00b7 Pathology",
+        "category": "Oral Oncology & Epithelial Pathology",
         "chapter": 8,
         "type": "essay",
+        "readMinutes": 6,
+        "readingTime": "6 min read",
+        "tags": [
+          "Oral Oncology",
+          "Epithelial Pathology"
+        ],
         "url": "https://krrish41.github.io/Oral-Pathology/#/topic/oral-potentially-malignant-disorders-opmd-leukoplakia-erythroplakia",
         "order": 8
       },
@@ -574,8 +967,15 @@
         "portal": "pathology",
         "portalName": "Oral Pathology Pro",
         "paper": "Paper III \u00b7 Pathology",
+        "category": "Oral Mucosal & Connective Tissue Pathology",
         "chapter": 9,
         "type": "essay",
+        "readMinutes": 6,
+        "readingTime": "6 min read",
+        "tags": [
+          "Oral Mucosal",
+          "Connective Tissue Pathology"
+        ],
         "url": "https://krrish41.github.io/Oral-Pathology/#/topic/oral-submucous-fibrosis-osmf-oral-lichen-planus",
         "order": 9
       },
@@ -585,8 +985,15 @@
         "portal": "pathology",
         "portalName": "Oral Pathology Pro",
         "paper": "Paper III \u00b7 Pathology",
+        "category": "Oral Oncology & Epithelial Pathology",
         "chapter": 10,
         "type": "essay",
+        "readMinutes": 7,
+        "readingTime": "7 min read",
+        "tags": [
+          "Oral Oncology",
+          "Epithelial Pathology"
+        ],
         "url": "https://krrish41.github.io/Oral-Pathology/#/topic/oral-squamous-cell-carcinoma-oscc-etiology-broders-grading-tnm-staging",
         "order": 10
       },
@@ -596,8 +1003,15 @@
         "portal": "pathology",
         "portalName": "Oral Pathology Pro",
         "paper": "Paper III \u00b7 Pathology",
+        "category": "Soft Tissue & Mesenchymal Pathology",
         "chapter": 11,
         "type": "essay",
+        "readMinutes": 5,
+        "readingTime": "5 min read",
+        "tags": [
+          "Soft Tissue",
+          "Mesenchymal Pathology"
+        ],
         "url": "https://krrish41.github.io/Oral-Pathology/#/topic/benign-malignant-mesenchymal-soft-tissue-tumors-of-the-oral-cavity",
         "order": 11
       },
@@ -607,8 +1021,14 @@
         "portal": "pathology",
         "portalName": "Oral Pathology Pro",
         "paper": "Paper III \u00b7 Pathology",
+        "category": "Dental Caries",
         "chapter": 12,
         "type": "essay",
+        "readMinutes": 7,
+        "readingTime": "7 min read",
+        "tags": [
+          "Dental Caries"
+        ],
         "url": "https://krrish41.github.io/Oral-Pathology/#/topic/dental-caries-etiopathogenesis-histopathology-of-enamel-dentin",
         "order": 12
       },
@@ -618,8 +1038,14 @@
         "portal": "pathology",
         "portalName": "Oral Pathology Pro",
         "paper": "Paper III \u00b7 Pathology",
+        "category": "Developmental Anomalies",
         "chapter": 13,
         "type": "essay",
+        "readMinutes": 7,
+        "readingTime": "7 min read",
+        "tags": [
+          "Developmental Anomalies"
+        ],
         "url": "https://krrish41.github.io/Oral-Pathology/#/topic/developmental-disturbances-of-tooth-structure-ai-di-dentin-dysplasia",
         "order": 13
       },
@@ -629,8 +1055,14 @@
         "portal": "pathology",
         "portalName": "Oral Pathology Pro",
         "paper": "Paper III \u00b7 Pathology",
+        "category": "Developmental Anomalies",
         "chapter": 14,
         "type": "essay",
+        "readMinutes": 6,
+        "readingTime": "6 min read",
+        "tags": [
+          "Developmental Anomalies"
+        ],
         "url": "https://krrish41.github.io/Oral-Pathology/#/topic/developmental-disturbances-of-tooth-number-size-shape",
         "order": 14
       },
@@ -640,8 +1072,14 @@
         "portal": "pathology",
         "portalName": "Oral Pathology Pro",
         "paper": "Paper III \u00b7 Pathology",
+        "category": "Developmental Anomalies",
         "chapter": 15,
         "type": "essay",
+        "readMinutes": 5,
+        "readingTime": "5 min read",
+        "tags": [
+          "Developmental Anomalies"
+        ],
         "url": "https://krrish41.github.io/Oral-Pathology/#/topic/developmental-anomalies-of-craniofacial-jaws-oral-soft-tissues",
         "order": 15
       },
@@ -651,8 +1089,15 @@
         "portal": "pathology",
         "portalName": "Oral Pathology Pro",
         "paper": "Paper III \u00b7 Pathology",
+        "category": "Oral Microbiology & Infectious Diseases",
         "chapter": 16,
         "type": "essay",
+        "readMinutes": 6,
+        "readingTime": "6 min read",
+        "tags": [
+          "Oral Microbiology",
+          "Infectious Diseases"
+        ],
         "url": "https://krrish41.github.io/Oral-Pathology/#/topic/oral-bacterial-fungal-infections-tb-syphilis-actinomycosis-candidiasis",
         "order": 16
       },
@@ -662,8 +1107,15 @@
         "portal": "pathology",
         "portalName": "Oral Pathology Pro",
         "paper": "Paper III \u00b7 Pathology",
+        "category": "Oral Microbiology & Infectious Diseases",
         "chapter": 17,
         "type": "essay",
+        "readMinutes": 5,
+        "readingTime": "5 min read",
+        "tags": [
+          "Oral Microbiology",
+          "Infectious Diseases"
+        ],
         "url": "https://krrish41.github.io/Oral-Pathology/#/topic/oral-viral-infections-hsv-vzv-ebv-oral-hairy-leukoplakia-hpv",
         "order": 17
       },
@@ -673,8 +1125,15 @@
         "portal": "pathology",
         "portalName": "Oral Pathology Pro",
         "paper": "Paper III \u00b7 Pathology",
+        "category": "Oral Mucosal & Connective Tissue Pathology",
         "chapter": 18,
         "type": "essay",
+        "readMinutes": 6,
+        "readingTime": "6 min read",
+        "tags": [
+          "Oral Mucosal",
+          "Connective Tissue Pathology"
+        ],
         "url": "https://krrish41.github.io/Oral-Pathology/#/topic/vesiculobullous-immunological-diseases-pemphigus-pemphigoid-aphthae-em",
         "order": 18
       },
@@ -684,8 +1143,15 @@
         "portal": "pathology",
         "portalName": "Oral Pathology Pro",
         "paper": "Paper III \u00b7 Pathology",
+        "category": "Bone Pathology & Skeletal Neoplasms",
         "chapter": 19,
         "type": "essay",
+        "readMinutes": 7,
+        "readingTime": "7 min read",
+        "tags": [
+          "Bone Pathology",
+          "Skeletal Neoplasms"
+        ],
         "url": "https://krrish41.github.io/Oral-Pathology/#/topic/metabolic-fibro-osseous-neoplastic-bone-diseases-of-the-jaws",
         "order": 19
       },
@@ -695,8 +1161,15 @@
         "portal": "pathology",
         "portalName": "Oral Pathology Pro",
         "paper": "Paper III \u00b7 Pathology",
+        "category": "Forensic Odontology & Legal Dentistry",
         "chapter": 20,
         "type": "essay",
+        "readMinutes": 7,
+        "readingTime": "7 min read",
+        "tags": [
+          "Forensic Odontology",
+          "Legal Dentistry"
+        ],
         "url": "https://krrish41.github.io/Oral-Pathology/#/topic/forensic-odontology-gustafson-s-method-cheiloscopy-rugoscopy-bite-marks",
         "order": 20
       }
