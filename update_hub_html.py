@@ -2711,34 +2711,26 @@ html_content = f"""<!DOCTYPE html>
                 <button class="nav-btn" onclick="toggleLabModal()" style="padding:6px 12px;">Close</button>
             </div>
             <div class="lab-modal-tabs">
-                <button class="lab-tab-btn active" id="labTabBtn-norm" onclick="switchLabTab('norm')">Normal Laboratory Reference</button>
+                <button class="lab-tab-btn active" id="labTabBtn-rubric" onclick="switchLabTab('rubric')">15-Mark University Blueprints</button>
                 <button class="lab-tab-btn" id="labTabBtn-cutoffs" onclick="switchLabTab('cutoffs')">Chairside Surgical Cutoffs</button>
-                <button class="lab-tab-btn" id="labTabBtn-rubric" onclick="switchLabTab('rubric')">15-Mark University Blueprints</button>
+                <button class="lab-tab-btn" id="labTabBtn-norm" onclick="switchLabTab('norm')">Normal Laboratory Reference</button>
             </div>
             <div class="lab-modal-body">
-                <!-- Tab 1: Normal Lab Norms -->
-                <div id="labTabContent-norm">
-                    <table class="data-table">
-                        <thead>
-                            <tr>
-                                <th>Investigation</th>
-                                <th>Reference Normal Range</th>
-                                <th>Chairside Dental Implications</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr><td><strong>Hemoglobin (Hb)</strong></td><td>M: 13.5–17.5 g/dL<br>F: 12.0–15.5 g/dL</td><td>Elective surgery postponed if Hb &lt; 10 g/dL</td></tr>
-                            <tr><td><strong>Platelet Count</strong></td><td>150,000 – 450,000 /mm³</td><td>Safe for routine extraction: &gt; 50,000 /mm³<br>Major maxillofacial: &gt; 80,000–100,000 /mm³</td></tr>
-                            <tr><td><strong>Prothrombin Time / INR</strong></td><td>PT: 11–13.5 sec<br>INR: 0.8 – 1.1</td><td>Minor dental surgery safe: INR &le; 2.5 – 3.0 (with local hemostatics)</td></tr>
-                            <tr><td><strong>Bleeding Time (Ivy)</strong></td><td>2 – 7 minutes</td><td>Abnormal: &gt; 10 mins (suspect platelet dysfunction/vWD)</td></tr>
-                            <tr><td><strong>Clotting Time (Lee-White)</strong></td><td>5 – 11 minutes</td><td>Abnormal: &gt; 15 mins (suspect coagulation factor deficiency)</td></tr>
-                            <tr><td><strong>Fasting Blood Glucose</strong></td><td>70 – 99 mg/dL</td><td>Impaired: 100–125 mg/dL<br>Diabetes: &ge; 126 mg/dL</td></tr>
-                            <tr><td><strong>HbA1c (Glycated Hb)</strong></td><td>Normal: &lt; 5.7%</td><td>Well controlled: &lt; 7.0%<br>Poor control (&gt; 8.5%): higher infection &amp; delayed healing risk</td></tr>
-                            <tr><td><strong>Absolute Neutrophil Count (ANC)</strong></td><td>1,500 – 8,000 /mm³</td><td>Safe chairside: &gt; 1,000 /mm³<br>Severe neutropenia (&lt; 500 /mm³): postpone elective care</td></tr>
-                            <tr><td><strong>Serum Creatinine</strong></td><td>0.6 – 1.2 mg/dL</td><td>Elevated (&gt; 1.5 mg/dL): caution with NSAIDs, dose-reduce antibiotics</td></tr>
-                            <tr><td><strong>Blood Pressure (JNC-7)</strong></td><td>Normal: &lt; 120 / 80 mmHg</td><td>Stage 1: 140–159 / 90–99 mmHg<br>Stage 2: &ge; 160 / &ge; 100 mmHg (limit epinephrine)</td></tr>
-                        </tbody>
-                    </table>
+                <!-- Tab 1: Re-homed 15-Mark University Rubrics -->
+                <div id="labTabContent-rubric">
+                    <div class="rubric-modal-wrap">
+                        <div class="rubric-segmented-bar">
+                            <button class="rubric-tab-btn active" id="rubricTabBtn-surgery" onclick="switchRubric('surgery')">Paper I: Surgery</button>
+                            <button class="rubric-tab-btn" id="rubricTabBtn-medicine" onclick="switchRubric('medicine')">Paper II: Medicine</button>
+                            <button class="rubric-tab-btn" id="rubricTabBtn-pathology" onclick="switchRubric('pathology')">Paper III: Pathology</button>
+                        </div>
+                        <p id="rubricDescText" style="font-size:0.86rem; color:var(--text-secondary); line-height:1.5;">
+                            General Surgery 15-mark essay structure: applied surgical anatomy, operative steps, surgical instruments, and postoperative complication protocols.
+                        </p>
+                        <div class="rubric-steps-grid" id="rubricGridContainer">
+                            <!-- Populated Dynamically by switchRubric() -->
+                        </div>
+                    </div>
                 </div>
 
                 <!-- Tab 2: Chairside Cutoffs -->
@@ -2763,21 +2755,29 @@ html_content = f"""<!DOCTYPE html>
                     </table>
                 </div>
 
-                <!-- Tab 3: Re-homed 15-Mark University Rubrics -->
-                <div id="labTabContent-rubric" style="display: none;">
-                    <div class="rubric-modal-wrap">
-                        <div class="rubric-segmented-bar">
-                            <button class="rubric-tab-btn active" id="rubricTabBtn-surgery" onclick="switchRubric('surgery')">Paper I: Surgery</button>
-                            <button class="rubric-tab-btn" id="rubricTabBtn-medicine" onclick="switchRubric('medicine')">Paper II: Medicine</button>
-                            <button class="rubric-tab-btn" id="rubricTabBtn-pathology" onclick="switchRubric('pathology')">Paper III: Pathology</button>
-                        </div>
-                        <p id="rubricDescText" style="font-size:0.86rem; color:var(--text-secondary); line-height:1.5;">
-                            General Surgery 15-mark essay structure: applied surgical anatomy, operative steps, surgical instruments, and postoperative complication protocols.
-                        </p>
-                        <div class="rubric-steps-grid" id="rubricGridContainer">
-                            <!-- Populated Dynamically by switchRubric() -->
-                        </div>
-                    </div>
+                <!-- Tab 3: Normal Lab Norms -->
+                <div id="labTabContent-norm" style="display: none;">
+                    <table class="data-table">
+                        <thead>
+                            <tr>
+                                <th>Investigation</th>
+                                <th>Reference Normal Range</th>
+                                <th>Chairside Dental Implications</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr><td><strong>Hemoglobin (Hb)</strong></td><td>M: 13.5–17.5 g/dL<br>F: 12.0–15.5 g/dL</td><td>Elective surgery postponed if Hb &lt; 10 g/dL</td></tr>
+                            <tr><td><strong>Platelet Count</strong></td><td>150,000 – 450,000 /mm³</td><td>Safe for routine extraction: &gt; 50,000 /mm³<br>Major maxillofacial: &gt; 80,000–100,000 /mm³</td></tr>
+                            <tr><td><strong>Prothrombin Time / INR</strong></td><td>PT: 11–13.5 sec<br>INR: 0.8 – 1.1</td><td>Minor dental surgery safe: INR &le; 2.5 – 3.0 (with local hemostatics)</td></tr>
+                            <tr><td><strong>Bleeding Time (Ivy)</strong></td><td>2 – 7 minutes</td><td>Abnormal: &gt; 10 mins (suspect platelet dysfunction/vWD)</td></tr>
+                            <tr><td><strong>Clotting Time (Lee-White)</strong></td><td>5 – 11 minutes</td><td>Abnormal: &gt; 15 mins (suspect coagulation factor deficiency)</td></tr>
+                            <tr><td><strong>Fasting Blood Glucose</strong></td><td>70 – 99 mg/dL</td><td>Impaired: 100–125 mg/dL<br>Diabetes: &ge; 126 mg/dL</td></tr>
+                            <tr><td><strong>HbA1c (Glycated Hb)</strong></td><td>Normal: &lt; 5.7%</td><td>Well controlled: &lt; 7.0%<br>Poor control (&gt; 8.5%): higher infection &amp; delayed healing risk</td></tr>
+                            <tr><td><strong>Absolute Neutrophil Count (ANC)</strong></td><td>1,500 – 8,000 /mm³</td><td>Safe chairside: &gt; 1,000 /mm³<br>Severe neutropenia (&lt; 500 /mm³): postpone elective care</td></tr>
+                            <tr><td><strong>Serum Creatinine</strong></td><td>0.6 – 1.2 mg/dL</td><td>Elevated (&gt; 1.5 mg/dL): caution with NSAIDs, dose-reduce antibiotics</td></tr>
+                            <tr><td><strong>Blood Pressure (JNC-7)</strong></td><td>Normal: &lt; 120 / 80 mmHg</td><td>Stage 1: 140–159 / 90–99 mmHg<br>Stage 2: &ge; 160 / &ge; 100 mmHg (limit epinephrine)</td></tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -2791,7 +2791,7 @@ html_content = f"""<!DOCTYPE html>
                 <span>•</span>
                 <a href="javascript:void(0)" class="footer-link" onclick="toggleLabModal('cutoffs')">Chairside Surgical Cutoffs</a>
                 <span>•</span>
-                <a href="javascript:void(0)" class="footer-link" onclick="toggleLabModal('norm')">Laboratory Reference Norms</a>
+                <a href="javascript:void(0)" class="footer-link" onclick="toggleLabModal('norm')">Normal Laboratory Reference</a>
                 <span>•</span>
                 <a href="javascript:void(0)" class="footer-link" onclick="focusHubSearch()">Quick Search (/)</a>
             </div>
@@ -3498,7 +3498,7 @@ html_content = f"""<!DOCTYPE html>
             }}
         }}
 
-        function toggleLabModal(defaultTab = 'norm') {{
+        function toggleLabModal(defaultTab = 'rubric') {{
             const modal = document.getElementById('labModal');
             if (!modal) return;
             const isOpen = modal.classList.contains('open');
