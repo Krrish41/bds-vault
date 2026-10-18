@@ -33,6 +33,11 @@
 
       // Render Components if in clinical portal mode
       if (this.portalKey !== 'vault') {
+        if (this.currentTopicIndex === -1) {
+          document.body.classList.add('is-dashboard');
+        } else {
+          document.body.classList.remove('is-dashboard');
+        }
         this.renderSidebar();
         this.renderTopBar();
         this.updateProgressDisplays();
@@ -913,11 +918,13 @@
       if (!headingEl) return;
 
       if (title === 'Dashboard') {
+        document.body.classList.add('is-dashboard');
         headingEl.textContent = 'Exam Preparation Dashboard';
         if (topicNav) topicNav.style.display = 'none';
         if (dashBtn) dashBtn.classList.add('active');
         document.querySelectorAll('.topic-row').forEach(r => r.classList.remove('active'));
       } else {
+        document.body.classList.remove('is-dashboard');
         const catStr = category ? `${category} › ` : '';
         const numStr = chapterNum ? `${chapterNum}. ` : '';
         headingEl.textContent = `${catStr}${numStr}${title}`;
@@ -932,6 +939,7 @@
     selectTopic(index) {
       if (index < 0 || index >= this.topics.length) return;
       this.currentTopicIndex = index;
+      document.body.classList.remove('is-dashboard');
       const topic = this.topics[index];
 
       // Save last visited topic
