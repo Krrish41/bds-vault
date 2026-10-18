@@ -191,7 +191,8 @@ html_content = f"""<!DOCTYPE html>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="description" content="BDS Clinical Vault — 3rd Year BDS University Examination Compendium & Clinical Command Suite for General Surgery, General Medicine, and Oral Pathology.">
-    <meta name="theme-color" content="#090a12">
+    <meta name="color-scheme" content="light dark">
+    <meta name="theme-color" content="#090a12" id="metaThemeColor">
     <title>BDS Clinical Vault — 3rd Year University Examination Command Suite</title>
     
     <!-- PWA & Device Support -->
@@ -204,13 +205,21 @@ html_content = f"""<!DOCTYPE html>
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;0,6..72,700;1,6..72,400&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-    <!-- Zero-Flash Pre-Paint Script -->
     <script>
         (function() {{
-            var saved = localStorage.getItem('bds_hub_theme') || localStorage.getItem('bds_theme') || 'dark';
+            var saved = localStorage.getItem('bds_vault_theme') || localStorage.getItem('bds.theme') || localStorage.getItem('bds_hub_theme') || 'dark';
             document.documentElement.setAttribute('data-theme', saved);
+            if (saved === 'light') {{
+                document.documentElement.classList.add('light');
+                document.documentElement.classList.remove('dark');
+            }} else {{
+                document.documentElement.classList.add('dark');
+                document.documentElement.classList.remove('light');
+            }}
             document.documentElement.style.backgroundColor = saved === 'light' ? '#f8fafc' : '#090a12';
             document.documentElement.style.colorScheme = saved;
+            var metaTheme = document.getElementById('metaThemeColor');
+            if (metaTheme) metaTheme.setAttribute('content', saved === 'light' ? '#f8fafc' : '#090a12');
         }})();
     </script>
 
@@ -3613,7 +3622,31 @@ html_content = f"""<!DOCTYPE html>
             const current = document.documentElement.getAttribute('data-theme') || 'dark';
             const next = current === 'dark' ? 'light' : 'dark';
             document.documentElement.setAttribute('data-theme', next);
-            localStorage.setItem('bds_vault_theme', next);
+            if (next === 'light') {{
+                document.documentElement.classList.add('light');
+                document.documentElement.classList.remove('dark');
+                if (document.body) {{
+                    document.body.classList.add('light');
+                    document.body.classList.remove('dark');
+                }}
+            }} else {{
+                document.documentElement.classList.add('dark');
+                document.documentElement.classList.remove('light');
+                if (document.body) {{
+                    document.body.classList.add('dark');
+                    document.body.classList.remove('light');
+                }}
+            }}
+            document.documentElement.style.backgroundColor = next === 'light' ? '#f8fafc' : '#090a12';
+            document.documentElement.style.colorScheme = next;
+            const metaTheme = document.getElementById('metaThemeColor') || document.querySelector('meta[name="theme-color"]');
+            if (metaTheme) metaTheme.setAttribute('content', next === 'light' ? '#f8fafc' : '#090a12');
+
+            try {{
+                localStorage.setItem('bds_vault_theme', next);
+                localStorage.setItem('bds.theme', next);
+            }} catch(e) {{}}
+
             updateThemeIcon(next);
         }}
 
@@ -3633,8 +3666,16 @@ html_content = f"""<!DOCTYPE html>
             }}
         }}
 
-        const savedTheme = localStorage.getItem('bds_vault_theme') || 'dark';
+        const savedTheme = localStorage.getItem('bds_vault_theme') || localStorage.getItem('bds.theme') || 'dark';
         document.documentElement.setAttribute('data-theme', savedTheme);
+        if (savedTheme === 'light') {{
+            document.documentElement.classList.add('light');
+            document.documentElement.classList.remove('dark');
+        }} else {{
+            document.documentElement.classList.add('dark');
+            document.documentElement.classList.remove('light');
+        }}
+        document.documentElement.style.colorScheme = savedTheme;
         updateThemeIcon(savedTheme);
 
         // --- 5b. Mobile Header Search & Overflow Handlers ---

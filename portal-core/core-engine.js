@@ -52,24 +52,47 @@
     },
 
     setTheme(theme) {
-      if (theme === 'light') {
+      const isLight = theme === 'light';
+      if (isLight) {
         document.body.classList.remove('dark');
         document.body.classList.add('light');
+        document.documentElement.classList.remove('dark');
+        document.documentElement.classList.add('light');
         document.documentElement.setAttribute('data-theme', 'light');
+        document.documentElement.style.colorScheme = 'light';
       } else {
         document.body.classList.remove('light');
         document.body.classList.add('dark');
+        document.documentElement.classList.remove('light');
+        document.documentElement.classList.add('dark');
         document.documentElement.setAttribute('data-theme', 'dark');
+        document.documentElement.style.colorScheme = 'dark';
       }
-      localStorage.setItem('bds.theme', theme);
+
+      // Update mobile address bar theme-color
+      const metaTheme = document.getElementById('metaThemeColor') || document.querySelector('meta[name="theme-color"]');
+      if (metaTheme) {
+        metaTheme.setAttribute('content', isLight ? '#f8fafc' : '#090a12');
+      }
+
+      // Sync across all ecosystem storage keys
+      try {
+        localStorage.setItem('bds.theme', isLight ? 'light' : 'dark');
+        if (this.portalKey) {
+          localStorage.setItem(`bds.${this.portalKey}.theme`, isLight ? 'light' : 'dark');
+          localStorage.setItem(`${this.portalKey}_theme`, isLight ? 'light' : 'dark');
+        }
+      } catch (e) {}
+
       if (this.config && this.config.onThemeChange) {
-        this.config.onThemeChange(theme);
+        this.config.onThemeChange(isLight ? 'light' : 'dark');
       }
     },
 
     toggleTheme() {
-      const current = document.body.classList.contains('light') ? 'light' : 'dark';
-      const next = current === 'dark' ? 'light' : 'dark';
+      const isCurrentlyLight = document.body.classList.contains('light') || 
+                               document.documentElement.getAttribute('data-theme') === 'light';
+      const next = isCurrentlyLight ? 'dark' : 'light';
       this.setTheme(next);
       this.closeTopbarOverflow();
     },
