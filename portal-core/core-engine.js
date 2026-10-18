@@ -872,7 +872,7 @@
           </div>
 
           <!-- 3. Command Palette / Search Trigger -->
-          <button class="topbar-tool-btn palette-btn" data-testid="palette" onclick="CoreEngine.toggleSidebar(true); const el = document.getElementById('sidebarSearchInput'); if (el) { el.focus(); el.select(); }" title="Search Curriculum (/)" aria-label="Search Curriculum">
+          <button class="topbar-tool-btn palette-btn" data-testid="palette" style="display: none !important;" onclick="CoreEngine.toggleSidebar(true); const el = document.getElementById('sidebarSearchInput'); if (el) { el.focus(); el.select(); }" title="Search Curriculum (/)" aria-label="Search Curriculum">
             <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
             <span class="btn-text">Search</span>
           </button>
@@ -1035,6 +1035,8 @@
     toggleAudioWalk() {
       if (typeof this.config.onToggleAudioWalk === 'function') {
         this.config.onToggleAudioWalk();
+      } else if (typeof window.openAudioSectionModal === 'function') {
+        window.openAudioSectionModal();
       } else if (typeof window.togglePlayPauseAudio === 'function') {
         window.togglePlayPauseAudio();
       } else if (typeof window.playContinuousChapterAudio === 'function') {
