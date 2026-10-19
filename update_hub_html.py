@@ -926,6 +926,11 @@ html_content = f"""<!DOCTYPE html>
             background: rgba(255, 255, 255, 0.08);
             color: var(--text-primary);
         }}
+        .timer-ctrl-btn.active {{
+            background: rgba(99, 102, 241, 0.15);
+            border-color: #6366f1;
+            color: #a5b4fc;
+        }}
         .timer-ctrl-btn.primary {{
             background: var(--text-primary);
             color: var(--bg-base);
@@ -2781,8 +2786,8 @@ html_content = f"""<!DOCTYPE html>
                     <div class="timer-popover-digits" id="timerMainDigits">25:00</div>
                     <div class="timer-popover-controls">
                         <button class="timer-ctrl-btn primary" id="timerStartBtn" onclick="toggleTimer()">Start Focus</button>
-                        <button class="timer-ctrl-btn" onclick="resetTimer(25)">25m</button>
-                        <button class="timer-ctrl-btn" onclick="resetTimer(50)">50m</button>
+                        <button class="timer-ctrl-btn" id="btnPreset25" onclick="resetTimer(25)">25m</button>
+                        <button class="timer-ctrl-btn" id="btnPreset50" onclick="resetTimer(50)">50m</button>
                     </div>
                 </div>
             </div>
@@ -2839,8 +2844,8 @@ html_content = f"""<!DOCTYPE html>
                 <div class="overflow-timer-digits mono-num" id="overflowTimerDigits">25:00</div>
                 <div class="overflow-timer-actions">
                     <button type="button" class="overflow-timer-btn primary" id="overflowTimerStartBtn" onclick="toggleTimer()">Start Focus</button>
-                    <button type="button" class="overflow-timer-btn" onclick="resetTimer(25)">25m</button>
-                    <button type="button" class="overflow-timer-btn" onclick="resetTimer(50)">50m</button>
+                    <button type="button" class="overflow-timer-btn" id="overflowPreset25" onclick="resetTimer(25)">25m</button>
+                    <button type="button" class="overflow-timer-btn" id="overflowPreset50" onclick="resetTimer(50)">50m</button>
                 </div>
             </div>
 
@@ -3886,7 +3891,6 @@ html_content = f"""<!DOCTYPE html>
         function resetTimer(minutes) {{
             if (window.BdsTimer) {{
                 window.BdsTimer.reset(minutes);
-                window.BdsTimer.start(minutes);
             }}
         }}
 

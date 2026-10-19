@@ -1386,6 +1386,12 @@ mark.search-match {
   border-color: var(--border-strong);
 }
 
+.timer-ctrl-btn.active {
+  background: var(--accent-light, rgba(20, 184, 166, 0.12));
+  border-color: var(--accent-primary, #10b981);
+  color: var(--accent-primary, #10b981);
+}
+
 .timer-ctrl-btn.primary {
   background: var(--accent-primary, #10b981);
   color: #090a12;

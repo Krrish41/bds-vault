@@ -1081,7 +1081,6 @@
     resetTimer(mins) {
       if (window.BdsTimer) {
         window.BdsTimer.reset(mins);
-        window.BdsTimer.start(mins);
       }
     },
 
@@ -1432,6 +1431,7 @@ Expected behavior:
     },
 
     updateDisplays(seconds, isRunning, isPaused) {
+      const state = this.getState();
       const timeStr = this.formatTime(seconds);
       const stateLabel = isRunning ? 'Running' : (isPaused ? 'Paused' : 'Focus');
 
@@ -1459,6 +1459,8 @@ Expected behavior:
       if (btnStartPause) btnStartPause.textContent = actionText;
       const timerStartBtn = document.getElementById('timerStartBtn');
       if (timerStartBtn) timerStartBtn.textContent = actionText;
+      const overflowTimerStartBtn = document.getElementById('overflowTimerStartBtn');
+      if (overflowTimerStartBtn) overflowTimerStartBtn.textContent = actionText;
 
       // Hub Displays (bds-vault)
       const navTimerDisp = document.getElementById('navTimerDisplay');
@@ -1472,12 +1474,27 @@ Expected behavior:
         else navTimerPill.classList.remove('running', 'active');
       }
 
+      // Mobile Hub Overflow
+      const overflowDigits = document.getElementById('overflowTimerDigits');
+      if (overflowDigits) overflowDigits.textContent = timeStr;
+      const overflowState = document.getElementById('overflowTimerState');
+      if (overflowState) overflowState.textContent = isRunning ? 'Running' : (isPaused ? 'Paused' : `${state.durationMinutes || 25}m Preset`);
+      const overflowDot = document.getElementById('overflowTimerDot');
+      if (overflowDot) {
+        if (isRunning) overflowDot.classList.add('running', 'active');
+        else overflowDot.classList.remove('running', 'active');
+      }
+
       // Preset buttons active indicators
-      const state = this.getState();
       const p25 = document.getElementById('btnPreset25');
       const p50 = document.getElementById('btnPreset50');
       if (p25) p25.classList.toggle('active', state.durationMinutes === 25);
       if (p50) p50.classList.toggle('active', state.durationMinutes === 50);
+
+      const op25 = document.getElementById('overflowPreset25');
+      const op50 = document.getElementById('overflowPreset50');
+      if (op25) op25.classList.toggle('active', state.durationMinutes === 25);
+      if (op50) op50.classList.toggle('active', state.durationMinutes === 50);
     },
 
     render() {
