@@ -1072,9 +1072,9 @@ html_content = f"""<!DOCTYPE html>
             border-radius: var(--radius-pill);
             pointer-events: none;
         }}
-        .segment-surgery .segment-fill {{ background: var(--surgery-accent); }}
-        .segment-medicine .segment-fill {{ background: var(--medicine-accent); }}
-        .segment-pathology .segment-fill {{ background: var(--pathology-accent); }}
+        .segment-surgery .segment-fill {{ background: linear-gradient(90deg, #0f766e 0%, #14b8a6 50%, #38bdf8 100%); }}
+        .segment-medicine .segment-fill {{ background: linear-gradient(90deg, #6366f1 0%, #4f46e5 50%, #10b981 100%); }}
+        .segment-pathology .segment-fill {{ background: linear-gradient(90deg, #d946ef 0%, #c026d3 50%, #10b981 100%); }}
 
         .progress-strip-segment:hover,
         .progress-strip-segment:focus-visible {{
@@ -1475,9 +1475,9 @@ html_content = f"""<!DOCTYPE html>
             border-radius: var(--radius-pill);
             transition: width 0.4s ease;
         }}
-        .card-surgery .card-fill {{ background: var(--surgery-accent); }}
-        .card-medicine .card-fill {{ background: var(--medicine-accent); }}
-        .card-pathology .card-fill {{ background: var(--pathology-accent); }}
+        .card-surgery .card-fill {{ background: linear-gradient(90deg, #0f766e 0%, #14b8a6 50%, #38bdf8 100%); }}
+        .card-medicine .card-fill {{ background: linear-gradient(90deg, #6366f1 0%, #4f46e5 50%, #10b981 100%); }}
+        .card-pathology .card-fill {{ background: linear-gradient(90deg, #d946ef 0%, #c026d3 50%, #10b981 100%); }}
 
         /* 7. Action Dock (Pinned Flush via margin-top: auto) */
         .card-actions-dock {{
