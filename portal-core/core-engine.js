@@ -866,7 +866,6 @@
                 <button class="timer-ctrl-btn primary" id="btnTimerStartPause" onclick="CoreEngine.toggleTimer()">Start Focus</button>
                 <button class="timer-ctrl-btn" id="btnPreset25" onclick="CoreEngine.resetTimer(25)">25m</button>
                 <button class="timer-ctrl-btn" id="btnPreset50" onclick="CoreEngine.resetTimer(50)">50m</button>
-                <button class="timer-ctrl-btn" id="btnTimerReset" onclick="CoreEngine.resetTimer(25)">Reset</button>
               </div>
             </div>
           </div>
