@@ -492,11 +492,21 @@ body.light .tab-btn[aria-selected="true"] {
   font-weight: 700;
 }
 
-/* On mobile/tablet screens where the sticky bottom navigation bar is visible,
-   hide redundant Spotters tab from the horizontal top tab bar */
-@media (max-width: 1024px) {
-  .tab-btn[data-tab="diagrams"] {
-    display: none !important;
+/* Mobile tab bar optimization: smoothly scrollable with comfortable touch targets */
+@media (max-width: 768px) {
+  .tab-bar-container {
+    margin-bottom: 16px;
+  }
+  .tab-bar {
+    gap: 6px;
+    padding: 2px 0 8px 0;
+  }
+  .tab-btn {
+    font-size: 0.8rem;
+    padding: 8px 12px;
+    min-height: 42px;
+    gap: 6px;
+    flex-shrink: 0;
   }
 }
 
@@ -1529,12 +1539,6 @@ body.light .theme-toggle-btn .icon-moon {
   }
 }
 
-/* Mobile Floating Bottom Bar - Dashboard View Suppression */
-body.is-dashboard .mobile-bottom-bar,
-body.is-dashboard #mobileFloatingBottomBar {
-  display: none !important;
-}
-
 body.is-dashboard .content-area {
   padding-bottom: 36px !important;
 }
@@ -2056,62 +2060,6 @@ input[type="range"].rubric-slider:focus-visible::-webkit-slider-thumb,
   .sidebar-topic-row, .category-toggle {
     min-height: 44px;
   }
-}
-
-/* ==========================================================================
-   CHAPTER BOTTOM NAVIGATION (Switch Section Tab Switcher at page bottom)
-   ========================================================================== */
-.chapter-bottom-nav {
-  margin-top: 48px;
-  padding: 24px 20px;
-  background: var(--bg-surface);
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-md);
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
-.bottom-nav-label {
-  font-size: 0.78rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--text-muted);
-}
-
-.bottom-nav-buttons {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-.bottom-nav-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: var(--bg-base);
-  border: 1px solid var(--border-color);
-  color: var(--text-secondary);
-  font-size: 0.82rem;
-  font-weight: 600;
-  padding: 8px 14px;
-  border-radius: var(--radius-sm);
-  cursor: pointer;
-  transition: all var(--transition-fast);
-  text-decoration: none;
-}
-
-.bottom-nav-btn:hover {
-  background: var(--bg-surface-2);
-  border-color: var(--border-strong);
-  color: var(--text-primary);
-}
-
-.bottom-nav-btn.active {
-  background: rgba(20, 184, 166, 0.12);
-  border-color: var(--accent-primary);
-  color: var(--accent-primary);
 }
 
 /* ==========================================================================
